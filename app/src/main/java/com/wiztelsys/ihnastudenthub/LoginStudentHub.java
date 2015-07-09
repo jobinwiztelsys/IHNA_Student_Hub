@@ -13,6 +13,7 @@ public class LoginStudentHub extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_student_hub);
 // test command
+        // updated by rajeev
 
     }
 
