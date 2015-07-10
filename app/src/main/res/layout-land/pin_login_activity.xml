@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#2095f2"
+    >
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp" android:layout_weight="4"></LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+
+
+    android:orientation="vertical"
+    android:layout_weight="5">
+
+    <TextView
+        android:layout_width="match_parent"
+android:gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight=".7"
+        android:textColor="#FFFFFF"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/enter_security_pin"
+        android:id="@+id/textView2" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"    android:paddingLeft="170dp"
+        android:paddingRight="170dp" android:layout_weight=".7"
+        android:layout_height="0dp">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pin_box"
+            android:id="@+id/login_pin_1a" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+
+            android:src="@drawable/pin_box"
+            android:id="@+id/login_pin_1b" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pin_box"
+            android:id="@+id/login_pin_1c" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pin_box"
+
+            android:id="@+id/login_pin_1d" />
+    </LinearLayout>
+
+
+</LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp" android:layout_weight="8"
+   android:paddingLeft="150dp"
+   android:paddingRight="150dp"
+    android:orientation="vertical"
+    android:background="#2095f2">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_1"
+            android:background="@drawable/keypad_1"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_2"
+            android:background="@drawable/keypad_2"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_3"
+            android:background="@drawable/keypad_3"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_4"
+            android:background="@drawable/keypad_4"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_5"
+            android:background="@drawable/keypad_5"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_6"
+            android:background="@drawable/keypad_6"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_7"
+            android:background="@drawable/keypad_7"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_8"
+            android:background="@drawable/keypad_8"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_9"
+            android:background="@drawable/keypad_9"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_ok"
+            android:background="@drawable/keypad__call"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_0"
+            android:background="@drawable/keypad_0"
+            android:layout_weight="1" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_pin_img_btn_erase"
+            android:background="@drawable/keypad_erace"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+</LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textColor="#FFFFFF"
+        android:text="@string/Forgot_pin"
+        android:id="@+id/button"
+        android:background="#2095f2"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.5" />
+
+
+</LinearLayout>

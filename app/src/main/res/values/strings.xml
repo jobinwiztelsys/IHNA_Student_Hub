@@ -4,4 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="signin">Sign in</string>
+   <string name="enter_security_pin">Enter Security Pin</string>
+
+   <string name="Forgot_pin">Forgot Pin?</string>
 </resources>

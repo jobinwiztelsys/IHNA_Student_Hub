@@ -2,17 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="#2095f2"
     >
 
     <TextView
-        android:padding="15dp"
+
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:gravity="center"
         android:text="Register Security Pin"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#FFFFFF"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal" />
@@ -22,18 +23,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="20dp"
+   android:paddingLeft="150dp" android:paddingBottom="10dp"
+        android:paddingRight="150dp"
         android:background="#0654a3"
         android:orientation="vertical"
-        android:layout_weight="5">
+        android:layout_weight="3">
 
         <TextView
             android:layout_width="match_parent"
-
-            android:layout_height="0dp"
-            android:layout_weight="1"
+           android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
             android:text="@string/enter_security_pin"
             android:id="@+id/textView2" />
 
@@ -42,8 +46,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_weight="1.5"
-            android:layout_height="0dp">
+android:layout_weight="1"
+            android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -73,18 +77,20 @@
             </LinearLayout>
         <TextView
             android:layout_width="match_parent"
-
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center"
+            android:paddingTop="5dp"
+
+            android:paddingBottom="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Confirm Security Pin"
             android:id="@+id/textView3" />
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_weight="1.5"
-            android:layout_height="0dp">
+android:layout_weight="1"
+            android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -119,7 +125,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp" android:layout_weight="5"
-        android:padding="20dp"
+        android:paddingLeft="150dp"
+        android:paddingRight="150dp"
         android:orientation="vertical"
         android:background="#2095f2">
 
