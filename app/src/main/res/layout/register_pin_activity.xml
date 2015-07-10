@@ -131,31 +131,94 @@
     android:layout_height="wrap_content"
             android:orientation="horizontal"
     android:layout_weight="1">
-            <ImageButton
-                android:layout_width="wrap_content"
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_height="wrap_content"
-                android:id="@+id/register_pin_img_btn_1"
-                android:background="@drawable/keypad_1"
-                android:layout_weight="1" />
-            <ImageButton
-                android:layout_width="wrap_content"
+                android:text="1"
+                android:id="@+id/register_pin_img_btn_1" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
-                android:id="@+id/register_pin_img_btn_2"
-                android:background="@drawable/keypad_2"
-                android:layout_weight="1" />
-            <ImageButton
-                android:layout_width="wrap_content"
+                android:text="2"
+                android:id="@+id/register_pin_img_btn_2" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
                 android:layout_height="wrap_content"
-                android:id="@+id/register_pin_img_btn_3"
-                android:background="@drawable/keypad_3"
-                android:layout_weight="1" />
+                android:text="3"
+                android:id="@+id/register_pin_img_btn_3" />
+
+            <!--
+            <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/register_pin_img_btn_1"
+                  android:background="@drawable/keypad_1"
+                  android:layout_weight="1" />
+              <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/register_pin_img_btn_2"
+                  android:background="@drawable/keypad_2"
+                  android:layout_weight="1" />
+              <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/register_pin_img_btn_3"
+                  android:background="@drawable/keypad_3"
+                  android:layout_weight="1" />
+             -->
     </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1">
-            <ImageButton
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:id="@+id/register_pin_img_btn_4" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:id="@+id/register_pin_img_btn_5" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:id="@+id/register_pin_img_btn_6" />
+
+
+          <!--  <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_pin_img_btn_4"
@@ -173,13 +236,45 @@
                 android:id="@+id/register_pin_img_btn_6"
                 android:background="@drawable/keypad_6"
                 android:layout_weight="1" />
+                -->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1">
-            <ImageButton
+
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:id="@+id/register_pin_img_btn_7" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:id="@+id/register_pin_img_btn_8" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:id="@+id/register_pin_img_btn_9" />
+
+           <!-- <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/register_pin_img_btn_7"
@@ -197,6 +292,7 @@
                 android:id="@+id/register_pin_img_btn_9"
                 android:background="@drawable/keypad_9"
                 android:layout_weight="1" />
+                -->
         </LinearLayout>
 
         <LinearLayout
@@ -204,24 +300,58 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:background="#2095f2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_height="match_parent"
+                android:text="OK"
+                android:id="@+id/register_pin_img_btn_ok" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="#FFFFFF"
+                android:background="#2095f2"
+
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_height="match_parent"
+                android:text="0"
+                android:id="@+id/register_pin_img_btn_0" />
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/register_pin_img_btn_ok"
-                android:background="@drawable/keypad_ok"
-                android:layout_weight="1" />
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/register_pin_img_btn_0"
-                android:background="@drawable/keypad_0"
-                android:layout_weight="1" />
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:elevation="2dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
                 android:id="@+id/register_pin_img_btn_erase"
-                android:background="@drawable/keypad_erace"
+                android:background="#2095f2"
+                android:src="@drawable/keypad_erase"
                 android:layout_weight="1" />
+
+            <!--
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_pin_img_btn_ok"
+                    android:background="@drawable/keypad_ok"
+                    android:layout_weight="1" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_pin_img_btn_0"
+                    android:background="@drawable/keypad_0"
+                    android:layout_weight="1" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_pin_img_btn_erase"
+                    android:background="@drawable/keypad_erace"
+                    android:layout_weight="1" />
+                    -->
         </LinearLayout>
 
 

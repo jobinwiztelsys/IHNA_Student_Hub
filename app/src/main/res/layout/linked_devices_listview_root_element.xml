@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+
+    android:background="@drawable/gradient">
+
+
+
+    <ImageView
+        android:layout_width="0dp "
+        android:layout_weight="1.5"
+        android:layout_gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:src="@drawable/linked_devices_phone_icon"
+        android:id="@+id/imageView" />
+
+
+    <LinearLayout
+       android:layout_width="0dp"
+       android:layout_weight="5"
+       android:orientation="vertical"
+       android:layout_height="wrap_content"
+       >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.5"
+            android:textColor="#afb644"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            android:id="@+id/linked_device_nameTV" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp" android:layout_weight="1">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Last Used on "
+        android:id="@+id/tv1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:id="@+id/linked_device_last_usedTV" />
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp" android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Registered on  "
+                android:id="@+id/tv2" />
+        <TextView
+            android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text=""
+            android:id="@+id/linked_device_registered_onTV" />
+</LinearLayout>
+    </LinearLayout>
+</LinearLayout>
