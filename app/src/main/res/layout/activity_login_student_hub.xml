@@ -1,107 +1,108 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     android:background="@drawable/login_bg"
-    tools:context=".LoginStudentHub" >
+    tools:context=".LoginStudentHub">
+
+
+    <Button
+        android:id="@+id/call_ihnaBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:drawableLeft="@android:drawable/ic_menu_call"
+        android:text="@string/call_ihna"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp" />
+
+    <View
+        android:id="@+id/viewline"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/call_ihnaBtn"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@android:color/darker_gray" />
+
+
+
+
+
+        <Button
+            android:id="@+id/login_signin_btn"
+            android:layout_width="match_parent"
+            android:drawableLeft="@color/gold"
+            android:layout_above="@+id/viewline"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+
+            android:text="@string/signin"
+            android:textColor="#000" />
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp" android:layout_weight="6"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_above="@+id/login_signin_btn"
+        android:background="@drawable/rounded_edge_rectangle"
+        android:orientation="horizontal"
+        >
 
+        <LinearLayout
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="@color/gold"></LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/uname_and_pass_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical"
+            >
 
-<LinearLayout
+            <EditText
+                android:id="@+id/login_unameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:hint="User name" />
 
-    android:layout_width="match_parent"
-    android:layout_marginLeft="50dp"
-    android:layout_marginRight="50dp"
-    android:layout_height="0dp"
-    android:layout_weight="2"
-    android:orientation="vertical"
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@android:color/darker_gray" />
 
-    android:background="@drawable/loginunamebg"
-   >
+            <EditText
+                android:id="@+id/login_passwordET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:ems="5"
+                android:layout_weight="1"
+                android:hint="Password"
+                android:inputType="textPassword" />
 
-
-
-    <EditText
-
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:textColor="#ffffff"
-        android:layout_width="match_parent"
-        android:textColorHint="#ffffff"
-        android:background="@drawable/login_et_bg"
-        android:layout_height="30dp"
-        android:hint="User Name"
-        android:id="@+id/login_unameET"
-        android:layout_weight="1" />
-
-    <EditText
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="15dp"
-        android:layout_width="match_parent"
-        android:textColor="#ffffff"
-        android:layout_marginRight="15dp"
-        android:textColorHint="#ffffff"
-        android:backgroundTint="#89c4dc"
-        android:layout_height="30dp"
-        android:hint="Password"
-        android:background="@drawable/login_password_bg"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/login_passwordET"
-        android:layout_weight="1" />
-
-</LinearLayout>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:orientation="vertical"
-    android:layout_weight="4"
-    >
-    <Button
-
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="50dp"
-
-        android:text="@string/signin"
-        android:textColor="#ffffff"
-        android:id="@+id/login_signin_btn"
-        android:background="@drawable/login_signinbtnbg"
-      />
-
-    <ImageButton
-        android:layout_width="match_parent"
-
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp"
-        android:background="@drawable/login_call_ihna_btn_bg"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:id="@+id/imageButton"
-        android:layout_gravity="center_horizontal" />
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp" android:layout_weight="1">
-
+        </LinearLayout>
     </LinearLayout>
 
 
-
-</LinearLayout>
-
-
-
-
-</LinearLayout>
+</RelativeLayout>

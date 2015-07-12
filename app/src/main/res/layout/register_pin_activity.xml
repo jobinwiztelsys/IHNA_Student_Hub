@@ -31,14 +31,52 @@
             android:layout_width="match_parent"
 
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             android:textColor="#FFFFFF"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/enter_security_pin"
             android:id="@+id/textView2" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp" android:layout_weight="1"
+            android:layout_height="0dp">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/pinbox_xml"
+                android:id="@+id/register_pin_1a" />
 
 
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/pinbox_xml"
+                android:id="@+id/register_pin_1b" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/pinbox_xml"
+                android:id="@+id/register_pin_1c" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/pinbox_xml"
+                android:id="@+id/register_pin_1d" />
+
+
+        </LinearLayout>
+<!--
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -71,15 +109,57 @@
 
                 android:id="@+id/register_pin_1d" />
             </LinearLayout>
+      -->
         <TextView
             android:layout_width="match_parent"
 
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight=".5"
             android:textColor="#FFFFFF"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Confirm Security Pin"
             android:id="@+id/textView3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp" android:layout_weight="1"
+            android:layout_height="0dp">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/pinbox_xml"
+                android:id="@+id/register_pin_2a" />
+
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/pinbox_xml"
+                android:id="@+id/login_pin_2b" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/pinbox_xml"
+                android:id="@+id/register_pin_2c" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/pinbox_xml"
+                android:id="@+id/register_pin_2d" />
+
+
+        </LinearLayout>
+       <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -114,7 +194,7 @@
         </LinearLayout>
 
 
-
+-->
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

@@ -7,4 +7,7 @@
    <string name="enter_security_pin">Enter Security Pin</string>
 
    <string name="Forgot_pin">Forgot Pin?</string>
+    <string name="call_ihna">Call IHNA</string>
+    <string name="Sign_in">Sign in</string>
+    <string name="create_Secuity_pin">Create Security Pin</string>
 </resources>

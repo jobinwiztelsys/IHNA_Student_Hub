@@ -11,7 +11,7 @@ public class LoginStudentHub extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pin_login_activity);
+        setContentView(R.layout.pin_login_page);
 // test command
         // updated by rajeev
 

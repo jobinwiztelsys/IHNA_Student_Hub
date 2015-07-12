@@ -23,7 +23,7 @@ android:background="#2095f2"
 android:gravity="center"
         android:layout_height="0dp"
         android:layout_weight=".7"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/enter_security_pin"
         android:id="@+id/textView2" />
@@ -36,6 +36,10 @@ android:gravity="center"
         android:paddingLeft="30dp"
         android:paddingRight="30dp" android:layout_weight=".7"
         android:layout_height="0dp">
+
+
+
+
         <ImageView
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -43,13 +47,9 @@ android:gravity="center"
             android:layout_height="match_parent"
             android:background="@drawable/pinbox_xml"
             android:id="@+id/login_pin_1a" />
-    <!--    <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/pin_box"
-            android:id="@+id/login_pin_1a" />
-            -->
+
+
+
 
         <ImageView
             android:layout_width="0dp"
@@ -73,42 +73,7 @@ android:gravity="center"
             android:background="@drawable/pinbox_xml"
             android:id="@+id/login_pin_1d" />
 
-<!--
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:text=""
-            android:background="@drawable/pinbox_xml"
-            android:id="@+id/textView4"
-            android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text=""
-            android:layout_margin="10dp"
-            android:background="@drawable/pinbox_xml"
-            android:id="@+id/login_pin_1b" />
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:text=""
-            android:background="@drawable/pinbox_xml"
-            android:id="@+id/login_pin_1c" />
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text=""
-            android:background="@drawable/pinbox_xml"
-            android:layout_margin="10dp"
-            android:id="@+id/login_pin_1d" />
-
-        -->
     </LinearLayout>
 
 
@@ -158,26 +123,7 @@ android:gravity="center"
                 android:text="3"
                 android:id="@+id/register_pin_img_btn_3" />
 
-            <!--
-            <ImageButton
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/register_pin_img_btn_1"
-                  android:background="@drawable/keypad_1"
-                  android:layout_weight="1" />
-              <ImageButton
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/register_pin_img_btn_2"
-                  android:background="@drawable/keypad_2"
-                  android:layout_weight="1" />
-              <ImageButton
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/register_pin_img_btn_3"
-                  android:background="@drawable/keypad_3"
-                  android:layout_weight="1" />
-             -->
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -215,25 +161,7 @@ android:gravity="center"
                 android:id="@+id/register_pin_img_btn_6" />
 
 
-            <!--  <ImageButton
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/register_pin_img_btn_4"
-                  android:background="@drawable/keypad_4"
-                  android:layout_weight="1" />
-              <ImageButton
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/register_pin_img_btn_5"
-                  android:background="@drawable/keypad_5"
-                  android:layout_weight="1" />
-              <ImageButton
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/register_pin_img_btn_6"
-                  android:background="@drawable/keypad_6"
-                  android:layout_weight="1" />
-                  -->
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -271,25 +199,7 @@ android:gravity="center"
                 android:text="9"
                 android:id="@+id/register_pin_img_btn_9" />
 
-            <!-- <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_7"
-                 android:background="@drawable/keypad_7"
-                 android:layout_weight="1" />
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_8"
-                 android:background="@drawable/keypad_8"
-                 android:layout_weight="1" />
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_9"
-                 android:background="@drawable/keypad_9"
-                 android:layout_weight="1" />
-                 -->
+
         </LinearLayout>
 
         <LinearLayout
@@ -328,150 +238,10 @@ android:gravity="center"
                 android:src="@drawable/keypad_erase"
                 android:layout_weight="1" />
 
-            <!--
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/register_pin_img_btn_ok"
-                    android:background="@drawable/keypad_ok"
-                    android:layout_weight="1" />
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/register_pin_img_btn_0"
-                    android:background="@drawable/keypad_0"
-                    android:layout_weight="1" />
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/register_pin_img_btn_erase"
-                    android:background="@drawable/keypad_erace"
-                    android:layout_weight="1" />
-                    -->
         </LinearLayout>
 
 </LinearLayout>
-        <!--
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="0dp" android:layout_weight="6"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-         android:orientation="vertical"
-         android:background="#2095f2">
 
-
-
-
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal"
-             android:layout_weight="1">
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_1"
-                 android:background="@drawable/keypad_1"
-                 android:layout_weight="1" />
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_2"
-                 android:background="@drawable/keypad_2"
-                 android:layout_weight="1" />
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_3"
-                 android:background="@drawable/keypad_3"
-                 android:layout_weight="1" />
-         </LinearLayout>
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal"
-             android:layout_weight="1">
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_4"
-                 android:background="@drawable/keypad_4"
-                 android:layout_weight="1" />
-
-             <ImageView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/imageView2"
-                 android:layout_weight="1" />
-
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_5"
-                 android:background="@drawable/keypad_5"
-                 android:layout_weight="1" />
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_6"
-                 android:background="@drawable/keypad_6"
-                 android:layout_weight="1" />
-         </LinearLayout>
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal"
-             android:layout_weight="1">
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_7"
-                 android:background="@drawable/keypad_7"
-                 android:layout_weight="1" />
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_8"
-                 android:background="@drawable/keypad_8"
-                 android:layout_weight="1" />
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_9"
-                 android:background="@drawable/keypad_9"
-                 android:layout_weight="1" />
-         </LinearLayout>
-
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal"
-             android:layout_weight="1">
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_ok"
-                 android:background="@drawable/keypad__call"
-                 android:layout_weight="1" />
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_0"
-                 android:background="@drawable/keypad_0"
-                 android:layout_weight="1" />
-             <ImageButton
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/register_pin_img_btn_erase"
-                 android:background="@drawable/keypad_erace"
-                 android:layout_weight="1" />
-         </LinearLayout>
-
-
-     </LinearLayout>
-       -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="0dp"
