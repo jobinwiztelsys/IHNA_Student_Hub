@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightblue"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/darkblue"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/current_security_pin"
+            android:id="@+id/resetpin_pin_header1"
+            android:textColor="@color/white"
+            android:layout_above="@+id/resetpin_pin_layout_1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/resetpin_pin_header2"
+            android:id="@+id/resetpin_pin_layout_1"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/Resetpin_1a"
+
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pinbox_xml" />
+
+
+            <ImageView
+                android:id="@+id/Resetpin_1b"
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/pinbox_xml" />
+
+            <ImageView
+                android:id="@+id/Resetpin_1c"
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/pinbox_xml" />
+
+            <ImageView
+                android:id="@+id/Resetpin_1d"
+
+
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pinbox_xml" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/Enter_new_pin"
+            android:id="@+id/resetpin_pin_header2"
+            android:textColor="@color/white"
+            android:layout_above="@+id/resetpin_pin_layout_2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/resetpin_pin_header3"
+            android:id="@+id/resetpin_pin_layout_2"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/Resetpin_2a"
+
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pinbox_xml" />
+
+
+            <ImageView
+                android:id="@+id/Resetpin_2b"
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/pinbox_xml" />
+
+            <ImageView
+                android:id="@+id/Resetpin_2c"
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/pinbox_xml" />
+
+            <ImageView
+                android:id="@+id/Resetpin_2d"
+
+
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pinbox_xml" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/Confirm_pin"
+            android:id="@+id/resetpin_pin_header3"
+            android:textColor="@color/white"
+            android:layout_above="@+id/resetpin_pin_layout_3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/resetpin_pin_layout_3"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/Resetpin_3a"
+
+
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pinbox_xml" />
+
+
+            <ImageView
+                android:id="@+id/Resetpin_3b"
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/pinbox_xml" />
+
+            <ImageView
+                android:id="@+id/Resetpin_3c"
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/pinbox_xml" />
+
+            <ImageView
+                android:id="@+id/Resetpin_3d"
+
+
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/pinbox_xml" />
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/lightblue"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+        <LinearLayout
+            android:id="@+id/pin_login_dialpad_layout"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+            android:background="@color/white"
+
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="2"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="3"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingBottom="1dp"
+                android:paddingTop="1dp">
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="4"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="5"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="6"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="7"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="8"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="9"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingTop="1dp">
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_ok"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="OK"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/reset_pin_img_btn_0"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/reset_pin_img_btn_erase"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@color/lightblue"
+                    android:elevation="2dp"
+                    android:src="@drawable/keypad_erase" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

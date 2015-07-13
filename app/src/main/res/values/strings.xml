@@ -9,5 +9,8 @@
    <string name="Forgot_pin">Forgot Pin?</string>
     <string name="call_ihna">Call IHNA</string>
     <string name="Sign_in">Sign in</string>
-    <string name="create_Secuity_pin">Create Security Pin</string>
+    <string name="create_Secuity_pin">Create Security PIN</string>
+    <string name="Confirm_pin">Confirm Security PIN</string>
+    <string name="Enter_new_pin">New Security PIN</string>
+    <string name="current_security_pin">Current Security PIN</string>
 </resources>
