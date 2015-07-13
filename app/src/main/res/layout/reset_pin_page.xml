@@ -32,6 +32,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_above="@+id/resetpin_pin_header2"
             android:id="@+id/resetpin_pin_layout_1"
             android:layout_marginBottom="10dp"
@@ -43,24 +45,24 @@
                 android:id="@+id/Resetpin_1a"
 
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/pinbox_xml" />
 
 
             <ImageView
                 android:id="@+id/Resetpin_1b"
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/pinbox_xml" />
 
             <ImageView
                 android:id="@+id/Resetpin_1c"
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/pinbox_xml" />
@@ -70,8 +72,8 @@
 
 
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/pinbox_xml" />
 
         </LinearLayout>
@@ -91,6 +93,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_above="@+id/resetpin_pin_header3"
             android:id="@+id/resetpin_pin_layout_2"
             android:layout_marginBottom="10dp"
@@ -102,24 +106,24 @@
                 android:id="@+id/Resetpin_2a"
 
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/pinbox_xml" />
 
 
             <ImageView
                 android:id="@+id/Resetpin_2b"
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/pinbox_xml" />
 
             <ImageView
                 android:id="@+id/Resetpin_2c"
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/pinbox_xml" />
@@ -129,8 +133,8 @@
 
 
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/pinbox_xml" />
 
         </LinearLayout>
@@ -152,6 +156,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_alignParentBottom="true"
             android:id="@+id/resetpin_pin_layout_3"
             android:layout_marginBottom="10dp"
@@ -164,24 +170,24 @@
 
 
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/pinbox_xml" />
 
 
             <ImageView
                 android:id="@+id/Resetpin_3b"
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
                 android:background="@drawable/pinbox_xml" />
 
             <ImageView
                 android:id="@+id/Resetpin_3c"
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/pinbox_xml" />
@@ -191,8 +197,8 @@
 
 
 
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/pinbox_xml" />
 
         </LinearLayout>

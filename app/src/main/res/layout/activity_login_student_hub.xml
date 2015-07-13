@@ -48,9 +48,10 @@
 
 
 <LinearLayout
-    android:layout_width="10dp"
+    android:layout_width="15dp"
+    android:layout_marginLeft="-5dp"
 
-    android:layout_weight=".15"
+
     android:background="@color/loginbox_green"
     android:layout_height="match_parent">
 
@@ -71,10 +72,11 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-android:layout_height="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="80dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="40dp"
-android:paddingBottom="0dp"
+        android:paddingBottom="0dp"
         android:layout_marginRight="40dp"
         android:layout_above="@+id/login_signin_btn_layout"
         android:background="@drawable/rounded_edge_rectangle"
@@ -82,7 +84,8 @@ android:paddingBottom="0dp"
         >
 
         <LinearLayout
-            android:layout_width="10dp"
+            android:layout_width="15dp"
+            android:layout_marginLeft="-5dp"
             android:layout_height="match_parent"
             android:background="@color/loginbox_green"></LinearLayout>
 
@@ -91,8 +94,8 @@ android:paddingBottom="0dp"
             android:layout_width="match_parent"
 
             android:background="@color/loginbox_blue"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_height="match_parent"
+           android:padding="10dp"
             android:orientation="vertical"
             >
 
@@ -100,14 +103,13 @@ android:paddingBottom="0dp"
                 android:id="@+id/login_unameET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+android:padding="10dp"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
                 android:background="@color/loginbox_blue"
 
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
+
                 android:hint="User name" />
 
             <View
@@ -124,8 +126,8 @@ android:paddingBottom="0dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
 
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp"
+               android:padding="10dp"
+
    android:background="@color/loginbox_blue"
 
                 android:hint="Password"
