@@ -32,7 +32,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/resetpin_pin_header2"
+            android:layout_above="@+id/resetpin_pin_header2"
             android:id="@+id/resetpin_pin_layout_1"
             android:layout_marginBottom="10dp"
             android:gravity="center"
@@ -91,7 +91,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/resetpin_pin_header3"
+            android:layout_above="@+id/resetpin_pin_header3"
             android:id="@+id/resetpin_pin_layout_2"
             android:layout_marginBottom="10dp"
             android:gravity="center"
