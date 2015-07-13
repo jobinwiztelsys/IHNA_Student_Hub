@@ -2,6 +2,10 @@
 <resources>
 
     <color name="white">#ffffff</color>
+    <color name="loginbox_blue">#6fbbdb</color>
+    <color name="loginbox_green">#529778</color>
+    <color name="call_IHNAbg">#065a7d</color>
+
     <color name="transparent">#00000000</color>
     <color name="gold">#e6b121</color>
     <color name="lightblue">#2095f2</color>

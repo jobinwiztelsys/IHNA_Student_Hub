@@ -11,14 +11,15 @@
         android:id="@+id/call_ihnaBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:background="@color/transparent"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp"
         android:drawableLeft="@android:drawable/ic_menu_call"
-        android:text="@string/call_ihna"
+        android:text="Call IHNA"
+        android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:textSize="32sp" />
+        android:textSize="20sp" />
 
     <View
         android:id="@+id/viewline"
@@ -32,29 +33,50 @@
 
 
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:id="@+id/login_signin_btn_layout"
+    android:orientation="horizontal"
+    android:background="@drawable/rounded_edge_rectangle"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="30dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginRight="40dp"
+    android:layout_above="@+id/viewline"
+    android:layout_height="wrap_content">
 
 
+
+<LinearLayout
+    android:layout_width="10dp"
+
+    android:layout_weight=".15"
+    android:background="@color/loginbox_green"
+    android:layout_height="match_parent">
+
+    </LinearLayout>
         <Button
-            android:id="@+id/login_signin_btn"
+
             android:layout_width="match_parent"
-            android:drawableLeft="@color/gold"
-            android:layout_above="@+id/viewline"
+            android:layout_weight="1"
+            android:id="@+id/login_signin_btn"
+            android:background="@color/loginbox_blue"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
+
 
             android:text="@string/signin"
-            android:textColor="#000" />
+            android:textColor="@color/white" />
 
-
+</LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="40dp"
+android:paddingBottom="0dp"
         android:layout_marginRight="40dp"
-        android:layout_above="@+id/login_signin_btn"
+        android:layout_above="@+id/login_signin_btn_layout"
         android:background="@drawable/rounded_edge_rectangle"
         android:orientation="horizontal"
         >
@@ -62,11 +84,13 @@
         <LinearLayout
             android:layout_width="10dp"
             android:layout_height="match_parent"
-            android:background="@color/gold"></LinearLayout>
+            android:background="@color/loginbox_green"></LinearLayout>
 
         <LinearLayout
             android:id="@+id/uname_and_pass_layout"
             android:layout_width="match_parent"
+
+            android:background="@color/loginbox_blue"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:orientation="vertical"
@@ -76,8 +100,11 @@
                 android:id="@+id/login_unameET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="5"
-                android:layout_weight="1"
+
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:background="@color/loginbox_blue"
+
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="35dp"
@@ -94,10 +121,13 @@
                 android:id="@+id/login_passwordET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="35dp"
-                android:ems="5"
-                android:layout_weight="1"
+   android:background="@color/loginbox_blue"
+
                 android:hint="Password"
                 android:inputType="textPassword" />
 
