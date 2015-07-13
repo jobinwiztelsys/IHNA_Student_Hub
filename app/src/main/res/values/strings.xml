@@ -13,4 +13,7 @@
     <string name="Confirm_pin">Confirm Security PIN</string>
     <string name="Enter_new_pin">New Security PIN</string>
     <string name="current_security_pin">Current Security PIN</string>
+    <string name="Title">Title :</string>
+    <string name="firstname">First Name:</string>
+    <string name="lastname">Last Name:</string>
 </resources>

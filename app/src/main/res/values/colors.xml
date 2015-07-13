@@ -5,13 +5,14 @@
     <color name="loginbox_blue">#6fbbdb</color>
     <color name="loginbox_green">#529778</color>
     <color name="call_IHNAbg">#065a7d</color>
-
+    <color name="login_linecolor">#98cce1</color>
+    <color name="black">#000</color>
     <color name="transparent">#00000000</color>
     <color name="gold">#e6b121</color>
     <color name="lightblue">#2095f2</color>
     <color name="darkblue">#0654a3</color>
 
-
+    <color name="greenTextcolour">#afb644</color>
 
 
 </resources>

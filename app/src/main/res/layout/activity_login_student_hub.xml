@@ -92,7 +92,6 @@
         <LinearLayout
             android:id="@+id/uname_and_pass_layout"
             android:layout_width="match_parent"
-
             android:background="@color/loginbox_blue"
             android:layout_height="match_parent"
            android:padding="10dp"
@@ -103,13 +102,11 @@
                 android:id="@+id/login_unameET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-android:padding="10dp"
+                android:padding="10dp"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
                 android:background="@color/loginbox_blue"
-
                 android:layout_gravity="center_horizontal"
-
                 android:hint="User name" />
 
             <View
@@ -117,7 +114,7 @@ android:padding="10dp"
                 android:layout_height="1dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:background="@android:color/darker_gray" />
+                android:background="@color/login_linecolor" />
 
             <EditText
                 android:id="@+id/login_passwordET"
