@@ -16,7 +16,16 @@
                 android:layout_height="0dp"
                 android:background="@drawable/profile_top_layout_bg"
                 android:layout_weight="4">
+                <ImageView
+                    android:minWidth="80dp"
+                    android:minHeight="80dp"
+                    android:layout_width="wrap_content "
+                    android:layout_height="wrap_content"
 
+                    android:layout_above="@id/home_page_username1"
+                    android:id="@+id/imageView2"
+                   android:src="@drawable/profile_pic"
+                    android:layout_centerHorizontal="true" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -28,6 +37,8 @@
                   android:layout_alignParentBottom="true"
                     android:layout_marginBottom="30dp"
                     android:layout_centerHorizontal="true" />
+
+
             </RelativeLayout>
 
             <RelativeLayout
