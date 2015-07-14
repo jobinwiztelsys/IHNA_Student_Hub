@@ -19,10 +19,10 @@
                 <ImageView
                     android:minWidth="80dp"
                     android:minHeight="80dp"
-                    android:layout_width="wrap_content "
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_above="@id/home_page_username1"
+                    android:layout_above="@+id/home_page_username1"
                     android:id="@+id/imageView2"
                    android:src="@drawable/profile_pic"
                     android:layout_centerHorizontal="true" />
