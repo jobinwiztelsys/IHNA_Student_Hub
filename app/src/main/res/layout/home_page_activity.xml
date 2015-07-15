@@ -7,13 +7,14 @@
         <LinearLayout
         android:id="@+id/home_inner_container"
         android:layout_width="match_parent"
+            android:weightSum="10"
         android:orientation="vertical"
         android:layout_height="match_parent">
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:background="@drawable/profile_top_layout_bg"
                 android:layout_weight="4">
                 <ImageView
@@ -43,8 +44,10 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="6">
+
+
 
  <LinearLayout
      android:layout_alignParentTop="true"
@@ -217,8 +220,10 @@
 
                     android:background="@android:color/darker_gray" />
 
+
             </RelativeLayout>
 
         </LinearLayout>
+
 
 </RelativeLayout>

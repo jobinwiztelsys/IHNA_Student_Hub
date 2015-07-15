@@ -11,7 +11,7 @@
         android:id="@+id/call_ihnaBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/transparent"
+        android:background="@drawable/login_call_ihna_selector"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp"
@@ -24,7 +24,7 @@
     <View
         android:id="@+id/viewline"
         android:layout_width="fill_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:layout_above="@+id/call_ihnaBtn"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="40dp"
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:id="@+id/login_signin_btn"
-            android:background="@color/loginbox_blue"
+            android:background="@drawable/login_signin_selector"
             android:layout_height="wrap_content"
 
 

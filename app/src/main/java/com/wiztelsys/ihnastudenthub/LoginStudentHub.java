@@ -11,7 +11,7 @@ public class LoginStudentHub extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mobile_number_verification);
+        setContentView(R.layout.activity_login_student_hub);
 
 
     }
