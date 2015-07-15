@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
 
-        <ImageView
+        <ImageButton
             android:id="@+id/login_pin_1a"
 
 
@@ -23,14 +23,14 @@
             android:background="@drawable/pinbox_xml" />
 
 
-        <ImageView
+        <ImageButton
             android:id="@+id/login_pin_1b"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:background="@drawable/pinbox_xml" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/login_pin_1c"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -38,7 +38,7 @@
             android:layout_marginRight="15dp"
             android:background="@drawable/pinbox_xml" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/login_pin_1d"
 
 
@@ -219,12 +219,14 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/register_pin_img_btn_erase"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:text="12"
+                android:textColor="@color/transparent"
                 android:background="@drawable/keypad_selector"
                 android:elevation="2dp"
                 android:src="@drawable/keypad_erase" />
