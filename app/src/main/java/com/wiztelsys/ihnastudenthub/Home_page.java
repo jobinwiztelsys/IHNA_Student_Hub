@@ -21,7 +21,7 @@ import static android.widget.Toast.makeText;
 /**
  * Created by Raju on 15-07-2015.
  */
-public class Home_page extends Activity implements View.OnClickListener,AdapterView.OnItemClickListener {
+public class Home_page extends Activity implements View.OnClickListener,ListView.OnItemClickListener {
     SharedPreferences sharedPreferences;  // for setting the first time login to false
     SharedPreferences.Editor editor;
     Toolbar toolbar;
@@ -71,7 +71,7 @@ public class Home_page extends Activity implements View.OnClickListener,AdapterV
         String[] osArray = { "Profile","Library" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         listView.setAdapter(mAdapter);
-        
+
 
     }
 
