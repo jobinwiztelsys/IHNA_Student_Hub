@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ public class Home_page extends Activity implements View.OnClickListener,ListView
     DrawerLayout drawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
+    ImageButton imageButton_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +45,21 @@ public class Home_page extends Activity implements View.OnClickListener,ListView
 
         initializeviews();
         addDrawerItems();
-        setupDrawer();
+
         listView.setOnItemClickListener(this);
     }
+
+
+
 
     public void initializeviews(){
 
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         listView=(ListView)findViewById(R.id.home_Listview);
         drawerLayout=(DrawerLayout)findViewById(R.id.home_drawer_layout);
+        imageButton_toolbar=(ImageButton)findViewById(R.id.toolbar_imagebutton);
         toolbar.setOnClickListener(this);
+        imageButton_toolbar.setOnClickListener(this);
        // setSupportActionBar(toolbarBottom);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -75,37 +83,17 @@ public class Home_page extends Activity implements View.OnClickListener,ListView
 
     }
 
-    //  setting up the drawer
-
-    private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this,                  /* host Activity */
-                drawerLayout,null,         /* DrawerLayout object */
-                R.string.drawer_open,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open) {
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        drawerLayout.setDrawerListener(mDrawerToggle);
-    }
 
 
 
 
     @Override
     public void onClick(View view) {
-
+ switch (view.getId()){
+     case R.id.toolbar_imagebutton:
+         Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
+         break;
+ }
     }
 
     @Override
