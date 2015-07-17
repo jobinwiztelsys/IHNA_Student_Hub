@@ -20,6 +20,7 @@
     <string name="change_number">Change Mobile Number</string>
     <string name="mobile_number">Mobile Number : </string>
     <string name="username">User Name</string>
+    <string name="drawer_open">open</string>
 
 
 </resources>
