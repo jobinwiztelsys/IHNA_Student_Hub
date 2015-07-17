@@ -2,6 +2,7 @@ package com.wiztelsys.ihnastudenthub;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -129,7 +130,10 @@ public class Pin_Login extends Activity implements View.OnClickListener {
             password_enter.append(buttonText);
             Log.d("password",""+password_enter.toString());
 
-            return;
+            Intent home=new Intent(Pin_Login.this,Home_page.class);
+            startActivity(home);
+            finish();
+
         }
 
     }
