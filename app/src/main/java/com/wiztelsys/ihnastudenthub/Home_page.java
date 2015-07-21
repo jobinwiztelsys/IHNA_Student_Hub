@@ -5,9 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerTitleStrip;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,23 +25,26 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import static android.widget.Toast.LENGTH_SHORT;
-import static android.widget.Toast.makeText;
 
 /**
  * Created by Raju on 15-07-2015.
  */
-public class Home_page extends Activity implements View.OnClickListener,ListView.OnItemClickListener {
+public class Home_page extends FragmentActivity implements View.OnClickListener{
     SharedPreferences sharedPreferences;  // for setting the first time login to false
     SharedPreferences.Editor editor;
     Toolbar toolbar;
     ListView listView;
     DrawerLayout drawerLayout;
     private ArrayAdapter<String> mAdapter;
-    private ActionBarDrawerToggle mDrawerToggle;
     ImageButton imageButton_toolbar;
+
+
+    /*RegistrationIntentService**QuickstartPreferences**MyGcmListenerService**MyInstanceIDListenerService
+    are the classes for sending and receiving notification..it is called in the oncreate method of home class */
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +58,46 @@ public class Home_page extends Activity implements View.OnClickListener,ListView
 
         initializeviews();
         addDrawerItems();
+        final RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
+        ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
+        pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                switch (position){
+                    case 0:
+                        radioGroup.check(R.id.radioButton);
+                        break;
+                    case 1:
+                        radioGroup.check(R.id.radioButton2);
+                        break;
+                    case 2:
+                        radioGroup.check(R.id.radioButton3);
+                        break;
+                }
+            }
 
-        listView.setOnItemClickListener(this);
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        // for the notification SharedPreferences sharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean sentToken = sharedPreferences
+                .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+        if (sentToken) {
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        } else {
+           return;
+        }
+
     }
 
 
@@ -75,10 +126,11 @@ public class Home_page extends Activity implements View.OnClickListener,ListView
 
 // to populate the listview inside the drawer
 
-    private void addDrawerItems() {
+    public void addDrawerItems() {
         String[] osArray = { "Profile","Library" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new DrawerItemClickListener());
 
 
     }
@@ -91,13 +143,56 @@ public class Home_page extends Activity implements View.OnClickListener,ListView
     public void onClick(View view) {
  switch (view.getId()){
      case R.id.toolbar_imagebutton:
-         Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
+         drawerLayout.openDrawer(Gravity.LEFT);
+
+
          break;
  }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            switch (position){
+                case 0:
+                    Intent home=new Intent(getApplicationContext(),Home_page.class);
+                    startActivity(home);
+                    finish();
+
+                    break;
+                case 1:
+
+                    Intent library=new Intent(Home_page.this,Library_page.class);
+                    startActivity(library);
+                    finish();
+            }
+        }
+
+    }
+
+    private class MyPagerAdapter extends FragmentStatePagerAdapter {
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int pos) {
+            switch (pos) {
+
+                case 0:
+                    return Profile_home_fragment.newInstance("FirstFragment, Instance 1");
+
+                case 1: return Privacy_home_fragment.newInstance("secondFragment, Instance 1");
+            }
+             return Profile_home_fragment.newInstance("FirstFragment, Instance 1");
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
     }
 }
