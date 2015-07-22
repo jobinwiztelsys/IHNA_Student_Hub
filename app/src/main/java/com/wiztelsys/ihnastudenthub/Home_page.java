@@ -58,7 +58,8 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
 
         initializeviews();
         addDrawerItems();
-        final RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
+    }
+ /*       final RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
         ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -102,7 +103,7 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
 
 
 
-
+*/
     public void initializeviews(){
 
         toolbar= (Toolbar) findViewById(R.id.toolbar);

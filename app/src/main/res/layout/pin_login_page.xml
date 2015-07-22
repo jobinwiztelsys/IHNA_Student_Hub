@@ -4,9 +4,34 @@
     android:layout_height="match_parent"
     android:background="@color/lightblue">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
+    android:layout_above="@+id/entersecuritypinTV">
+
+    <ImageView
+        android:layout_width="182dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+           android:src="@drawable/student_hub_logo"
+        android:id="@+id/imageView3" />
+
+
+</RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/enter_security_pin"
+        android:padding="10dp"
+        android:id="@+id/entersecuritypinTV"
+        android:textColor="@color/white"
+        android:layout_above="@+id/loginpinbox_layout"
+        android:layout_centerHorizontal="true" />
     <LinearLayout
         android:layout_width="match_parent"
+        android:id="@+id/loginpinbox_layout"
         android:layout_height="wrap_content"
         android:layout_above="@+id/pin_login_dialpad_layout"
         android:layout_marginBottom="30dp"
@@ -18,22 +43,22 @@
             android:id="@+id/login_pin_1a"
 
 
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@drawable/pinbox_xml" />
 
 
         <ImageButton
             android:id="@+id/login_pin_1b"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="15dp"
             android:background="@drawable/pinbox_xml" />
 
         <ImageButton
             android:id="@+id/login_pin_1c"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/pinbox_xml" />
@@ -42,8 +67,8 @@
             android:id="@+id/login_pin_1d"
 
 
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@drawable/pinbox_xml" />
 
     </LinearLayout>
@@ -54,10 +79,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/pin_login_forgot_pinBtn"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@color/white"
+        android:layout_marginBottom="10dp"
+
+        android:background="@color/keypad_background_line"
 
         android:orientation="vertical">
 
@@ -76,6 +100,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/keypad_selector"
                 android:text="1"
+                android:textSize="32sp"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/white" />
 
@@ -83,6 +108,7 @@
                 android:id="@+id/register_pin_img_btn_2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textSize="32sp"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
@@ -94,6 +120,7 @@
             <Button
                 android:id="@+id/register_pin_img_btn_3"
                 android:layout_width="0dp"
+                android:textSize="32sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/keypad_selector"
@@ -116,7 +143,7 @@
                 android:id="@+id/register_pin_img_btn_4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
+                android:textSize="32sp"
                 android:layout_weight="1"
                 android:background="@drawable/keypad_selector"
                 android:text="4"
@@ -128,6 +155,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
+                android:textSize="32sp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/keypad_selector"
@@ -138,6 +166,7 @@
             <Button
                 android:id="@+id/register_pin_img_btn_6"
                 android:layout_width="0dp"
+                android:textSize="32sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/keypad_selector"
@@ -160,6 +189,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="32sp"
                 android:background="@drawable/keypad_selector"
                 android:text="7"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -170,6 +200,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
+                android:textSize="32sp"
                 android:layout_marginRight="1dp"
                 android:layout_weight="1"
                 android:background="@drawable/keypad_selector"
@@ -181,6 +212,7 @@
                 android:id="@+id/register_pin_img_btn_9"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:textSize="32sp"
                 android:layout_weight="1"
                 android:background="@drawable/keypad_selector"
                 android:text="9"
@@ -204,6 +236,7 @@
                 android:layout_weight="1"
                 android:background="@color/lightblue"
                 android:text="OK"
+                android:textSize="28sp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />
 
@@ -213,6 +246,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
+                android:textSize="35sp"
                 android:layout_weight="1"
                 android:background="@drawable/keypad_selector"
                 android:text="0"
@@ -225,6 +259,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:textSize="35sp"
                 android:text="12"
                 android:textColor="@color/transparent"
                 android:background="@drawable/keypad_selector"
@@ -241,7 +276,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:background="@color/lightblue"
