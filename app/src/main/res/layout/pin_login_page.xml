@@ -246,7 +246,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
-                android:textSize="35sp"
+                android:textSize="32sp"
                 android:layout_weight="1"
                 android:background="@drawable/keypad_selector"
                 android:text="0"
@@ -262,7 +262,7 @@
                 android:textSize="35sp"
                 android:text="12"
                 android:textColor="@color/transparent"
-                android:background="@drawable/keypad_selector"
+                android:background="@drawable/keypad_erace"
                 android:elevation="2dp"
                 android:src="@drawable/keypad_erase" />
 

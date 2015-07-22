@@ -334,7 +334,7 @@
                     android:layout_weight="1"
                     android:text="12"
                     android:textColor="@color/transparent"
-                    android:background="@color/lightblue"
+                    android:background="@drawable/keypad_erace"
                     android:elevation="2dp"
                      />
 
