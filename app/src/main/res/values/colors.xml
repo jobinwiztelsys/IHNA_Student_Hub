@@ -15,8 +15,7 @@
     <color name="mobile_verification_headerbg">#dbe5ef</color>
     <color name="keypad_on_click_blue_lighter">#45a9f8</color>
     <color name="uname_passhint_text_color">#e4e0e0</color>
-    <color name="keypad_background_line">#49a7e1</color>
-
+    <color name="lightgreen">#afb644</color>
     <color name="greenTextcolour">#afb644</color>
 
 

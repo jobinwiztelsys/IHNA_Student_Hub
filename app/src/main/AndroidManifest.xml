@@ -29,6 +29,8 @@
         <activity android:name=".Pin_Login"/>
         <activity android:name=".Home_page"/>
         <activity android:name=".Library_page"/>
+        <activity android:name=".Notification_page"/>
+        <activity android:name=".Reset_pin_page"/>
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
