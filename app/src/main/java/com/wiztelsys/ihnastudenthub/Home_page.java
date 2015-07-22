@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -56,8 +57,12 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
         editor.putBoolean("firstlogin", false);
         editor.commit();
 
+
         initializeviews();
+
         addDrawerItems();
+
+
         final RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
         ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
@@ -111,12 +116,19 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
         imageButton_toolbar=(ImageButton)findViewById(R.id.toolbar_imagebutton);
         toolbar.setOnClickListener(this);
         imageButton_toolbar.setOnClickListener(this);
+
+
        // setSupportActionBar(toolbarBottom);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
+  switch (item.getItemId()){
+      case R.id.action_settings:
+          Intent reset=new Intent(getApplicationContext(),Reset_pin_page.class);
+          startActivity(reset);
+          finish();
+  }
                 return true;
             }
         });
@@ -195,4 +207,6 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
             return 2;
         }
     }
+
+
 }
