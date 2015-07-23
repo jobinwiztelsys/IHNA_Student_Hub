@@ -24,28 +24,24 @@ import android.widget.Toast;
 public class Library_page extends Home_page {
 
 GridView gridView;
-    Toolbar toolbar;
-    ListView listView;
-    DrawerLayout drawerLayout;
-    private ArrayAdapter<String> mAdapter;
-    ImageButton imageButton_toolbar;
+
     int[] imageId;
     String[] web = {
-            "Google",
-            "Github",
-            "Instagram",
-            "Facebook",
-            "Flickr",
-            "Pinterest",
-            "Quora",
-            "Twitter",
-            "Vimeo",
-            "WordPress",
-            "Youtube",
-            "Stumbleupon",
-            "SoundCloud",
-            "Reddit",
-            "Blogger",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
+            "IHNA",
 
 
     } ;

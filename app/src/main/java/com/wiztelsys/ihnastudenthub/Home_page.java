@@ -18,11 +18,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioGroup;
@@ -30,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.viewpagerindicator.CirclePageIndicator;
+
+import java.util.ArrayList;
 
 
 /**
@@ -149,9 +155,11 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
 // to populate the listview inside the drawer
 
     public void addDrawerItems() {
-        String[] osArray = { "Profile","Library" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-        listView.setAdapter(mAdapter);
+       ArrayList<String>list_home=new ArrayList<>();
+        list_home.add("Profile");
+        list_home.add("Library");
+     //   mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        listView.setAdapter(new Base(getApplicationContext(),list_home));
         listView.setOnItemClickListener(new DrawerItemClickListener());
 
 
@@ -218,5 +226,75 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
         }
     }
 
+    public class Viewholder{
+        TextView text;
+
+    }
+
+
+    // for listview
+
+    public class Base extends BaseAdapter {
+        ArrayList<String> list_home_drawer=new ArrayList<String>();
+
+        Context context;
+
+        public Base(Context con, ArrayList<String> drawer) {
+            // TODO Auto-generated constructor stub
+            this.context=con;
+
+            this.list_home_drawer=drawer;
+
+
+        }
+
+        @Override
+        public int getCount() {
+            // TODO Auto-generated method stub
+            return list_home_drawer.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return list_home_drawer.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @SuppressWarnings("unused")
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // TODO Auto-generated method stub
+            Viewholder holder=new Viewholder();
+
+            //holder.tname.setText(act.get(position));
+
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.home_listview_custom_xml, null);
+
+                holder.text=(TextView)convertView.findViewById(R.id.home_textView6);
+
+                convertView.setTag(holder);
+
+            }
+
+            holder=(Viewholder)convertView.getTag();
+
+
+
+            holder.text.setText(list_home_drawer.get(position));
+
+
+
+            return convertView;
+        }
+
+    }
 
 }

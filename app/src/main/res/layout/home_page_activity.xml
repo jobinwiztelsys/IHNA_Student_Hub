@@ -33,9 +33,13 @@
             android:id="@+id/toolbar_imagebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="19987878"
+            android:focusable="true"
             android:background="#2196F3"
-            android:src="@drawable/nav_icon" />
-
+            android:textColor="@color/transparent"
+            android:src="@drawable/nav_button"
+            />
 
     </android.support.v7.widget.Toolbar>
     <FrameLayout
@@ -74,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="left|start"
-            android:background="#219683"
+            android:background="@color/white"
             android:clickable="true" />
 
     </android.support.v4.widget.DrawerLayout>
