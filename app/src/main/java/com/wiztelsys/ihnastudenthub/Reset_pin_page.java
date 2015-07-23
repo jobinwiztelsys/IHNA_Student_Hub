@@ -142,6 +142,39 @@ public class Reset_pin_page extends Activity implements View.OnClickListener {
 
             return;
         }
+        if(count==8){
+            imageButton_3a.setImageResource(R.drawable.security_star);
+            count=count+1;
+            password_confirm_2.append(buttonText);
+            Log.d("password",""+password_confirm_2.toString());
+
+            return;
+        }
+        if(count==9){
+            imageButton_3b.setImageResource(R.drawable.security_star);
+            count=count+1;
+            password_confirm_2.append(buttonText);
+            Log.d("password",""+password_confirm_2.toString());
+
+            return;
+        }
+        if(count==10){
+            imageButton_3c.setImageResource(R.drawable.security_star);
+            count=count+1;
+            password_confirm_2.append(buttonText);
+            Log.d("password",""+password_confirm_2.toString());
+
+            return;
+        }
+
+        if(count==11){
+            imageButton_3d.setImageResource(R.drawable.security_star);
+            count=count+1;
+            password_confirm_2.append(buttonText);
+            Log.d("password",""+password_confirm_2.toString());
+
+            return;
+        }
 
     }
 }

@@ -29,6 +29,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.viewpagerindicator.CirclePageIndicator;
+
 
 /**
  * Created by Raju on 15-07-2015.
@@ -41,7 +43,8 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
     DrawerLayout drawerLayout;
     private ArrayAdapter<String> mAdapter;
     ImageButton imageButton_toolbar;
-
+    CirclePageIndicator pageIndicator;
+    ViewPager pager;
 
     /*RegistrationIntentService**QuickstartPreferences**MyGcmListenerService**MyInstanceIDListenerService
     are the classes for sending and receiving notification..it is called in the oncreate method of home class */
@@ -51,6 +54,9 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
+        pageIndicator = (CirclePageIndicator) findViewById(R.id.titles);
+
+
         sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -63,21 +69,25 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
         addDrawerItems();
 
 
-        final RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
-        ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
+        //final RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radiogroup);
+        pager= (ViewPager) findViewById(R.id.viewPager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+      //  pageIndicator.setViewPager(pager);
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 switch (position){
                     case 0:
-                        radioGroup.check(R.id.radioButton);
+                     //   radioGroup.check(R.id.radioButton);
+                        pageIndicator.setViewPager(pager);
                         break;
                     case 1:
-                        radioGroup.check(R.id.radioButton2);
+                      //  radioGroup.check(R.id.radioButton2);
+                        pageIndicator.setViewPager(pager);
                         break;
                     case 2:
-                        radioGroup.check(R.id.radioButton3);
+                       // radioGroup.check(R.id.radioButton3);
+                        pageIndicator.setViewPager(pager);
                         break;
                 }
             }
@@ -124,7 +134,7 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
             @Override
             public boolean onMenuItemClick(MenuItem item) {
   switch (item.getItemId()){
-      case R.id.action_settings:
+      case R.id.reset:
           Intent reset=new Intent(getApplicationContext(),Reset_pin_page.class);
           startActivity(reset);
           finish();

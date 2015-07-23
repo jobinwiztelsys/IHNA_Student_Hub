@@ -22,6 +22,7 @@ public class LoginStudentHub extends Activity implements View.OnClickListener {
     SharedPreferences sharedPreferences; // For storing the first time login boolean and intermediate data
     SharedPreferences.Editor editor;
 
+    String Username,Password; // to save the edittext name and password
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
