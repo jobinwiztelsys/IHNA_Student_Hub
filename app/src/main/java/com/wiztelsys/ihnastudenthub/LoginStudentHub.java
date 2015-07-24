@@ -20,6 +20,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+
 
 public class LoginStudentHub extends Activity implements View.OnClickListener {
 
@@ -102,6 +104,11 @@ else {
                 startActivity(intent);
                 break;
             case R.id.login_signin_btn:
+             /*   if(first_time_login){
+                    Intent register_pin=new Intent(LoginStudentHub.this,Register_Pin_Class.class);
+                    startActivity(register_pin);
+                    finish();
+                } */
                 callinggwebservice();
                 break;
 
@@ -110,22 +117,31 @@ else {
           Intent register_pin=new Intent(LoginStudentHub.this,Register_Pin_Class.class);
           startActivity(register_pin);
           finish();
+          }
       }  */
 
 
 
     }
 public void callinggwebservice(){
-
+    byte[] data = null;
     authorization = Username + ":" + Password;
-    byte[] encodedBytes;
-    encodedBytes = Base64.encode(authorization.getBytes(), 0);
-    authorization = "Basic " + encodedBytes;
+    try {
+        data = authorization.getBytes("UTF-8");
+    }
+    catch (UnsupportedEncodingException e1) {
+        e1.printStackTrace();
+    }
+
+
+   String output=Base64.encodeToString(data, Base64.DEFAULT);
+
+    Log.d("11111111111111",""+output);
 
     new AsyncTask<String,Void,String>(){
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(String...strings) {
            return server_utilities.login_webservice(strings[0]);
 
         }
@@ -133,10 +149,23 @@ public void callinggwebservice(){
         @Override
         protected void onPostExecute(String s) {
             Log.d("response from server","is"+s);
-            Toast.makeText(getApplicationContext(),"response",Toast.LENGTH_LONG).show();
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                Integer user_id=jsonObject.getInt("user_id");
+                if(user_id!=null){
+                    Intent home=new Intent(LoginStudentHub.this,Home_page.class);
+                    home.putExtra("user_id",user_id);
+                    startActivity(home);
+                    finish();
+                }
+
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+
         }
 
-    }.execute(authorization);
+    }.execute(output);
 }
 
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,6 +37,10 @@ import android.widget.Toast;
 
 import com.viewpagerindicator.CirclePageIndicator;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
@@ -51,7 +57,12 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
     ImageButton imageButton_toolbar;
     CirclePageIndicator pageIndicator;
     ViewPager pager;
-
+    Intent from_login=new Intent();
+    Integer user_id;
+    String password="123456";
+    String authorization = "";
+    String output;
+Server_utilities server_utilities=new Server_utilities();
     /*RegistrationIntentService**QuickstartPreferences**MyGcmListenerService**MyInstanceIDListenerService
     are the classes for sending and receiving notification..it is called in the oncreate method of home class */
 
@@ -69,6 +80,8 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
         editor.putBoolean("firstlogin", false);
         editor.commit();
 
+        from_login=getIntent();
+        user_id=from_login.getIntExtra("user_id",0);
 
         initializeviews();
 
@@ -109,17 +122,48 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
             }
         });
         // for the notification SharedPreferences sharedPreferences =
-        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+     /*   PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean sentToken = sharedPreferences
                 .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-        if (sentToken) {
+        if (sentToken) { */
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
-        } else {
+      /*  } else {
            return;
+        }  */
+
+        calltowebservice();
+    }
+
+public void calltowebservice(){
+
+    byte[] data = null;
+    authorization = user_id + ":" + password;
+    try {
+        data = authorization.getBytes("UTF-8");
+         output= Base64.encodeToString(data, Base64.DEFAULT);
+    }
+    catch (UnsupportedEncodingException e1) {
+        e1.printStackTrace();
+    }
+    new AsyncTask<String,Void,String>(){
+
+        @Override
+        protected String doInBackground(String...S) {
+
+            return server_utilities.webservice_home_profile(S[0]);
+
         }
 
-    }
+        @Override
+        protected void onPostExecute(String s) {
+            Log.d("response from server","is"+s);
+
+
+        }
+
+    }.execute(output);
+}
 
 
 

@@ -50,7 +50,7 @@ public class RegistrationIntentService extends IntentService {
                 String token = instanceID.getToken(SENDER_ID,
                         GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
                 // [END get_token]
-                Log.d(TAG, "GCM Registration Token: " + token);
+                Log.d("iddddddddddddddd", "GCM Registration Token: " + token);
 
                 sendRegistrationToServer(SERVER_URL,token);
                 // Subscribe to topic channels
