@@ -1,8 +1,10 @@
 package com.wiztelsys.ihnastudenthub;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -31,12 +34,16 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,10 +66,22 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
     ViewPager pager;
     Intent from_login=new Intent();
     Integer user_id;
-    String password="123456";
+    Integer user_id1;
+    String password;
     String authorization = "";
     String output;
 Server_utilities server_utilities=new Server_utilities();
+    BroadcastReceiver mRegistrationBroadcastReceiver;
+    boolean sentToken;
+    boolean sender_token_by_me;
+
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    Intent from_pin_login;
+    String password_pin;
+    JSONObject jobj;
+    JSONArray result=null;
+    JSONObject jsonObject;
+    Bundle bundle;
     /*RegistrationIntentService**QuickstartPreferences**MyGcmListenerService**MyInstanceIDListenerService
     are the classes for sending and receiving notification..it is called in the oncreate method of home class */
 
@@ -72,17 +91,32 @@ Server_utilities server_utilities=new Server_utilities();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
         pageIndicator = (CirclePageIndicator) findViewById(R.id.titles);
+        from_pin_login=getIntent();
+        password_pin=from_pin_login.getStringExtra("password");
 
 
+        Log.d("useridinhome","response:"+password_pin);
         sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         editor.putBoolean("firstlogin", false);
         editor.commit();
 
+        sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        password = sharedPreferences.getString("password", null);
+        user_id1=sharedPreferences.getInt("installation_id",0);
+        Log.d("useridinhome","111111111111:"+password+""+user_id1);
+
+
         from_login=getIntent();
         user_id=from_login.getIntExtra("user_id",0);
 
+        Log.d("useridinhome","response:"+user_id);
+
+        sharedPreferences = getSharedPreferences("notification", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        sender_token_by_me = sharedPreferences.getBoolean("server_reg", true);
         initializeviews();
 
         addDrawerItems();
@@ -122,15 +156,27 @@ Server_utilities server_utilities=new Server_utilities();
             }
         });
         // for the notification SharedPreferences sharedPreferences =
-     /*   PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean sentToken = sharedPreferences
-                .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
-        if (sentToken) { */
+       PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+         sentToken = sharedPreferences
+                .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true);
+
+        Log.d("111111111111111111",""+sentToken);
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(context);
+                 sentToken = sharedPreferences
+                        .getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+
+            }
+        };
+        if (checkPlayServices()&&sender_token_by_me) {
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
-      /*  } else {
-           return;
-        }  */
+        }
 
         calltowebservice();
     }
@@ -138,7 +184,7 @@ Server_utilities server_utilities=new Server_utilities();
 public void calltowebservice(){
 
     byte[] data = null;
-    authorization = user_id + ":" + password;
+    authorization = user_id1 + ":" + password;
     try {
         data = authorization.getBytes("UTF-8");
          output= Base64.encodeToString(data, Base64.DEFAULT);
@@ -157,7 +203,26 @@ public void calltowebservice(){
 
         @Override
         protected void onPostExecute(String s) {
-            Log.d("response from server","is"+s);
+            Log.d("inside homeeeeeeeeeeee","is"+s);
+           try{
+
+                jsonObject=new JSONObject(s);
+                result = jsonObject.getJSONArray("profiles");
+                for(Integer i=0;i<result.length();i++){
+                    jobj=result.getJSONObject(i);
+                    bundle=new Bundle();
+                    bundle.putString("first_name",jobj.getString("first_name"));
+                    Log.d("999999999999",""+jobj.getString("first_name"));
+
+
+                }
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }catch (NullPointerException e){
+                e.printStackTrace();
+            }
+
 
 
         }
@@ -340,5 +405,31 @@ public void calltowebservice(){
         }
 
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(QuickstartPreferences.REGISTRATION_COMPLETE));
+    }
 
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
+    }
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
 }

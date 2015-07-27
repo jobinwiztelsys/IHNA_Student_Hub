@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Privacy"
+        android:padding="10dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:id="@+id/profile_title"
+        android:layout_alignParentTop="true"
+        android:background="@color/lightblue"
+        android:layout_height="wrap_content" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -13,10 +25,10 @@
 
         android:gravity="left|center_vertical"
 
-        android:text="New Button"
+        android:text="Security pin change"
         android:id="@+id/button2"
+android:layout_below="@+id/profile_title"
 
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -29,7 +41,7 @@
         android:paddingLeft="20dp"
         android:gravity="left|center_vertical"
 
-        android:text="New Button"
+        android:text="Mobile Number"
         android:id="@+id/button3"
         android:layout_below="@+id/button2"
         android:layout_alignParentLeft="true"
@@ -43,7 +55,7 @@
         android:drawableRight="@drawable/privacy_page_next_btn_arrow"
         android:background="@drawable/gradient_selector"
         android:paddingRight="20dp"
-        android:text="New Button"
+        android:text="Linked Devices"
         android:id="@+id/button4"
         android:layout_below="@+id/button3"
         android:layout_alignParentLeft="true"
@@ -57,7 +69,7 @@
         android:drawableRight="@drawable/privacy_page_next_btn_arrow"
         android:background="@drawable/gradient_selector"
         android:paddingRight="20dp"
-        android:text="New Button"
+        android:text="Terms And Conditions"
         android:id="@+id/button5"
         android:layout_below="@+id/button4"
         android:layout_alignParentLeft="true"

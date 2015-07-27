@@ -29,12 +29,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register_Pin_Class"/>
-        <activity android:name=".Pin_Login"/>
-        <activity android:name=".Home_page"/>
-        <activity android:name=".Library_page"/>
-        <activity android:name=".Notification_page"/>
-        <activity android:name=".Reset_pin_page"/>
+        <activity android:name=".Register_Pin_Class"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Pin_Login"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Home_page"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Library_page"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Notification_page"
+            android:screenOrientation="portrait"/>
+
+
+        <activity android:name=".Reset_pin_page"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Mobile_number_page"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Linked_devices_page"
+            android:screenOrientation="portrait"/>
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

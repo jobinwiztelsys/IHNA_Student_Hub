@@ -1,14 +1,25 @@
 package com.wiztelsys.ihnastudenthub;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Raju on 15-07-2015.
@@ -19,17 +30,30 @@ public class Register_Pin_Class extends Activity implements View.OnClickListener
     ImageButton imageView_1a,imageView_1b,imageView_1c,imageView_1d;
     ImageButton imageView_2a,imageView_2b,imageView_2c,imageView_2d;
     static int count;  // to set '*' symbol in the imageview..
+    Intent from_login;
+    Integer user_id;
+    String username;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
-
+Server_utilities server_utilities=new Server_utilities();
     StringBuilder password_enter=new StringBuilder(); // to save the user entered password
     StringBuilder password_confirm=new StringBuilder(); // to save the confirm password
     String buttonText; // variable to store the button click text
-
+    String auth="";
+    String password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_pin_page);
+        from_login=getIntent();
+        user_id=from_login.getIntExtra("user_id",0);
+        Log.d("userid_reg",""+user_id);
+       username=from_login.getStringExtra("username");
+        Log.d("unameeeeeeeeeee",""+username);
+        password=from_login.getStringExtra("password");
         count=0;
+
         initializeviews();
     }
 
@@ -70,6 +94,13 @@ public class Register_Pin_Class extends Activity implements View.OnClickListener
         button_backspace.setOnClickListener(this);
     }
 
+    public String Mac_address(){
+        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wInfo = wifiManager.getConnectionInfo();
+        String macAddress = wInfo.getMacAddress();
+        return macAddress;
+
+    }
     @Override
     public void onClick(View view) {
 
@@ -81,9 +112,10 @@ public class Register_Pin_Class extends Activity implements View.OnClickListener
 if(buttonText.contains("OK")){
     if(password_confirm.length()==4&&password_enter.length()==4&&password_enter.toString().contains(password_confirm.toString())){
 
-        Intent home=new Intent(Register_Pin_Class.this,Home_page.class);
+        callwebservice();
+     /*   Intent home=new Intent(Register_Pin_Class.this,Home_page.class);
         startActivity(home);
-        finish();
+        finish(); */
     }
     else{
         Toast.makeText(getApplicationContext(),"Password Missmatch",Toast.LENGTH_LONG).show();
@@ -215,6 +247,65 @@ if(buttonText.contains("OK")){
 
     }
 
+public void callwebservice(){
+    byte[] data = null;
+    auth = username.trim() + ":" + password.trim();
+    try {
+        data = auth.getBytes("UTF-8");
+    }
+    catch (UnsupportedEncodingException e1) {
+        e1.printStackTrace();
+    }
 
+
+    String output= Base64.encodeToString(data, Base64.DEFAULT);
+Log.d("outputttttttttt",""+output);
+
+    new AsyncTask<String,Void,String>(){
+
+        @Override
+        protected String doInBackground(String...strings) {
+            return server_utilities.webservicefor_register_pin(strings[0],user_id,password_confirm.toString());
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.d("response from server","is"+s);
+            try {
+
+                JSONObject jsonObject = new JSONObject(s);
+                String msg=jsonObject.getString("message");
+                Integer instal_id=jsonObject.getInt("installation_id");
+                Log.d("response from server","is"+user_id);
+                sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+                editor.putInt("installation_id", instal_id);
+                editor.putString("password", password_confirm.toString());
+
+                editor.commit();
+                if(msg.contains("Saved")){
+
+
+                        Intent register_pin=new Intent(Register_Pin_Class.this,Home_page.class);
+                        register_pin.putExtra("user_id",user_id);
+
+                        startActivity(register_pin);
+                        finish();
+
+                  /*  Intent home=new Intent(LoginStudentHub.this,Home_page.class);
+                    home.putExtra("user_id",user_id);
+                    startActivity(home);
+                    finish();  */
+                }
+
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+
+        }
+
+    }.execute(output);
+}
 }
 

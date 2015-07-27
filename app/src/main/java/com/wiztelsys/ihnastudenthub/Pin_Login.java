@@ -4,12 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Raju on 15-07-2015.
@@ -22,14 +29,26 @@ public class Pin_Login extends Activity implements View.OnClickListener {
     String buttonText; // for saving the button text
     static int count;
     StringBuilder password_enter = new StringBuilder();
-
+    Integer user_id;
+    String pswd;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+String authorization;
+    String output;
+    Server_utilities server_utilities=new Server_utilities();
+    String response;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pin_login_page);
         initializeviews();
         count = 0;
+        sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        user_id = sharedPreferences.getInt("installation_id", 0);
+        pswd=sharedPreferences.getString("password",null);
 
+Log.d("1111111111",""+user_id+""+pswd);
     }
 
     public void initializeviews() {
@@ -129,12 +148,61 @@ public class Pin_Login extends Activity implements View.OnClickListener {
             count=count+1;
             password_enter.append(buttonText);
             Log.d("password",""+password_enter.toString());
-
-            Intent home=new Intent(Pin_Login.this,Home_page.class);
+            calltowebservice();
+          /*  Intent home=new Intent(Pin_Login.this,Home_page.class);
             startActivity(home);
-            finish();
+            finish();  */
 
         }
 
+    }
+
+    public void calltowebservice(){
+        byte[] data = null;
+        authorization = user_id + ":" + password_enter.toString().trim();
+        try {
+            data = authorization.getBytes("UTF-8");
+           output= Base64.encodeToString(data, Base64.DEFAULT);
+        }
+        catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
+        new AsyncTask<String,Void,String>(){
+
+            @Override
+            protected String doInBackground(String...S) {
+
+                return server_utilities.webservice_home_profile(S[0]);
+
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                Log.d("response from server","is"+s);
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    response=jsonObject.getString("message");
+                    if(response.contains("Unauthorized")){
+                        Toast.makeText(getApplicationContext(), "Password Incorrect", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
+
+
+                        Intent home = new Intent(Pin_Login.this, Home_page.class);
+                        home.putExtra("password",password_enter.toString().trim());
+                        home.putExtra("user_id",user_id);
+                        startActivity(home);
+                        finish();
+
+
+            }
+
+        }.execute(output);
     }
 }

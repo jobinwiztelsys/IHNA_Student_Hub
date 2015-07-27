@@ -1,5 +1,8 @@
 package com.wiztelsys.ihnastudenthub;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.util.Base64;
 import android.util.Log;
 
@@ -179,7 +182,7 @@ public class Server_utilities {
         String basic="Basic ";
 
         httppost = new HttpPost("http://220.227.57.26/ihna_webapp/users/login");
-        httppost.setHeader("Accept", "application/json");
+       httppost.setHeader("Accept", "application/json");
         httppost.setHeader("Content-type", "application/json");
       //  httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
         httppost.setHeader("Authorization",basic.concat(authorization1));
@@ -238,17 +241,20 @@ return result;
 
         HttpResponse response = null;
 
-        HttpPost httppost;
+        HttpGet httpGet;
         String result = null;
         String basic="Basic ";
+        StringEntity se = null;
+        JSONObject jobj=new JSONObject();
 
-        httppost = new HttpPost("http://10.0.0.100/ihna_webapp/profiles/view/1700");
-        httppost.setHeader("Accept", "application/json");
-        httppost.setHeader("Content-type", "application/json");
-        //  httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        httppost.setHeader("Authorization",basic.concat(authen.trim()));
+
+        httpGet = new HttpGet("http://220.227.57.26/ihna_webapp/profiles");
+        httpGet.setHeader("Accept", "application/json");
+        httpGet.setHeader("Content-type", "application/json");
+     //   httpGet.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        httpGet.setHeader("Authorization",basic.concat(authen.trim()));
         try {
-            response = httpclient.execute(httppost);
+            response = httpclient.execute(httpGet);
             result=inputStreamToString(response.getEntity()
                     .getContent());
             Log.d("response111111111111111","response:"+authen.toString());
@@ -274,6 +280,68 @@ return result;
         }
         return result;
     }
+
+
+    public String webservicefor_register_pin(String auth,Integer user_id,String passwd){
+        StringEntity se = null;
+        JSONObject jobj=new JSONObject();
+        try {
+            jobj.put("user_id", user_id);
+            jobj.put("four_digit_pin", passwd);
+            Log.d("jsonString", "" + jobj.toString());
+            se = new StringEntity(jobj.toString());
+        }
+            catch (UnsupportedEncodingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        catch(JSONException e){
+            e.printStackTrace();
+
+        }
+        HttpClient httpclient = new DefaultHttpClient(getHttpParams());
+
+        HttpResponse response = null;
+
+        HttpPost httppost;
+        String result = null;
+        String basic="Basic ";
+
+        httppost = new HttpPost("http://220.227.57.26/ihna_webapp/installations/add");
+        httppost.setHeader("Accept", "application/json");
+          httppost.setHeader("Content-type", "application/json");
+       // httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        httppost.setHeader("Authorization",basic.concat(auth.trim()));
+        httppost.setEntity(se);
+        try {
+            response = httpclient.execute(httppost);
+            result=inputStreamToString(response.getEntity()
+                    .getContent());
+            Log.d("response111111111111111","response:"+auth.toString());
+            Log.d("response","response:"+result);
+
+        }
+        catch (SocketTimeoutException e) {
+
+            System.out.println("After Execute TIME_OUT_EXECPTION \n");
+
+            // TODO: handle exception
+            // response=StaticValues.TIME_OUT_EXECPTION;
+        } catch (ConnectTimeoutException e) {
+            // TODO: handle exception
+
+        }
+
+        catch (Exception e) {
+            System.out.println("OOOOOOOOOOOPSSSSS \n");
+
+
+
+        }
+        return result;
+    }
+
 
     }
 

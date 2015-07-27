@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -89,6 +90,9 @@ else {
         username_et=(EditText)findViewById(R.id.login_unameET);
         password_et=(EditText)findViewById(R.id.login_passwordET);
         call=(Button)findViewById(R.id.call_ihnaBtn);
+        int settings = EditorInfo.TYPE_CLASS_TEXT;
+        username_et.setInputType(settings);
+        username_et.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         call.setOnClickListener(this);
         sigin.setOnClickListener(this);
     }
@@ -104,11 +108,11 @@ else {
                 startActivity(intent);
                 break;
             case R.id.login_signin_btn:
-             /*   if(first_time_login){
-                    Intent register_pin=new Intent(LoginStudentHub.this,Register_Pin_Class.class);
+              /*  if(first_time_login){
+                    Intent register_pin=new Intent(LoginStudentHub.this,Home_page.class);
                     startActivity(register_pin);
                     finish();
-                } */
+                }  */
                 callinggwebservice();
                 break;
 
@@ -152,11 +156,27 @@ public void callinggwebservice(){
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 Integer user_id=jsonObject.getInt("user_id");
+                Log.d("response from server","is"+user_id);
+
+                sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+
+                editor.putInt("user_id", user_id);
+                editor.commit();
                 if(user_id!=null){
-                    Intent home=new Intent(LoginStudentHub.this,Home_page.class);
+
+                    if(first_time_login){
+                        Intent register_pin=new Intent(LoginStudentHub.this,Register_Pin_Class.class);
+                        register_pin.putExtra("user_id",user_id);
+                        register_pin.putExtra("username",Username);
+                        register_pin.putExtra("password",Password);
+                        startActivity(register_pin);
+                        finish();
+                    }
+                  /*  Intent home=new Intent(LoginStudentHub.this,Home_page.class);
                     home.putExtra("user_id",user_id);
                     startActivity(home);
-                    finish();
+                    finish();  */
                 }
 
             }catch(JSONException e){

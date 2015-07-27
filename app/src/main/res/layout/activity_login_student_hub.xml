@@ -70,6 +70,14 @@
 
 </LinearLayout>
 
+
+
+
+
+
+
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,7 +89,7 @@
         android:layout_above="@+id/login_signin_btn_layout"
         android:background="@drawable/rounded_edge_rectangle"
         android:orientation="horizontal"
-        >
+        android:id="@+id/linearLayout">
 
         <LinearLayout
             android:layout_width="15dp"
@@ -132,6 +140,16 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <ImageView
+
+        android:layout_width="182dp"
+        android:layout_height="150dp"
+        android:id="@+id/imageView4"
+        android:src="@drawable/student_hub_logo"
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp" />
 
 
 </RelativeLayout>

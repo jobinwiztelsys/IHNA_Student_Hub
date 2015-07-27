@@ -1,6 +1,7 @@
 package com.wiztelsys.ihnastudenthub;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -28,7 +29,8 @@ public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
     private static final String[] TOPICS = {"global"};
     static final String SENDER_ID = "880618443660";
-    static final String SERVER_URL = "http://10.0.0.20/gcm_server_php/register.php";
+    static final String SERVER_URL = "http://220.227.57.26/push_notification_android/gcm_server_php/register.php";//220.227.57.26/push_notification_android/gcm_server_php/register.php
+    SharedPreferences.Editor editor;
 
     public RegistrationIntentService() {
         super(TAG);
@@ -52,8 +54,14 @@ public class RegistrationIntentService extends IntentService {
                 // [END get_token]
                 Log.d("iddddddddddddddd", "GCM Registration Token: " + token);
 
+
                 sendRegistrationToServer(SERVER_URL,token);
                 // Subscribe to topic channels
+                sharedPreferences = getSharedPreferences("notification", Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+                editor.putBoolean("server_reg", false);
+                editor.commit();
+
                 subscribeTopics(token);
 
                 // You should store a boolean that indicates whether the generated token has been
@@ -66,6 +74,10 @@ public class RegistrationIntentService extends IntentService {
             Log.d(TAG, "Failed to complete token refresh", e);
             // If an exception happens while fetching the new token or updating our registration data
             // on a third-party server, this ensures that we'll attempt the update at a later time.
+            sharedPreferences = getSharedPreferences("notification", Context.MODE_PRIVATE);
+            editor = sharedPreferences.edit();
+            editor.putBoolean("server_reg", false);
+            editor.commit();
             sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
         }
         // Notify UI that registration has completed, so the progress indicator can be hidden.
@@ -82,6 +94,7 @@ public class RegistrationIntentService extends IntentService {
 
     private void sendRegistrationToServer(String endpoint,String token)throws IOException {
         // Add custom implementation, as needed.
+
         Map<String, String> params = new HashMap<String, String>();
         params.put("regId", token);
         URL url;
