@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -24,18 +25,19 @@ import java.io.UnsupportedEncodingException;
  * Created by Raju on 20-07-2015.
  */
 public class Profile_home_fragment extends Fragment {
-    TextView t;
+    TextView f_name,t_name,l_name,p_name,u_name;
     String password;
     Integer user_id1;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-Server_utilities server_utilities;
+Server_utilities server_utilities=new Server_utilities();
     String authorization;
     String output;
     JSONObject jobj;
     JSONArray result=null;
     JSONObject jsonObject;
     String Profile_name;
+    ProgressBar progressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -45,12 +47,16 @@ Server_utilities server_utilities;
         sharedPreferences = getActivity().getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         password = sharedPreferences.getString("password", null);
-        user_id1=sharedPreferences.getInt("user_id",0);
+        user_id1=sharedPreferences.getInt("installation_id",0);
         Log.d("useridinhome", "111111111111:" + password + "" + user_id1);
 
 
-        t=(TextView)v.findViewById(R.id.Profile_page_first_nametv);
-
+        f_name=(TextView)v.findViewById(R.id.Profile_page_first_nametv);
+        t_name=(TextView)v.findViewById(R.id.Profile_page_titleTV);
+        l_name=(TextView)v.findViewById(R.id.Profile_page_last_nametv);
+        p_name=(TextView)v.findViewById(R.id.home_page_username1);
+        u_name=(TextView)v.findViewById(R.id.Profile_page_user_nametv);
+        calltowebservice();
         return v;
 
 
@@ -59,7 +65,7 @@ Server_utilities server_utilities;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        calltowebservice();
+
     }
 
     public static Profile_home_fragment newInstance(String text) {
@@ -86,6 +92,12 @@ Server_utilities server_utilities;
         new AsyncTask<String,Void,String>(){
 
             @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+          //progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
             protected String doInBackground(String...S) {
 
                 return server_utilities.webservice_home_profile(S[0]);
@@ -95,6 +107,7 @@ Server_utilities server_utilities;
             @Override
             protected void onPostExecute(String s) {
                 Log.d("inside homeeeeeeeeeeee","is"+s);
+              //  progressBar.setVisibility(View.INVISIBLE);
                 try{
 
                     jsonObject=new JSONObject(s);
@@ -105,7 +118,11 @@ Server_utilities server_utilities;
                        Profile_name=jobj.getString("first_name");
                         Log.d("999999999999",""+jobj.getString("first_name"));
 
-                        t.setText(Profile_name);
+                        f_name.setText(Profile_name);
+                        t_name.setText(jobj.getString("title"));
+                        l_name.setText(jobj.getString("last_name"));
+                        p_name.setText(jobj.getString("prefer_name"));
+                        u_name.setText(jobj.getString("institute_email"));
                     }
                 }
 

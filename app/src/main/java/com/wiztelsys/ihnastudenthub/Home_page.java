@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -59,17 +60,17 @@ public class Home_page extends FragmentActivity implements View.OnClickListener{
     SharedPreferences.Editor editor;
     Toolbar toolbar;
     ListView listView;
+    Button notification_button;
     DrawerLayout drawerLayout;
     private ArrayAdapter<String> mAdapter;
     ImageButton imageButton_toolbar;
+    Button call_IhnaBtn;
     CirclePageIndicator pageIndicator;
     ViewPager pager;
     Intent from_login=new Intent();
     Integer user_id;
     Integer user_id1;
     String password;
-    String authorization = "";
-    String output;
 Server_utilities server_utilities=new Server_utilities();
     BroadcastReceiver mRegistrationBroadcastReceiver;
     boolean sentToken;
@@ -95,7 +96,7 @@ Server_utilities server_utilities=new Server_utilities();
         password_pin=from_pin_login.getStringExtra("password");
 
 
-        Log.d("useridinhome","response:"+password_pin);
+
         sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -112,7 +113,7 @@ Server_utilities server_utilities=new Server_utilities();
         from_login=getIntent();
         user_id=from_login.getIntExtra("user_id",0);
 
-        Log.d("useridinhome","response:"+user_id);
+
 
         sharedPreferences = getSharedPreferences("notification", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -178,57 +179,10 @@ Server_utilities server_utilities=new Server_utilities();
             startService(intent);
         }
 
-        calltowebservice();
+
     }
 
-public void calltowebservice(){
 
-    byte[] data = null;
-    authorization = user_id1 + ":" + password;
-    try {
-        data = authorization.getBytes("UTF-8");
-         output= Base64.encodeToString(data, Base64.DEFAULT);
-    }
-    catch (UnsupportedEncodingException e1) {
-        e1.printStackTrace();
-    }
-    new AsyncTask<String,Void,String>(){
-
-        @Override
-        protected String doInBackground(String...S) {
-
-            return server_utilities.webservice_home_profile(S[0]);
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            Log.d("inside homeeeeeeeeeeee","is"+s);
-           try{
-
-                jsonObject=new JSONObject(s);
-                result = jsonObject.getJSONArray("profiles");
-                for(Integer i=0;i<result.length();i++){
-                    jobj=result.getJSONObject(i);
-                    bundle=new Bundle();
-                    bundle.putString("first_name",jobj.getString("first_name"));
-                    Log.d("999999999999",""+jobj.getString("first_name"));
-
-
-                }
-            }
-            catch (JSONException e){
-                e.printStackTrace();
-            }catch (NullPointerException e){
-                e.printStackTrace();
-            }
-
-
-
-        }
-
-    }.execute(output);
-}
 
 
 
@@ -239,9 +193,12 @@ public void calltowebservice(){
         listView=(ListView)findViewById(R.id.home_Listview);
         drawerLayout=(DrawerLayout)findViewById(R.id.home_drawer_layout);
         imageButton_toolbar=(ImageButton)findViewById(R.id.toolbar_imagebutton);
+        notification_button=(Button)findViewById(R.id.notification_button);
+        notification_button.setOnClickListener(this);
         toolbar.setOnClickListener(this);
         imageButton_toolbar.setOnClickListener(this);
-
+        call_IhnaBtn=(Button)findViewById(R.id.call_IhnaBtn);
+        call_IhnaBtn.setOnClickListener(this);
 
        // setSupportActionBar(toolbarBottom);
 
@@ -249,10 +206,7 @@ public void calltowebservice(){
             @Override
             public boolean onMenuItemClick(MenuItem item) {
   switch (item.getItemId()){
-      case R.id.reset:
-          Intent reset=new Intent(getApplicationContext(),Reset_pin_page.class);
-          startActivity(reset);
-          finish();
+
   }
                 return true;
             }
@@ -285,6 +239,16 @@ public void calltowebservice(){
          drawerLayout.openDrawer(Gravity.LEFT);
 
 
+         break;
+     case R.id.notification_button:
+         Intent noftify=new Intent(getApplicationContext(),Notification_page.class);
+         startActivity(noftify);
+         finish();
+         break;
+
+     case R.id.call_IhnaBtn:
+         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "1800225283"));
+         startActivity(intent);
          break;
  }
     }
@@ -335,7 +299,7 @@ public void calltowebservice(){
         }
     }
 
-    public class Viewholder{
+    private class Viewholder{
         TextView text;
 
     }

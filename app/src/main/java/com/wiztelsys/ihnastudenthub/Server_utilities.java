@@ -42,6 +42,7 @@ public class Server_utilities {
     // socket timeout, in milliseconds (waiting for data)
     private static final int SOCKET_TIMEOUT = 60 * 1000;
     String authorization1=null;
+    HttpURLConnection urlConnection;
 
     Server_utilities() {
 
@@ -62,13 +63,9 @@ public class Server_utilities {
     public String login_webservice(String authorization) {
 
 
-    /*   try {
 
-            URL myURL = new URL("http://10.0.0.37/ihna_webapp/users/login");
-            HttpURLConnection myURLConnection = (HttpURLConnection) myURL.openConnection();
-            String userCredentials = "username:password";
             // String basicAuth = "Basic " + new String(new Base64().encode(userCredentials.getBytes()));
-
+/*
             myURLConnection.setRequestMethod("POST");
 
             myURLConnection.addRequestProperty("Authorization",authorization);
@@ -78,96 +75,10 @@ public class Server_utilities {
             myURLConnection.setUseCaches(false);
             myURLConnection.setDoInput(true);
             myURLConnection.setDoOutput(true);
-           Log.d("rajeev","111111111111"+myURLConnection.getResponseMessage());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(myURLConnection.getInputStream()));
-          //  BufferedReader br = new BufferedReader(new InputStreamReader(myURLConnection.getInputStream(),"utf-8"));
-
-            String line = reader.readLine();
-
-            Log.d("rajeev","111111111111"+line);
-            return null;
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        } finally {
-
-
-        }
-       return null; */
-   /*     HttpClient httpClient=new DefaultHttpClient();
-        HttpPost httpPost=new HttpPost("http://220.227.57.26/ihna_webapp/users/login");
-        StringEntity se = null;
-
-        try {
-            //Log.v("jsonString new","Username"  +Username);
-            se=new StringEntity("http://10.0.0.30/ihna_webapp/users/login".toString());
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        httpPost.addHeader("Accept", "application/json");
-        httpPost.addHeader("Content-type", "application/json");
-        httpPost.addHeader("Authorization", "Basic c3JlZWt1bWFyOjEyMzQ1Ng==");
+           Log.d("rajeev","111111111111"+myURLConnection.getResponseMessage());  */
 
 
 
-
-
-        try {
-
-            HttpResponse httpResponse=httpClient.execute(httpPost);
-            Log.d("post data","httppost"  +httpResponse);
-            HttpEntity entity=httpResponse.getEntity();
-            if(entity!=null){
-
-                InputStream in=entity.getContent();
-                String line = null;
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                line= reader.readLine();
-                Log.d("response","response:"+line);
-
-            }
-
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return  null; */
-     /*   try {
-            HttpUriRequest request = new HttpPost("http://10.0.0.37/ihna_webapp/users/login");
-            HttpClient httpclient = new DefaultHttpClient();
-         //   request.setHeader("Accept", "application/json");
-         //   request.setHeader("Content-type", "application/json");
-            request.addHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.addHeader("Authorization", authorization);
-
-            HttpResponse httpResponse= httpclient.execute(request);
-            HttpEntity entity=httpResponse.getEntity();
-            InputStream in=entity.getContent();
-            String line = null;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            line= reader.readLine();
-            Log.d("response","response:"+line);
-            JSONObject jsonObject=new JSONObject(line);
-            Log.d("response","response:"+jsonObject.getString("message"));
-        }
-        catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (JSONException e){
-            e.printStackTrace();
-        }
-        return null; */
        String authorization1= authorization.trim();
 
 
@@ -214,6 +125,7 @@ public class Server_utilities {
 return result;
     }
 
+    //********************************************* for parsing**************************
     public String inputStreamToString(InputStream is) {
 
         String line = "";
@@ -234,7 +146,7 @@ return result;
         // Return full string
         return total.toString();
     }
-
+//************************************************************************************//
 
     public String webservice_home_profile(String authen){
         HttpClient httpclient = new DefaultHttpClient(getHttpParams());
@@ -281,7 +193,7 @@ return result;
         return result;
     }
 
-
+//*******************************************************************************************
     public String webservicefor_register_pin(String auth,Integer user_id,String passwd){
         StringEntity se = null;
         JSONObject jobj=new JSONObject();
@@ -340,6 +252,127 @@ return result;
 
         }
         return result;
+    }
+
+//**************************************************************************************
+    public String webservice_for_notification_db(String authn){
+
+     /*   String basicc="Basic ";
+        try {
+            URL url = new URL("http://220.227.57.26/ihna_webapp/notifications");
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setDoInput(true);
+            urlConnection.setUseCaches(false);
+            urlConnection.addRequestProperty("Accept", "application/json");
+            urlConnection.addRequestProperty("Content-type", "application/json");
+            //   httpGet.setHeader("Content-Type", "application/x-www-form-urlencoded");
+            urlConnection.addRequestProperty("Authorization",basicc.concat(authn.trim()));
+
+            urlConnection.setRequestMethod("POST");
+            urlConnection.connect();
+
+            int HttpResult =urlConnection.getResponseCode();
+
+            if(HttpResult ==HttpURLConnection.HTTP_OK){
+
+               BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(),"utf-8"));
+
+               String line=inputStreamT(br);
+
+                Log.d("rajeev","111111111111"+line);
+                JSONObject jsonobj=new JSONObject(line);
+
+
+
+                return  jsonobj.toString();
+
+
+
+
+            }
+        }
+        catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            if(urlConnection != null) {
+                urlConnection.disconnect();
+            }
+        }
+        return null; */
+
+        HttpClient httpclient = new DefaultHttpClient(getHttpParams());
+
+        HttpResponse response = null;
+
+        HttpGet httpGet;
+        String result = null;
+        String basicc="Basic ";
+        StringEntity se = null;
+        JSONObject jobj=new JSONObject();
+
+
+        httpGet = new HttpGet("http://220.227.57.26/ihna_webapp/notifications");
+        httpGet.setHeader("Accept", "application/json");
+        httpGet.setHeader("Content-type", "application/json");
+        //   httpGet.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        httpGet.setHeader("Authorization",basicc.concat(authn.trim()));
+        try {
+            response = httpclient.execute(httpGet);
+            result=inputStreamToString(response.getEntity()
+                    .getContent());
+
+            Log.d("response","response:"+result);
+
+        }
+        catch (SocketTimeoutException e) {
+
+            System.out.println("After Execute TIME_OUT_EXECPTION \n");
+
+            // TODO: handle exception
+            // response=StaticValues.TIME_OUT_EXECPTION;
+        } catch (ConnectTimeoutException e) {
+            // TODO: handle exception
+
+        }
+
+        catch (Exception e) {
+            System.out.println("OOOOOOOOOOOPSSSSS \n");
+
+
+
+        }
+        return result;
+
+
+    }
+
+    public String inputStreamT(BufferedReader rd) {
+
+        String line = "";
+        StringBuilder total = new StringBuilder();
+
+        // Wrap a BufferedReader around the InputStream
+
+
+        try {
+            // Read response until the end
+            while ((line = rd.readLine()) != null) {
+                total.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Return full string
+        return total.toString();
     }
 
 

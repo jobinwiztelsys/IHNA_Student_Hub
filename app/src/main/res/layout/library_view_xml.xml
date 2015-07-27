@@ -45,6 +45,31 @@ android:layout_below="@id/toolbar"
         android:layout_height="wrap_content"
         android:id="@+id/gridView"
         />
+
+    <Button
+        android:layout_width="30dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/notification_button"
+        android:layout_height="30dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_above="@+id/home_frame_layout"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/notification_icon"
+        android:layout_alignParentEnd="true" />
+    <Button
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        android:background="@drawable/call_ihna_btn"
+        android:layout_marginRight="30dp"
+
+
+        android:id="@+id/call_IhnaBtn"
+
+        android:layout_alignBottom="@+id/notification_button"
+        android:layout_toLeftOf="@+id/notification_button"
+        android:layout_toStartOf="@+id/notification_button" />
+
 </RelativeLayout>
 
 

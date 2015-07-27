@@ -31,7 +31,7 @@ public class Linked_devices_page extends Home_page {
         listView.setAdapter(new Base_view(getApplicationContext(),al));
     }
 
-    public class Viewholder{
+    private class Viewholder{
         ImageView imageView;
         TextView id;
         TextView cmphd;
