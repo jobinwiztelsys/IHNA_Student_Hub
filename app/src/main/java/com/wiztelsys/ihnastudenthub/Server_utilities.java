@@ -117,11 +117,10 @@ public class Server_utilities {
         }
 
         catch (Exception e) {
+
             System.out.println("OOOOOOOOOOOPSSSSS \n");
+ }
 
-
-
-        }
 return result;
     }
 

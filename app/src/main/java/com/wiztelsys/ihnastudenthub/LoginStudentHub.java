@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -35,7 +38,8 @@ public class LoginStudentHub extends Activity implements View.OnClickListener {
 
     String Username,Password; // to save the edittext name and password
     String authorization = "";
-
+    ConnectivityManager connect = null;
+    private ProgressBar progressBar;
     Server_utilities server_utilities=new Server_utilities();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +59,14 @@ if(!first_time_login){
 
 else {
     setContentView(R.layout.activity_login_student_hub);
+
     initializeviews();
+    //the following code checks for internet connectivity of the device and redirects to the home page if network is available and login form is filled
+
+    connect = (ConnectivityManager) this.getSystemService(this.CONNECTIVITY_SERVICE);
+    final boolean is3G = connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isAvailable();
+    final boolean isWifi = connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+
 }
 
 
@@ -95,6 +106,8 @@ else {
         username_et.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         call.setOnClickListener(this);
         sigin.setOnClickListener(this);
+        progressBar=(ProgressBar)findViewById(R.id.pbHeaderProgress);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -113,7 +126,18 @@ else {
                     startActivity(register_pin);
                     finish();
                 }  */
-                callinggwebservice();
+
+                if (connect != null) {
+                    NetworkInfo result = (connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE));
+                    NetworkInfo result1 = connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                    if ((result != null && result.isConnectedOrConnecting()) || (result1 != null && result1.isConnectedOrConnecting())) {
+                        callinggwebservice();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "network not available", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
                 break;
 
         }
@@ -145,6 +169,11 @@ public void callinggwebservice(){
     new AsyncTask<String,Void,String>(){
 
         @Override
+        protected void onPreExecute() {
+           progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected String doInBackground(String...strings) {
            return server_utilities.login_webservice(strings[0]);
 
@@ -153,6 +182,8 @@ public void callinggwebservice(){
         @Override
         protected void onPostExecute(String s) {
             Log.d("response from server","is"+s);
+
+            progressBar.setVisibility(View.INVISIBLE);
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 Integer user_id=jsonObject.getInt("user_id");
@@ -179,7 +210,9 @@ public void callinggwebservice(){
                     finish();  */
                 }
 
+
             }catch(JSONException e){
+                Toast.makeText(getApplicationContext(), "Connection TimeOut...", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
 

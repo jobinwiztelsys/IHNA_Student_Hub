@@ -50,7 +50,7 @@ Server_utilities server_utilities=new Server_utilities();
         user_id1=sharedPreferences.getInt("installation_id",0);
         Log.d("useridinhome", "111111111111:" + password + "" + user_id1);
 
-
+progressBar=(ProgressBar)v.findViewById(R.id.pbHeaderProgress);
         f_name=(TextView)v.findViewById(R.id.Profile_page_first_nametv);
         t_name=(TextView)v.findViewById(R.id.Profile_page_titleTV);
         l_name=(TextView)v.findViewById(R.id.Profile_page_last_nametv);
@@ -94,7 +94,7 @@ Server_utilities server_utilities=new Server_utilities();
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-          //progressBar.setVisibility(View.VISIBLE);
+          progressBar.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -107,7 +107,7 @@ Server_utilities server_utilities=new Server_utilities();
             @Override
             protected void onPostExecute(String s) {
                 Log.d("inside homeeeeeeeeeeee","is"+s);
-              //  progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
                 try{
 
                     jsonObject=new JSONObject(s);
@@ -127,6 +127,7 @@ Server_utilities server_utilities=new Server_utilities();
                 }
 
                 catch (JSONException e){
+
                     e.printStackTrace();
                 }catch (NullPointerException e){
                     e.printStackTrace();
