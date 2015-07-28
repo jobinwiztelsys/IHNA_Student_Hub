@@ -234,11 +234,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/lightblue"
-                android:text="OK"
+                android:background="@drawable/keypad__call"
+                android:text="10"
                 android:textSize="28sp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/white" />
+                android:textColor="@color/transparent" />
 
             <Button
                 android:id="@+id/register_pin_img_btn_0"
