@@ -18,6 +18,8 @@
     <color name="lightgreen">#afb644</color>
     <color name="keypad_background_line">#49a7e1</color>
     <color name="greenTextcolour">#afb644</color>
+    <color name="profilepic_bg_color">#e1effd</color>
+
 
 
 </resources>

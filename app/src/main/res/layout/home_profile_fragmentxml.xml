@@ -38,17 +38,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="6"
-            android:background="@drawable/profile_top_layout_bg" >
+            android:background="@color/profilepic_bg_color" >
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/home_page_username1"
-                android:layout_centerHorizontal="true"
-                android:minHeight="80dp"
-                android:minWidth="80dp"
-                android:src="@drawable/profile_pic" />
+              android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:background="@drawable/profile_pic"
+                android:layout_centerInParent="true"
+                android:src="@drawable/profile_icon_bg" />
 
             <TextView
                 android:id="@+id/home_page_username1"
@@ -65,6 +63,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
+android:scrollbarAlwaysDrawVerticalTrack="true"
             android:layout_height="match_parent" >
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -224,6 +223,45 @@
                     android:layout_height="1dp"
                     android:layout_below="@+id/home_page_user_namelayout"
                     android:layout_marginBottom="15dp"
+                    android:background="@android:color/darker_gray" />
+
+                <LinearLayout
+                    android:id="@+id/home_page_user_addresslayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewline4"
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
+
+                    <TextView
+                        android:id="@+id/textView64"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/linearLayout"
+                        android:layout_weight="1"
+                        android:text="@string/address"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/Profile_page_user_addressTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/linearLayout"
+                        android:layout_weight="3"
+                        android:text=""
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viewline68"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/home_page_user_addresslayout"
+
                     android:background="@android:color/darker_gray" />
             </RelativeLayout>
         </ScrollView>
