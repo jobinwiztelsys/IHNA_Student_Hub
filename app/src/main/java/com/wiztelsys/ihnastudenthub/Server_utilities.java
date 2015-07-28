@@ -193,12 +193,15 @@ return result;
     }
 
 //*******************************************************************************************
-    public String webservicefor_register_pin(String auth,Integer user_id,String passwd){
+    public String webservicefor_register_pin(String auth,Integer user_id,String passwd,String mac,String div_name){
         StringEntity se = null;
         JSONObject jobj=new JSONObject();
         try {
             jobj.put("user_id", user_id);
             jobj.put("four_digit_pin", passwd);
+            jobj.put("device_id",mac);
+            jobj.put("device_name",div_name);
+            jobj.put("enable_quick_login",1);
             Log.d("jsonString", "" + jobj.toString());
             se = new StringEntity(jobj.toString());
         }
@@ -374,6 +377,52 @@ return result;
         return total.toString();
     }
 
+
+    public String webservice_for_device_details(String auther_string){
+
+        HttpClient httpclient = new DefaultHttpClient(getHttpParams());
+
+        HttpResponse response = null;
+
+        HttpGet httpGet;
+        String result = null;
+        String basic="Basic ";
+        StringEntity se = null;
+        JSONObject jobj=new JSONObject();
+
+
+        httpGet = new HttpGet("http://220.227.57.26/ihna_webapp/installations");
+        httpGet.setHeader("Accept", "application/json");
+        httpGet.setHeader("Content-type", "application/json");
+        //   httpGet.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        httpGet.setHeader("Authorization",basic.concat(auther_string.trim()));
+        try {
+            response = httpclient.execute(httpGet);
+            result=inputStreamToString(response.getEntity()
+                    .getContent());
+            Log.d("response111111111111111","response:"+auther_string.toString());
+            Log.d("response","response:"+result);
+
+        }
+        catch (SocketTimeoutException e) {
+
+            System.out.println("After Execute TIME_OUT_EXECPTION \n");
+
+            // TODO: handle exception
+            // response=StaticValues.TIME_OUT_EXECPTION;
+        } catch (ConnectTimeoutException e) {
+            // TODO: handle exception
+
+        }
+
+        catch (Exception e) {
+            System.out.println("OOOOOOOOOOOPSSSSS \n");
+
+
+
+        }
+        return result;
+    }
 
     }
 

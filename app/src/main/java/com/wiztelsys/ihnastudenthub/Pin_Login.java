@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
@@ -25,6 +26,7 @@ public class Pin_Login extends Activity implements View.OnClickListener {
 
     ImageButton imageButton_1a, imageButton_1b, imageButton_1c, imageButton_1d;
     Button button_1, button_2, button_3, button_4, button_5, button_6, button_7, button_8, button_9, button_0, button_ok;
+    Button forgot_pin;
     Button button_backspace;
     String buttonText; // for saving the button text
     static int count;
@@ -63,6 +65,21 @@ Log.d("1111111111",""+user_id+""+pswd);
         button_8 = (Button) findViewById(R.id.register_pin_img_btn_8);
         button_9 = (Button) findViewById(R.id.register_pin_img_btn_9);
         button_ok = (Button) findViewById(R.id.register_pin_img_btn_ok);
+        forgot_pin=(Button)findViewById(R.id.pin_login_forgot_pinBtn);
+        forgot_pin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+
+                editor.putBoolean("firstlogin", true);
+                editor.commit();
+
+                Intent login_home=new Intent(Pin_Login.this,LoginStudentHub.class);
+                startActivity(login_home);
+                finish();
+            }
+        });
         button_backspace = (Button) findViewById(R.id.register_pin_img_btn_erase);
 
         button_0.setOnClickListener(this);
@@ -90,6 +107,11 @@ Log.d("1111111111",""+user_id+""+pswd);
         Button b = (Button) view;
         buttonText = b.getText().toString();
         Log.d("bbbbbbbbbbbbbbbbbbb", "" + buttonText);
+        if(buttonText.contains("10")){
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "1800225283"));
+            startActivity(intent);
+            return;
+        }
 
         if (buttonText.contains("12")) {
             count = count - 1;

@@ -1,6 +1,7 @@
 package com.wiztelsys.ihnastudenthub;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -98,8 +99,15 @@ Server_utilities server_utilities=new Server_utilities();
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         WifiInfo wInfo = wifiManager.getConnectionInfo();
         String macAddress = wInfo.getMacAddress();
+        Log.d("mac_address",macAddress);
         return macAddress;
 
+    }
+
+    public String getPhoneName() {
+        BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
+        String deviceName = myDevice.getName();
+        return deviceName;
     }
     @Override
     public void onClick(View view) {
@@ -265,7 +273,7 @@ Log.d("outputttttttttt",""+output);
 
         @Override
         protected String doInBackground(String...strings) {
-            return server_utilities.webservicefor_register_pin(strings[0],user_id,password_confirm.toString());
+            return server_utilities.webservicefor_register_pin(strings[0],user_id,password_confirm.toString(),Mac_address(),getPhoneName());
 
         }
 

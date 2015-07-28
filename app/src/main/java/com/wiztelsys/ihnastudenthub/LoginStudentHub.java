@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -29,7 +30,8 @@ import java.io.UnsupportedEncodingException;
 
 public class LoginStudentHub extends Activity implements View.OnClickListener {
 
-    Button sigin,call;         // for login button
+    Button sigin;
+            ImageButton call;// for login button
     EditText username_et; //edittext for username
     EditText password_et; //edittext for password
     Boolean first_time_login; // for checking whether the user is using the app for the first time
@@ -100,7 +102,7 @@ else {
         sigin=(Button)findViewById(R.id.login_signin_btn);
         username_et=(EditText)findViewById(R.id.login_unameET);
         password_et=(EditText)findViewById(R.id.login_passwordET);
-        call=(Button)findViewById(R.id.call_ihnaBtn);
+        call=(ImageButton)findViewById(R.id.call_ihnaBtn);
         int settings = EditorInfo.TYPE_CLASS_TEXT;
         username_et.setInputType(settings);
         username_et.setImeOptions(EditorInfo.IME_ACTION_NEXT);
@@ -152,73 +154,97 @@ else {
 
     }
 public void callinggwebservice(){
-    byte[] data = null;
-    authorization = Username + ":" + Password;
-    try {
-        data = authorization.getBytes("UTF-8");
-    }
-    catch (UnsupportedEncodingException e1) {
-        e1.printStackTrace();
-    }
 
+    if((Username != null && Username.length() > 0 )&& (Password != null && Password.length() > 0 )){
 
-   String output=Base64.encodeToString(data, Base64.DEFAULT);
-
-    Log.d("11111111111111",""+output);
-
-    new AsyncTask<String,Void,String>(){
-
-        @Override
-        protected void onPreExecute() {
-           progressBar.setVisibility(View.VISIBLE);
+        byte[] data = null;
+        authorization = Username + ":" + Password;
+        try {
+            data = authorization.getBytes("UTF-8");
+        }
+        catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
         }
 
-        @Override
-        protected String doInBackground(String...strings) {
-           return server_utilities.login_webservice(strings[0]);
 
-        }
+        String output=Base64.encodeToString(data, Base64.DEFAULT);
+        sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
-        @Override
-        protected void onPostExecute(String s) {
-            Log.d("response from server","is"+s);
+        editor.putString("firstlogin_auth", output);
+        editor.commit();
 
-            progressBar.setVisibility(View.INVISIBLE);
-            try {
-                JSONObject jsonObject = new JSONObject(s);
-                Integer user_id=jsonObject.getInt("user_id");
-                Log.d("response from server","is"+user_id);
+        Log.d("11111111111111",""+output);
 
-                sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
-                editor = sharedPreferences.edit();
+        new AsyncTask<String,Void,String>(){
 
-                editor.putInt("user_id", user_id);
-                editor.commit();
-                if(user_id!=null){
+            @Override
+            protected void onPreExecute() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
 
-                    if(first_time_login){
-                        Intent register_pin=new Intent(LoginStudentHub.this,Register_Pin_Class.class);
-                        register_pin.putExtra("user_id",user_id);
-                        register_pin.putExtra("username",Username);
-                        register_pin.putExtra("password",Password);
-                        startActivity(register_pin);
-                        finish();
-                    }
+            @Override
+            protected String doInBackground(String...strings) {
+                return server_utilities.login_webservice(strings[0]);
+
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                Log.d("response from server","is"+s);
+
+                progressBar.setVisibility(View.INVISIBLE);
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    Integer user_id=jsonObject.getInt("user_id");
+                    Log.d("response from server","is"+user_id);
+
+                    sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
+                    editor = sharedPreferences.edit();
+
+                    editor.putInt("user_id", user_id);
+                    editor.commit();
+                    if(user_id!=null){
+
+                        if(first_time_login){
+                            Intent register_pin=new Intent(LoginStudentHub.this,Register_Pin_Class.class);
+                            register_pin.putExtra("user_id",user_id);
+                            register_pin.putExtra("username",Username);
+                            register_pin.putExtra("password",Password);
+                            startActivity(register_pin);
+                            finish();
+                        }
                   /*  Intent home=new Intent(LoginStudentHub.this,Home_page.class);
                     home.putExtra("user_id",user_id);
                     startActivity(home);
                     finish();  */
+                    }
+
+
+                }catch(JSONException e){
+                    Toast.makeText(getApplicationContext(), "Connection TimeOut...", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
                 }
 
-
-            }catch(JSONException e){
-                Toast.makeText(getApplicationContext(), "Connection TimeOut...", Toast.LENGTH_LONG).show();
-                e.printStackTrace();
             }
 
+        }.execute(output);
+    }
+    else {
+        if(Username.length()==0){
+            username_et.setError("username missing");
+          //  Toast.makeText(getApplication(),"Enter Username",Toast.LENGTH_LONG).show();
+return;
+        }
+        else if(Password.length()==0&&Username.length()>0){
+            username_et.setError(null);
+            password_et.setError("password missing");
+         //   Toast.makeText(getApplication(),"Enter Username",Toast.LENGTH_LONG).show();
+            return;
         }
 
-    }.execute(output);
+    }
+
 }
 
 }

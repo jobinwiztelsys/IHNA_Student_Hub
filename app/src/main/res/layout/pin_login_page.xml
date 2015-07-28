@@ -279,7 +279,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="@color/lightblue"
+        android:clickable="true"
+        android:background="@drawable/keypad_selector"
         android:text="@string/Forgot_pin"
         android:textColor="@color/white" />
 </RelativeLayout>

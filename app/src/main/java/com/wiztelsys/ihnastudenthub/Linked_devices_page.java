@@ -1,6 +1,8 @@
 package com.wiztelsys.ihnastudenthub;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +20,10 @@ import java.util.ArrayList;
  */
 public class Linked_devices_page extends Home_page {
     ListView listView;
-    ArrayList<String>al=new ArrayList<>();
+    ArrayList<String> al = new ArrayList<>();
+    String authen;
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +32,13 @@ public class Linked_devices_page extends Home_page {
         addDrawerItems();
         al.add("device 1");
         al.add("device 2");
-        listView=(ListView)findViewById(R.id.linked_listview);
-        listView.setAdapter(new Base_view(getApplicationContext(),al));
+        listView = (ListView) findViewById(R.id.linked_listview);
+
+        calling_webservice();
+        listView.setAdapter(new Base_view(getApplicationContext(), al));
     }
 
-    private class Viewholder{
+    private class Viewholder {
         ImageView imageView;
         TextView id;
         TextView cmphd;
@@ -39,15 +46,15 @@ public class Linked_devices_page extends Home_page {
     }
 
 
-
     public class Base_view extends BaseAdapter {
 
         Context context;
-ArrayList<String>al=new ArrayList<>();
-        public Base_view(Context con ,ArrayList<String> al) {
+        ArrayList<String> al = new ArrayList<>();
+
+        public Base_view(Context con, ArrayList<String> al) {
             // TODO Auto-generated constructor stub
-            this.context=con;
-            this.al=al;
+            this.context = con;
+            this.al = al;
 
 
         }
@@ -69,7 +76,7 @@ ArrayList<String>al=new ArrayList<>();
         @Override
         public long getItemId(int position) {
             // TODO Auto-generated method stub
-           return position;
+            return position;
 
         }
 
@@ -77,7 +84,7 @@ ArrayList<String>al=new ArrayList<>();
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
-            Viewholder holder=new Viewholder();
+            Viewholder holder = new Viewholder();
 
             //holder.tname.setText(act.get(position));
 
@@ -85,17 +92,17 @@ ArrayList<String>al=new ArrayList<>();
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.linked_devices_listview_root_element, null);
 
-                holder.cmphd=(TextView)convertView.findViewById(R.id.linked_device_nameTV);
-                holder.imageView=(ImageView)findViewById(R.id.imageView);
-                holder.id=(TextView)convertView.findViewById(R.id.tv1);
-                holder.stas=(TextView)convertView.findViewById(R.id.tv2);
+                holder.cmphd = (TextView) convertView.findViewById(R.id.linked_device_nameTV);
+                holder.imageView = (ImageView) findViewById(R.id.imageView);
+                holder.id = (TextView) convertView.findViewById(R.id.tv1);
+                holder.stas = (TextView) convertView.findViewById(R.id.tv2);
                 convertView.setTag(holder);
 
             }
 
-            holder=(Viewholder)convertView.getTag();
+            holder = (Viewholder) convertView.getTag();
 
-holder.id.setText(al.get(position));
+            holder.id.setText(al.get(position));
             holder.cmphd.setText(al.get(position));
 
             holder.id.setText("devices");
@@ -103,5 +110,24 @@ holder.id.setText(al.get(position));
             return convertView;
         }
 
+    }
+
+    public void calling_webservice() {
+        sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
+        authen = sharedPreferences.getString("firstlogin_auth", null);
+        Log.d("Authentication",""+authen);
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... strings) {
+                return server_utilities.webservice_for_device_details(strings[0]);
+
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                Log.d("response from server", "is" + s);
+            }
+        }.execute(authen);
     }
 }
