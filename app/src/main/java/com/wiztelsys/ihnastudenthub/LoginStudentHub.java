@@ -225,6 +225,10 @@ public void callinggwebservice(){
                     Toast.makeText(getApplicationContext(), "Connection TimeOut...", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
+                catch (NullPointerException e){
+                    Toast.makeText(getApplicationContext(), "Invalid Credentials...", Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
 
             }
 

@@ -310,6 +310,10 @@ Log.d("outputttttttttt",""+output);
             }catch(JSONException e){
                 e.printStackTrace();
             }
+            catch (NullPointerException e){
+
+                e.printStackTrace();
+            }
 
         }
 

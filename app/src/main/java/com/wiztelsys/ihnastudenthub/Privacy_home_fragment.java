@@ -24,6 +24,7 @@ Button reset,mobile_number,linked_dev;
             public void onClick(View view) {
                 Intent reset_pin=new Intent(getActivity(),Reset_pin_page.class);
                 startActivity(reset_pin);
+                getActivity().finish();
             }
         });
 mobile_number.setOnClickListener(new View.OnClickListener() {
@@ -31,6 +32,7 @@ mobile_number.setOnClickListener(new View.OnClickListener() {
     public void onClick(View view) {
         Intent mobile=new Intent(getActivity(),Mobile_number_page.class);
         startActivity(mobile);
+        getActivity().finish();
     }
 });
 
@@ -39,6 +41,7 @@ mobile_number.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent linked=new Intent(getActivity(),Linked_devices_page.class);
                 startActivity(linked);
+                getActivity().finish();
             }
         });
         return v;

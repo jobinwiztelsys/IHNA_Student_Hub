@@ -283,4 +283,14 @@
         android:background="@drawable/keypad_selector"
         android:text="@string/Forgot_pin"
         android:textColor="@color/white" />
+
+    <ProgressBar
+        android:id="@+id/pbHeaderProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+
+        android:layout_gravity="center"
+        >
+    </ProgressBar>
 </RelativeLayout>

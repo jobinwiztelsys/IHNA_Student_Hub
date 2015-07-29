@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -23,19 +27,19 @@ public class Linked_devices_page extends Home_page {
     ArrayList<String> al = new ArrayList<>();
     String authen;
     SharedPreferences sharedPreferences;
-
+    JSONObject jobj;
+    JSONArray result=null;
+    JSONObject jsonObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.linked_devices_xml_page);
         initializeviews();
         addDrawerItems();
-        al.add("device 1");
-        al.add("device 2");
         listView = (ListView) findViewById(R.id.linked_listview);
 
         calling_webservice();
-        listView.setAdapter(new Base_view(getApplicationContext(), al));
+     //   listView.setAdapter(new Base_view(getApplicationContext(), al));
     }
 
     private class Viewholder {
@@ -119,14 +123,46 @@ public class Linked_devices_page extends Home_page {
         new AsyncTask<String, Void, String>() {
 
             @Override
+            protected void onPreExecute() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
             protected String doInBackground(String... strings) {
                 return server_utilities.webservice_for_device_details(strings[0]);
 
             }
 
             @Override
-            protected void onPostExecute(String s) {
+            protected void onPostExecute(String s)
+            {
+                progressBar.setVisibility(View.INVISIBLE);
                 Log.d("response from server", "is" + s);
+                try{
+
+                    jsonObject=new JSONObject(s);
+                    result = jsonObject.getJSONArray("installations");
+                    for(Integer i=0;i<result.length();i++){
+                        jobj=result.getJSONObject(i);
+
+                        al.add(jobj.getString("device_name"));
+
+
+                      //  f_name.setText(Profile_name);
+                      //  t_name.setText(jobj.getString("title"));
+                      //  l_name.setText(jobj.getString("last_name"));
+                     //   p_name.setText(jobj.getString("prefer_name"));
+                      //  u_name.setText(jobj.getString("institute_email"));
+                    }
+                }
+                catch (JSONException e){
+
+                    e.printStackTrace();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+                listView.setAdapter(new Base_view(getApplicationContext(), al));
+
             }
         }.execute(authen);
     }

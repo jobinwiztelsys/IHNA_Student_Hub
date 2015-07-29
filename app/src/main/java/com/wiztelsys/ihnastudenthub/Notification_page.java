@@ -148,8 +148,8 @@ notification_message.add(message);
 
             @Override
             protected void onPreExecute() {
-                super.onPreExecute();
-                //progressBar.setVisibility(View.VISIBLE);
+
+                progressBar.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -161,6 +161,7 @@ notification_message.add(message);
 
             @Override
             protected void onPostExecute(String s) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Log.d("inside notificationss","is"+s);
                 //  progressBar.setVisibility(View.INVISIBLE);
                 try{

@@ -12,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,6 +41,8 @@ String authorization;
     String output;
     Server_utilities server_utilities=new Server_utilities();
     String response;
+    JSONArray jarray;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +103,8 @@ Log.d("1111111111",""+user_id+""+pswd);
         imageButton_1b = (ImageButton) findViewById(R.id.login_pin_1b);
         imageButton_1c = (ImageButton) findViewById(R.id.login_pin_1c);
         imageButton_1d = (ImageButton) findViewById(R.id.login_pin_1d);
+        progressBar=(ProgressBar)findViewById(R.id.pbHeaderProgress);
+        progressBar.setVisibility(View.INVISIBLE);
 
     }
 
@@ -192,14 +198,23 @@ Log.d("1111111111",""+user_id+""+pswd);
         new AsyncTask<String,Void,String>(){
 
             @Override
+            protected void onPreExecute() {
+                progressBar.setVisibility(View.VISIBLE);
+
+            }
+
+            @Override
             protected String doInBackground(String...S) {
 
                 return server_utilities.webservice_home_profile(S[0]);
 
             }
 
+
+
             @Override
             protected void onPostExecute(String s) {
+                progressBar.setVisibility(View.INVISIBLE);
                 Log.d("response from server","is"+s);
                 try {
                     JSONObject jsonObject = new JSONObject(s);
@@ -213,14 +228,26 @@ Log.d("1111111111",""+user_id+""+pswd);
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
+                try {
 
 
-
-                        Intent home = new Intent(Pin_Login.this, Home_page.class);
-                        home.putExtra("password",password_enter.toString().trim());
-                        home.putExtra("user_id",user_id);
-                        startActivity(home);
-                        finish();
+                    JSONObject jsob = new JSONObject(s);
+                    jarray= jsob.getJSONArray("profiles");
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                } if(jarray!=null) {
+                    Intent home = new Intent(Pin_Login.this, Home_page.class);
+                    home.putExtra("password", password_enter.toString().trim());
+                    home.putExtra("user_id", user_id);
+                    startActivity(home);
+                    finish();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Connection TimeOut...", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
 
             }

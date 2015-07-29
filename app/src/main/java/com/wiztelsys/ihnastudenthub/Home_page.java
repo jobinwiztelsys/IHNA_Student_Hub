@@ -75,7 +75,7 @@ Server_utilities server_utilities=new Server_utilities();
     BroadcastReceiver mRegistrationBroadcastReceiver;
     boolean sentToken;
     boolean sender_token_by_me;
-
+ProgressBar progressBar;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     Intent from_pin_login;
     String password_pin;
@@ -198,6 +198,8 @@ Server_utilities server_utilities=new Server_utilities();
         toolbar.setOnClickListener(this);
         imageButton_toolbar.setOnClickListener(this);
         call_IhnaBtn=(Button)findViewById(R.id.call_IhnaBtn);
+        progressBar=(ProgressBar)findViewById(R.id.pbHeaderProgress);
+        progressBar.setVisibility(View.INVISIBLE);
         call_IhnaBtn.setOnClickListener(this);
 
        // setSupportActionBar(toolbarBottom);
@@ -206,6 +208,16 @@ Server_utilities server_utilities=new Server_utilities();
             @Override
             public boolean onMenuItemClick(MenuItem item) {
   switch (item.getItemId()){
+      case R.id.exit_app:
+
+          Intent intent = new Intent(Intent.ACTION_MAIN);
+          intent.addCategory(Intent.CATEGORY_HOME);
+          intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+          startActivity(intent);
+          finish();
+          System.exit(0);
+          break;
 
   }
                 return true;
@@ -243,7 +255,7 @@ Server_utilities server_utilities=new Server_utilities();
      case R.id.notification_button:
          Intent noftify=new Intent(getApplicationContext(),Notification_page.class);
          startActivity(noftify);
-         finish();
+        finish();
          break;
 
      case R.id.call_IhnaBtn:
