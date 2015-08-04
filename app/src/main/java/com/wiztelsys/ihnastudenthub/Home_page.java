@@ -83,6 +83,9 @@ ProgressBar progressBar;
     JSONArray result=null;
     JSONObject jsonObject;
     Bundle bundle;
+TextView notification_count;
+    static final String DISPLAY_MESSAGE_ACTION =
+            "com.wiztelsys.ihnastudenthub.DISPLAY_MESSAGE";
     /*RegistrationIntentService**QuickstartPreferences**MyGcmListenerService**MyInstanceIDListenerService
     are the classes for sending and receiving notification..it is called in the oncreate method of home class */
 
@@ -167,6 +170,7 @@ ProgressBar progressBar;
             @Override
             public void onReceive(Context context, Intent intent) {
 
+
                 SharedPreferences sharedPreferences =
                         PreferenceManager.getDefaultSharedPreferences(context);
                  sentToken = sharedPreferences
@@ -179,7 +183,8 @@ ProgressBar progressBar;
             startService(intent);
         }
 
-
+        registerReceiver(mHandleMessageReceiver, new IntentFilter(
+                DISPLAY_MESSAGE_ACTION));
     }
 
 
@@ -188,6 +193,9 @@ ProgressBar progressBar;
 
 
     public void initializeviews(){
+
+
+
 
         toolbar= (Toolbar) findViewById(R.id.toolbar);
         listView=(ListView)findViewById(R.id.home_Listview);
@@ -201,7 +209,18 @@ ProgressBar progressBar;
         progressBar=(ProgressBar)findViewById(R.id.pbHeaderProgress);
         progressBar.setVisibility(View.INVISIBLE);
         call_IhnaBtn.setOnClickListener(this);
-
+        notification_count=(TextView)findViewById(R.id.notification_count);
+        try{
+            if(Notification_variables.count==0){
+                notification_count.setText("");
+            }
+            else {
+                notification_count.setVisibility(View.VISIBLE);
+                notification_count.setText("" + Notification_variables.count);
+            }
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
        // setSupportActionBar(toolbarBottom);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -386,12 +405,16 @@ ProgressBar progressBar;
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(QuickstartPreferences.REGISTRATION_COMPLETE));
+        registerReceiver(mHandleMessageReceiver, new IntentFilter(
+                DISPLAY_MESSAGE_ACTION));
     }
 
     @Override
     protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+unregisterReceiver(mHandleMessageReceiver);
+
     }
 
     private boolean checkPlayServices() {
@@ -408,4 +431,30 @@ ProgressBar progressBar;
         }
         return true;
     }
+
+    /**
+     * Receiving push messages
+     * */
+    public final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Integer newMessage = intent.getExtras().getInt("message");
+            // Waking up mobile if it is sleeping
+
+
+            /**
+             * Take appropriate action on this message
+             * depending upon your app requirement
+             * For now i am just displaying it on the screen
+             * */
+
+            // Showing received message
+            initializeviews();
+         //   notification_count.setText(""+newMessage);
+
+          //  Toast.makeText(getApplicationContext(), "New Message: " + newMessage, Toast.LENGTH_LONG).show();
+
+
+        }
+    };
 }

@@ -16,6 +16,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
+    <supports-screens android:smallScreens="true"
+        android:resizeable="true"
+        android:normalScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true"
+        android:largeScreens="true"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/launcher_icon"
@@ -65,6 +72,8 @@
                 <category android:name="com.wiztelsys.ihnastudenthub" />
             </intent-filter>
         </receiver>
+
+
         <!-- [END gcm_receiver] -->
 
         <!-- [START gcm_listener] -->

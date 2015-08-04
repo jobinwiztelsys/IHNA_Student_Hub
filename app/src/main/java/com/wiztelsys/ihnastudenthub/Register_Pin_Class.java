@@ -36,6 +36,7 @@ public class Register_Pin_Class extends Activity implements View.OnClickListener
     String username;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    String macAddress;
 
 Server_utilities server_utilities=new Server_utilities();
     StringBuilder password_enter=new StringBuilder(); // to save the user entered password
@@ -96,12 +97,22 @@ Server_utilities server_utilities=new Server_utilities();
     }
 
     public String Mac_address(){
-        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-        WifiInfo wInfo = wifiManager.getConnectionInfo();
-        String macAddress = wInfo.getMacAddress();
-        Log.d("mac_address",macAddress);
-        return macAddress;
 
+
+        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        if(wifiManager.isWifiEnabled()) {
+            WifiInfo wInfo = wifiManager.getConnectionInfo();
+             macAddress = wInfo.getMacAddress();
+
+            return macAddress;
+        }
+        else {
+            wifiManager.setWifiEnabled(true);
+            WifiInfo wInfo = wifiManager.getConnectionInfo();
+            macAddress = wInfo.getMacAddress();
+            wifiManager.setWifiEnabled(false);
+        }
+return macAddress;
     }
 
     public String getPhoneName() {
@@ -279,7 +290,10 @@ Log.d("outputttttttttt",""+output);
 
         @Override
         protected void onPostExecute(String s) {
-            Log.d("response from server","is"+s);
+
+            if(s==null){
+                Toast.makeText(getApplication(),"Connection TimeOut",Toast.LENGTH_LONG).show();
+            }
             try {
 
                 JSONObject jsonObject = new JSONObject(s);

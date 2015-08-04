@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -41,7 +44,7 @@ String authorization;
     String output;
     Server_utilities server_utilities=new Server_utilities();
     String response;
-    JSONArray jarray;
+    ConnectivityManager connect_pinlogin = null;
     ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ String authorization;
         user_id = sharedPreferences.getInt("installation_id", 0);
         pswd=sharedPreferences.getString("password",null);
 
+        connect_pinlogin=(ConnectivityManager) this.getSystemService(this.CONNECTIVITY_SERVICE);
 Log.d("1111111111",""+user_id+""+pswd);
     }
 
@@ -176,7 +180,19 @@ Log.d("1111111111",""+user_id+""+pswd);
             count=count+1;
             password_enter.append(buttonText);
             Log.d("password",""+password_enter.toString());
-            calltowebservice();
+
+            if (connect_pinlogin != null) {
+                NetworkInfo result = (connect_pinlogin.getNetworkInfo(ConnectivityManager.TYPE_MOBILE));
+                NetworkInfo result1 = connect_pinlogin.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                if ((result != null && result.isConnectedOrConnecting()) || (result1 != null && result1.isConnectedOrConnecting())) {
+                    calltowebservice();
+                } else {
+                    Toast.makeText(getApplicationContext(), "network not available", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+
+
           /*  Intent home=new Intent(Pin_Login.this,Home_page.class);
             startActivity(home);
             finish();  */
@@ -215,6 +231,12 @@ Log.d("1111111111",""+user_id+""+pswd);
             @Override
             protected void onPostExecute(String s) {
                 progressBar.setVisibility(View.INVISIBLE);
+
+                if(s==null){
+                    Toast.makeText(getApplicationContext(), "Timed Out Check The Password Entered", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Log.d("response from server","is"+s);
                 try {
                     JSONObject jsonObject = new JSONObject(s);
@@ -228,25 +250,13 @@ Log.d("1111111111",""+user_id+""+pswd);
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
-                try {
 
-
-                    JSONObject jsob = new JSONObject(s);
-                    jarray= jsob.getJSONArray("profiles");
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }catch (NullPointerException e){
-                    e.printStackTrace();
-                } if(jarray!=null) {
+                if(s!=null) {
                     Intent home = new Intent(Pin_Login.this, Home_page.class);
                     home.putExtra("password", password_enter.toString().trim());
                     home.putExtra("user_id", user_id);
                     startActivity(home);
                     finish();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Connection TimeOut...", Toast.LENGTH_LONG).show();
-                    return;
                 }
 
 

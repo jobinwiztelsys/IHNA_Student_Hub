@@ -2,6 +2,7 @@ package com.wiztelsys.ihnastudenthub;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -117,5 +118,12 @@ GridView gridView;
 
             return grid;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent home=new Intent(getApplicationContext(),Home_page.class);
+        startActivity(home);
+        finish();
     }
 }

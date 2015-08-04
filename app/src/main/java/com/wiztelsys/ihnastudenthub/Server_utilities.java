@@ -6,19 +6,12 @@ import android.net.wifi.WifiManager;
 import android.util.Base64;
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
+
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
+
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,91 +30,71 @@ import java.net.URL;
  */
 public class Server_utilities {
     HttpURLConnection myURLConnection;
-    private static final int CONN_TIMEOUT = 60 * 1000;
+    private static final int CONN_TIMEOUT = 10 * 1000;
 
     // socket timeout, in milliseconds (waiting for data)
     private static final int SOCKET_TIMEOUT = 60 * 1000;
-    String authorization1=null;
-    HttpURLConnection urlConnection;
+    String authorization1 = null;
+    HttpURLConnection myurlcon;
+    JSONObject jobj;
 
     Server_utilities() {
 
     }
 
-    HttpParams getHttpParams() {
 
-        HttpParams htpp = new BasicHttpParams();
-
-        HttpConnectionParams.setConnectionTimeout(htpp, CONN_TIMEOUT);
-        HttpConnectionParams.setSoTimeout(htpp, SOCKET_TIMEOUT);
-
-        return htpp;
-    }
 
     // *******8function to call webservice for login in user information ****** //
 
     public String login_webservice(String authorization) {
 
+        String authorization1 = authorization.trim();
+        String basic = "Basic ";
 
 
-            // String basicAuth = "Basic " + new String(new Base64().encode(userCredentials.getBytes()));
-/*
-            myURLConnection.setRequestMethod("POST");
-
-            myURLConnection.addRequestProperty("Authorization",authorization);
-         //   myURLConnection.setRequestProperty("Content-Type", "application/json");
-            myURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        //    myURLConnection.setRequestProperty("Accept", "application/json");
-            myURLConnection.setUseCaches(false);
-            myURLConnection.setDoInput(true);
-            myURLConnection.setDoOutput(true);
-           Log.d("rajeev","111111111111"+myURLConnection.getResponseMessage());  */
-
-
-
-       String authorization1= authorization.trim();
-
-
-
-
-        HttpClient httpclient = new DefaultHttpClient(getHttpParams());
-
-        HttpResponse response = null;
-
-        HttpPost httppost;
-        String result = null;
-        String basic="Basic ";
-
-        httppost = new HttpPost("http://220.227.57.26/ihna_webapp/users/login");
-       httppost.setHeader("Accept", "application/json");
-        httppost.setHeader("Content-type", "application/json");
-      //  httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        httppost.setHeader("Authorization",basic.concat(authorization1));
+        String line = null;
         try {
-            response = httpclient.execute(httppost);
-            result=inputStreamToString(response.getEntity()
-                    .getContent());
-            Log.d("response111111111111111","response:"+authorization1.toString());
-            Log.d("response","response:"+result);
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/users/login");
+            myurlcon = (HttpURLConnection) myurl.openConnection();
 
-        }
-        catch (SocketTimeoutException e) {
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(authorization1.toString().trim()));
+            myurlcon.setRequestMethod("POST");
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
 
-            System.out.println("After Execute TIME_OUT_EXECPTION \n");
+            line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
 
-            // TODO: handle exception
-            // response=StaticValues.TIME_OUT_EXECPTION;
+
+        } catch (SocketTimeoutException s) {
+
+            s.printStackTrace();
+            return null;
         } catch (ConnectTimeoutException e) {
-            // TODO: handle exception
 
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
+        } finally {
+            myurlcon.disconnect();
         }
-
-        catch (Exception e) {
-
-            System.out.println("OOOOOOOOOOOPSSSSS \n");
- }
-
-return result;
+        return line;
     }
 
     //********************************************* for parsing**************************
@@ -147,284 +120,374 @@ return result;
     }
 //************************************************************************************//
 
-    public String webservice_home_profile(String authen){
-        HttpClient httpclient = new DefaultHttpClient(getHttpParams());
-
-        HttpResponse response = null;
-
-        HttpGet httpGet;
-        String result = null;
-        String basic="Basic ";
-        StringEntity se = null;
-        JSONObject jobj=new JSONObject();
-
-
-        httpGet = new HttpGet("http://220.227.57.26/ihna_webapp/profiles");
-        httpGet.setHeader("Accept", "application/json");
-        httpGet.setHeader("Content-type", "application/json");
-     //   httpGet.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        httpGet.setHeader("Authorization",basic.concat(authen.trim()));
+    public String webservice_home_profile(String authen) {
+//
+        String basic = "Basic ";
         try {
-            response = httpclient.execute(httpGet);
-            result=inputStreamToString(response.getEntity()
-                    .getContent());
-            Log.d("response111111111111111","response:"+authen.toString());
-            Log.d("response","response:"+result);
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/profiles");
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("GET");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(authen.toString().trim()));
 
-        }
-        catch (SocketTimeoutException e) {
+            myurlcon.setConnectTimeout(CONN_TIMEOUT);
+            myurlcon.setReadTimeout(CONN_TIMEOUT);
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            //   myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
 
-            System.out.println("After Execute TIME_OUT_EXECPTION \n");
+            String line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
 
-            // TODO: handle exception
-            // response=StaticValues.TIME_OUT_EXECPTION;
+
+        } catch (SocketTimeoutException s) {
+
+            s.printStackTrace();
+            return null;
         } catch (ConnectTimeoutException e) {
-            // TODO: handle exception
 
+            e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
+        } finally {
+            myurlcon.disconnect();
         }
 
-        catch (Exception e) {
-            System.out.println("OOOOOOOOOOOPSSSSS \n");
+        return null;
 
-
-
-        }
-        return result;
     }
 
-//*******************************************************************************************
-    public String webservicefor_register_pin(String auth,Integer user_id,String passwd,String mac,String div_name){
+    //*******************************************************************************************
+    public String webservicefor_register_pin(String auth, Integer user_id, String passwd, String mac, String div_name) {
         StringEntity se = null;
-        JSONObject jobj=new JSONObject();
+        jobj = new JSONObject();
         try {
             jobj.put("user_id", user_id);
             jobj.put("four_digit_pin", passwd);
-            jobj.put("device_id",mac);
-            jobj.put("device_name",div_name);
-            jobj.put("enable_quick_login",1);
+            jobj.put("device_id", mac);
+            jobj.put("device_name", div_name);
+            jobj.put("enable_quick_login", 1);
             Log.d("jsonString", "" + jobj.toString());
             se = new StringEntity(jobj.toString());
-        }
-            catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        } catch (UnsupportedEncodingException e) {
 
-        catch(JSONException e){
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
 
         }
-        HttpClient httpclient = new DefaultHttpClient(getHttpParams());
 
-        HttpResponse response = null;
-
-        HttpPost httppost;
-        String result = null;
-        String basic="Basic ";
-
-        httppost = new HttpPost("http://220.227.57.26/ihna_webapp/installations/add");
-        httppost.setHeader("Accept", "application/json");
-          httppost.setHeader("Content-type", "application/json");
-       // httppost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        httppost.setHeader("Authorization",basic.concat(auth.trim()));
-        httppost.setEntity(se);
         try {
-            response = httpclient.execute(httppost);
-            result=inputStreamToString(response.getEntity()
-                    .getContent());
-            Log.d("response111111111111111","response:"+auth.toString());
-            Log.d("response","response:"+result);
+            String basic = "Basic ";
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/installations/add");
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("POST");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(auth.toString().trim()));
 
-        }
-        catch (SocketTimeoutException e) {
+            myurlcon.setConnectTimeout(CONN_TIMEOUT);
+            myurlcon.setReadTimeout(CONN_TIMEOUT);
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            OutputStreamWriter wr = new OutputStreamWriter(myurlcon.getOutputStream());
+            wr.write(jobj.toString());
+            wr.flush();
+            wr.close();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
 
-            System.out.println("After Execute TIME_OUT_EXECPTION \n");
+            String line = inputStreamToString(myurlcon.getInputStream());
+          //  Log.d("response from server", "is" + line);
+            return line;
 
-            // TODO: handle exception
-            // response=StaticValues.TIME_OUT_EXECPTION;
+
+        } catch (SocketTimeoutException s) {
+
+            s.printStackTrace();
+            return null;
         } catch (ConnectTimeoutException e) {
-            // TODO: handle exception
-
-        }
-
-        catch (Exception e) {
-            System.out.println("OOOOOOOOOOOPSSSSS \n");
-
-
-
-        }
-        return result;
-    }
-
-//**************************************************************************************
-    public String webservice_for_notification_db(String authn){
-
-     /*   String basicc="Basic ";
-        try {
-            URL url = new URL("http://220.227.57.26/ihna_webapp/notifications");
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setDoOutput(true);
-            urlConnection.setDoInput(true);
-            urlConnection.setUseCaches(false);
-            urlConnection.addRequestProperty("Accept", "application/json");
-            urlConnection.addRequestProperty("Content-type", "application/json");
-            //   httpGet.setHeader("Content-Type", "application/x-www-form-urlencoded");
-            urlConnection.addRequestProperty("Authorization",basicc.concat(authn.trim()));
-
-            urlConnection.setRequestMethod("POST");
-            urlConnection.connect();
-
-            int HttpResult =urlConnection.getResponseCode();
-
-            if(HttpResult ==HttpURLConnection.HTTP_OK){
-
-               BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(),"utf-8"));
-
-               String line=inputStreamT(br);
-
-                Log.d("rajeev","111111111111"+line);
-                JSONObject jsonobj=new JSONObject(line);
-
-
-
-                return  jsonobj.toString();
-
-
-
-
-            }
-        }
-        catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (Exception e) {
 
             e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
 
         } finally {
-
-            if(urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
-        return null; */
-
-        HttpClient httpclient = new DefaultHttpClient(getHttpParams());
-
-        HttpResponse response = null;
-
-        HttpGet httpGet;
-        String result = null;
-        String basicc="Basic ";
-        StringEntity se = null;
-        JSONObject jobj=new JSONObject();
-
-
-        httpGet = new HttpGet("http://220.227.57.26/ihna_webapp/notifications");
-        httpGet.setHeader("Accept", "application/json");
-        httpGet.setHeader("Content-type", "application/json");
-        //   httpGet.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        httpGet.setHeader("Authorization",basicc.concat(authn.trim()));
-        try {
-            response = httpclient.execute(httpGet);
-            result=inputStreamToString(response.getEntity()
-                    .getContent());
-
-            Log.d("response","response:"+result);
-
-        }
-        catch (SocketTimeoutException e) {
-
-            System.out.println("After Execute TIME_OUT_EXECPTION \n");
-
-            // TODO: handle exception
-            // response=StaticValues.TIME_OUT_EXECPTION;
-        } catch (ConnectTimeoutException e) {
-            // TODO: handle exception
-
+            myurlcon.disconnect();
         }
 
-        catch (Exception e) {
-            System.out.println("OOOOOOOOOOOPSSSSS \n");
-
-
-
-        }
-        return result;
-
+        return null;
 
     }
 
-    public String inputStreamT(BufferedReader rd) {
-
-        String line = "";
-        StringBuilder total = new StringBuilder();
-
-        // Wrap a BufferedReader around the InputStream
+    //**************************************************************************************
+    public String webservice_for_notification_db(String authn) {
 
 
+        String basic = "Basic ";
         try {
-            // Read response until the end
-            while ((line = rd.readLine()) != null) {
-                total.append(line);
-            }
-        } catch (IOException e) {
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/notifications");
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("GET");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(authn.toString().trim()));
+
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            // myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
+
+            String line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
+
+
+        } catch (SocketTimeoutException s) {
+
+            s.printStackTrace();
+            return null;
+        } catch (ConnectTimeoutException e) {
+
             e.printStackTrace();
         }
-
-        // Return full string
-        return total.toString();
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
+        } finally {
+            myurlcon.disconnect();
+        }
+        return null;
     }
 
 
-    public String webservice_for_device_details(String auther_string){
+    public String webservice_for_device_details(String auther_string) {
 
-        HttpClient httpclient = new DefaultHttpClient(getHttpParams());
-
-        HttpResponse response = null;
-
-        HttpGet httpGet;
-        String result = null;
-        String basic="Basic ";
-        StringEntity se = null;
-        JSONObject jobj=new JSONObject();
-
-
-        httpGet = new HttpGet("http://220.227.57.26/ihna_webapp/installations");
-        httpGet.setHeader("Accept", "application/json");
-        httpGet.setHeader("Content-type", "application/json");
-        //   httpGet.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        httpGet.setHeader("Authorization",basic.concat(auther_string.trim()));
+        String basic = "Basic ";
         try {
-            response = httpclient.execute(httpGet);
-            result=inputStreamToString(response.getEntity()
-                    .getContent());
-            Log.d("response111111111111111","response:"+auther_string.toString());
-            Log.d("response","response:"+result);
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/installations");
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("GET");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(auther_string.toString().trim()));
 
-        }
-        catch (SocketTimeoutException e) {
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            // myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
 
-            System.out.println("After Execute TIME_OUT_EXECPTION \n");
+            String line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
 
-            // TODO: handle exception
-            // response=StaticValues.TIME_OUT_EXECPTION;
+
+        } catch (SocketTimeoutException s) {
+
+            s.printStackTrace();
+            return null;
         } catch (ConnectTimeoutException e) {
-            // TODO: handle exception
+
+            e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
+        } finally {
+            myurlcon.disconnect();
+        }
+        return null;
+
+    }
+
+    public String webserviceformobile_number(String authentcn,String number){
+        String basic = "Basic ";
+        try {
+            JSONObject j=new JSONObject();
+            j.put("mobile",number);
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/profiles/edit/".concat(Notification_variables.profile_id.toString()).trim());
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("PUT");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(authentcn.toString().trim()));
+
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            OutputStreamWriter wr = new OutputStreamWriter(myurlcon.getOutputStream());
+            wr.write(j.toString());
+            wr.flush();
+            wr.close();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
+
+            String line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
+
 
         }
 
-        catch (Exception e) {
-            System.out.println("OOOOOOOOOOOPSSSSS \n");
+        catch (SocketTimeoutException s) {
 
+            s.printStackTrace();
+            return null;
+        } catch (ConnectTimeoutException e) {
+
+            e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
+        } finally {
+            myurlcon.disconnect();
+        }
+        return null;
+    }
+
+    public String webservice_for_read_flag(String ath,String id){
+
+        String basic = "Basic ";
+        try {
+            JSONObject j=new JSONObject();
+            j.put("read_flag",1);
+            Log.d("idddddddddd",""+id);
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/notifications/edit/".concat(id.toString()).trim());
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("PUT");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(ath.toString().trim()));
+
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            OutputStreamWriter wr = new OutputStreamWriter(myurlcon.getOutputStream());
+            wr.write(j.toString());
+            wr.flush();
+            wr.close();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
+
+            String line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
 
 
         }
-        return result;
-    }
 
+        catch (SocketTimeoutException s) {
+
+            s.printStackTrace();
+            return null;
+        } catch (ConnectTimeoutException e) {
+
+            e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
+        } finally {
+            myurlcon.disconnect();
+        }
+        return null;
     }
+}
 
 
 

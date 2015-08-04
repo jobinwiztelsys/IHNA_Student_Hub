@@ -1,6 +1,7 @@
 package com.wiztelsys.ihnastudenthub;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -165,5 +166,13 @@ public class Linked_devices_page extends Home_page {
 
             }
         }.execute(authen);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent home=new Intent(getApplicationContext(),Home_page.class);
+        startActivity(home);
+        finish();
     }
 }

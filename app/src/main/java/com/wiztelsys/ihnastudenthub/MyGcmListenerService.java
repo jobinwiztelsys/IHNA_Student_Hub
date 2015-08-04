@@ -8,6 +8,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import com.wiztelsys.ihnastudenthub.Notification_variables;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
@@ -17,7 +18,11 @@ import com.google.android.gms.gcm.GcmListenerService;
  */
 public class MyGcmListenerService extends GcmListenerService {
     private static final String TAG = "MyGcmListenerService";
+    Notification_variables notification_variables;
     String message;
+    public static Integer count=0;
+
+
 
 
     /**
@@ -31,6 +36,8 @@ public class MyGcmListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
         message = data.getString("message");
+count=count+1;
+        notification_variables.count+=1;
         Log.d(TAG, "From: " + from);
         Log.d("111111111111111111111", "Message: " +data.getString("message"));
         Log.d("111111111111111111111", "Message: " + message);
@@ -48,7 +55,8 @@ public class MyGcmListenerService extends GcmListenerService {
          * that a message was received.
          */
 
-        Notification_page.displaymessage(message);
+    //    Notification_page.displaymessage(message);
+        Notification_page.displayMessage(getApplicationContext(),notification_variables.count);
 
         sendNotification(message);
 
@@ -64,6 +72,7 @@ public class MyGcmListenerService extends GcmListenerService {
     private void sendNotification(String message) {
         Intent intent = new Intent(this, Notification_page.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+     //   notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 

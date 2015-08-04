@@ -48,15 +48,34 @@ android:layout_below="@id/toolbar"
 
     <Button
         android:layout_width="30dp"
-        android:layout_marginBottom="10dp"
         android:id="@+id/notification_button"
         android:layout_height="30dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_above="@+id/home_frame_layout"
-        android:layout_alignParentRight="true"
+        android:layout_marginRight="55dp"
         android:background="@drawable/notification_icon"
+        android:layout_marginEnd="55dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
+        android:layout_above="@+id/gridView"
+        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    <TextView
+
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:minWidth="18dp"
+        android:gravity="center"
+        android:padding="1dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        android:background="@drawable/notification_circle"
+        android:id="@+id/notification_count"
+
+
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/notification_button"
+        android:layout_alignEnd="@+id/notification_button" />
     <Button
         android:layout_width="30dp"
         android:layout_height="25dp"
@@ -79,6 +98,7 @@ android:layout_below="@id/toolbar"
         android:layout_gravity="center"
         >
     </ProgressBar>
+
 
 </RelativeLayout>
 

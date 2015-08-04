@@ -43,36 +43,38 @@ public class LoginStudentHub extends Activity implements View.OnClickListener {
     ConnectivityManager connect = null;
     private ProgressBar progressBar;
     Server_utilities server_utilities=new Server_utilities();
+    NetworkInfo result1;
+    NetworkInfo result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        first_time_login = sharedPreferences.getBoolean("firstlogin", true);
+        try {
+            super.onCreate(savedInstanceState);
+            sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
+            editor = sharedPreferences.edit();
+            first_time_login = sharedPreferences.getBoolean("firstlogin", true);
 
 //****if the user has registered he will be directed to pin login class else to Register pin class
 
-if(!first_time_login){
-    Intent pin_login=new Intent(LoginStudentHub.this,Pin_Login.class);
-    startActivity(pin_login);
-    finish();
-}
+            if (!first_time_login) {
+                Intent pin_login = new Intent(LoginStudentHub.this, Pin_Login.class);
+                startActivity(pin_login);
+                finish();
+            } else {
+                setContentView(R.layout.activity_login_student_hub);
+
+                initializeviews();
+                //the following code checks for internet connectivity of the device and redirects to the home page if network is available and login form is filled
+
+                connect = (ConnectivityManager) this.getSystemService(this.CONNECTIVITY_SERVICE);
+             //   final boolean is3G = connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isAvailable();
+             //   final boolean isWifi = connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+
+            }
 
 
-else {
-    setContentView(R.layout.activity_login_student_hub);
-
-    initializeviews();
-    //the following code checks for internet connectivity of the device and redirects to the home page if network is available and login form is filled
-
-    connect = (ConnectivityManager) this.getSystemService(this.CONNECTIVITY_SERVICE);
-    final boolean is3G = connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isAvailable();
-    final boolean isWifi = connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
-
-}
-
-
-
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -130,8 +132,12 @@ else {
                 }  */
 
                 if (connect != null) {
-                    NetworkInfo result = (connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE));
-                    NetworkInfo result1 = connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                    try {
+                        result = (connect.getNetworkInfo(ConnectivityManager.TYPE_MOBILE));
+                        result1 = connect.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                    }catch (NullPointerException e){
+                        e.printStackTrace();
+                    }
                     if ((result != null && result.isConnectedOrConnecting()) || (result1 != null && result1.isConnectedOrConnecting())) {
                         callinggwebservice();
                     } else {
@@ -192,25 +198,30 @@ public void callinggwebservice(){
             @Override
             protected void onPostExecute(String s) {
                 Log.d("response from server","is"+s);
-
                 progressBar.setVisibility(View.INVISIBLE);
+if(s==null){
+    Toast.makeText(getApplicationContext(),"Timed Out Check The Credentials Entered",Toast.LENGTH_LONG).show();
+    return;
+}
+
                 try {
                     JSONObject jsonObject = new JSONObject(s);
-                    Integer user_id=jsonObject.getInt("user_id");
-                    Log.d("response from server","is"+user_id);
+                    Integer user_id = jsonObject.getInt("user_id");
+                    String res = jsonObject.getString("message");
+                    Log.d("response from server", "is" + user_id);
 
                     sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
                     editor = sharedPreferences.edit();
 
                     editor.putInt("user_id", user_id);
                     editor.commit();
-                    if(user_id!=null){
 
-                        if(first_time_login){
-                            Intent register_pin=new Intent(LoginStudentHub.this,Register_Pin_Class.class);
-                            register_pin.putExtra("user_id",user_id);
-                            register_pin.putExtra("username",Username);
-                            register_pin.putExtra("password",Password);
+                    if (res.contains("Logged in successfully.")) {
+                        if (first_time_login) {
+                            Intent register_pin = new Intent(LoginStudentHub.this, Register_Pin_Class.class);
+                            register_pin.putExtra("user_id", user_id);
+                            register_pin.putExtra("username", Username);
+                            register_pin.putExtra("password", Password);
                             startActivity(register_pin);
                             finish();
                         }
@@ -218,6 +229,7 @@ public void callinggwebservice(){
                     home.putExtra("user_id",user_id);
                     startActivity(home);
                     finish();  */
+
                     }
 
 

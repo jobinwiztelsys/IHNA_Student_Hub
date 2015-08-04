@@ -1,6 +1,7 @@
 package com.wiztelsys.ihnastudenthub;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -176,5 +177,12 @@ public class Reset_pin_page extends Activity implements View.OnClickListener {
             return;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent home=new Intent(getApplicationContext(),Home_page.class);
+        startActivity(home);
+        finish();
     }
 }
