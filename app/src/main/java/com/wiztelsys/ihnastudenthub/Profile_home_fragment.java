@@ -24,6 +24,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,6 +51,7 @@ import java.util.Locale;
  */
 public class Profile_home_fragment extends Fragment {
     TextView f_name, t_name, l_name, p_name, u_name;
+    EditText Profile_page_user_addressTV;
     String password;
     Integer user_id1;
     SharedPreferences sharedPreferences;
@@ -68,6 +72,10 @@ public class Profile_home_fragment extends Fragment {
     String picturePath;
     ArrayList<String> camera_image_path=new ArrayList<>();
     Uri photoUri;
+    ImageButton home_edit_btn;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -86,6 +94,27 @@ public class Profile_home_fragment extends Fragment {
         l_name = (TextView) v.findViewById(R.id.Profile_page_last_nametv);
         p_name = (TextView) v.findViewById(R.id.home_page_username1);
         u_name = (TextView) v.findViewById(R.id.Profile_page_user_nametv);
+
+
+        home_edit_btn=(ImageButton)v.findViewById(R.id.home_edit_btn);
+
+
+        home_edit_btn.setTag(R.drawable.home_edit_btn);
+        Profile_page_user_addressTV=(EditText)v.findViewById(R.id.Profile_page_user_addressTV);
+
+        Profile_page_user_addressTV.setEnabled(false);
+        Profile_page_user_addressTV.setClickable(false);
+        Profile_page_user_addressTV.setFocusableInTouchMode(false);
+        Profile_page_user_addressTV.setFocusable(false);
+
+        int settings = EditorInfo.TYPE_CLASS_TEXT;
+        Profile_page_user_addressTV.setInputType(settings);
+        Profile_page_user_addressTV.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+
+
+
+
         imageView2 = (ImageView) v.findViewById(R.id.imageView2);
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +124,34 @@ public class Profile_home_fragment extends Fragment {
                 startActivityForResult(intent, 1);
             }
         });
+        home_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("taggggg",""+home_edit_btn.getTag());
+
+                if(home_edit_btn.getTag().equals(R.drawable.home_edit_btn)){
+                    home_edit_btn.setTag(R.drawable.ok_button_edit);
+                    home_edit_btn.setImageResource(R.drawable.ok_button_edit);
+                    Profile_page_user_addressTV.setEnabled(true);
+                    Profile_page_user_addressTV.setClickable(true);
+                    Profile_page_user_addressTV.setFocusableInTouchMode(true);
+                    Profile_page_user_addressTV.setFocusable(true);
+                    Profile_page_user_addressTV.setBackgroundResource(R.drawable.profile_address_background);
+                }
+                else if(home_edit_btn.getTag().equals(R.drawable.ok_button_edit)){
+
+                    calltowebservice_address(Profile_page_user_addressTV.getText().toString());
+                    home_edit_btn.setImageResource(R.drawable.home_edit_btn);
+                    home_edit_btn.setTag(R.drawable.home_edit_btn);
+                    Profile_page_user_addressTV.setEnabled(false);
+                    Profile_page_user_addressTV.setClickable(false);
+                    Profile_page_user_addressTV.setFocusableInTouchMode(false);
+                    Profile_page_user_addressTV.setFocusable(false);
+                    Profile_page_user_addressTV.setBackgroundResource(R.color.transparent);
+                }
+            }
+        });
+
         calltowebservice();
         return v;
 
@@ -168,6 +225,7 @@ public class Profile_home_fragment extends Fragment {
                         l_name.setText(jobj.getString("last_name"));
                         p_name.setText(jobj.getString("prefer_name"));
                         u_name.setText(jobj.getString("institute_email"));
+                        Profile_page_user_addressTV.setText(jobj.getString("address"));
                         Notification_variables.mobile_number = jobj.getString("mobile");
                         Notification_variables.profile_id = jobj.getInt("id");
                     }
@@ -384,5 +442,58 @@ public class Profile_home_fragment extends Fragment {
         Log.d("final path","111111"+filename);
         return filename;
 
+    }
+
+
+    public void calltowebservice_address(final String address){
+
+        byte[] data = null;
+        authorization = user_id1 + ":" + password;
+        try {
+            data = authorization.getBytes("UTF-8");
+            output= Base64.encodeToString(data, Base64.DEFAULT);
+        }
+        catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
+        new AsyncTask<String,Void,String>(){
+
+            @Override
+            protected void onPreExecute() {
+
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected String doInBackground(String...S) {
+
+                return server_utilities.webservicefor_address(S[0],address);
+
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Log.d("inside notificationss", "is" + s);
+                //  progressBar.setVisibility(View.INVISIBLE);
+                try {
+
+                    jsonObject = new JSONObject(s);
+                    if (jsonObject.getString("message").contains("Saved")) {
+
+                       Toast.makeText(getActivity().getApplicationContext(),"Saved",Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
+
+
+
+            }
+
+        }.execute(output);
     }
 }

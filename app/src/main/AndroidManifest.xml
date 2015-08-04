@@ -46,6 +46,7 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".Home_page"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".Library_page"

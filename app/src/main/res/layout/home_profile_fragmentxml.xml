@@ -5,23 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-
-<TextView
+<RelativeLayout
     android:layout_width="match_parent"
-    android:text="Profile"
-    android:padding="10dp"
-    android:gravity="center"
-    android:textColor="@color/white"
-    android:textSize="20sp"
-    android:id="@+id/profile_title"
-    android:layout_alignParentTop="true"
+    android:layout_height="50dp"
     android:background="@color/lightblue"
-    android:layout_height="wrap_content" />
+    android:id="@+id/profile_title_layout"
+    android:layout_alignParentTop="true">
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Profile"
+        android:padding="10dp"
+      android:gravity="center"
 
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:id="@+id/profile_title"
+
+        android:background="@color/lightblue"
+
+        android:layout_height="50dp"
+        android:layout_toLeftOf="@+id/home_edit_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/home_edit_btn"
+        android:paddingRight="10dp"
+
+        android:src="@drawable/home_edit_btn"
+
+        android:background="@drawable/keypad_selector"
+
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
 
     <LinearLayout
-        android:layout_below="@+id/profile_title"
+        android:layout_below="@+id/profile_title_layout"
         android:id="@+id/home_inner_container"
 
         android:layout_width="match_parent"
@@ -210,6 +234,7 @@ android:scrollbarAlwaysDrawVerticalTrack="true"
                         android:id="@+id/textView4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/linearLayout"
@@ -252,20 +277,27 @@ android:scrollbarAlwaysDrawVerticalTrack="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/linearLayout"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:text="@string/address"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/Profile_page_user_addressTV"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:background="@color/transparent"
                         android:layout_alignParentStart="true"
+                        android:inputType="textMultiLine"
+
                         android:layout_below="@+id/linearLayout"
                         android:layout_weight="3"
                         android:text=""
+                        android:textColor="#6E6E6E"
+
                         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
                 </LinearLayout>
 
                 <View

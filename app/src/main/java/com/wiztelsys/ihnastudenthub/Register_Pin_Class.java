@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -37,7 +38,7 @@ public class Register_Pin_Class extends Activity implements View.OnClickListener
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String macAddress;
-
+ProgressBar progressBar;
 Server_utilities server_utilities=new Server_utilities();
     StringBuilder password_enter=new StringBuilder(); // to save the user entered password
     StringBuilder password_confirm=new StringBuilder(); // to save the confirm password
@@ -94,6 +95,8 @@ Server_utilities server_utilities=new Server_utilities();
         button_9.setOnClickListener(this);
         button_ok.setOnClickListener(this);
         button_backspace.setOnClickListener(this);
+        progressBar=(ProgressBar)findViewById(R.id.pbHeaderProgress);
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     public String Mac_address(){
@@ -281,6 +284,10 @@ public void callwebservice(){
 Log.d("outputttttttttt",""+output);
 
     new AsyncTask<String,Void,String>(){
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected String doInBackground(String...strings) {
@@ -290,7 +297,7 @@ Log.d("outputttttttttt",""+output);
 
         @Override
         protected void onPostExecute(String s) {
-
+            progressBar.setVisibility(View.INVISIBLE);
             if(s==null){
                 Toast.makeText(getApplication(),"Connection TimeOut",Toast.LENGTH_LONG).show();
             }

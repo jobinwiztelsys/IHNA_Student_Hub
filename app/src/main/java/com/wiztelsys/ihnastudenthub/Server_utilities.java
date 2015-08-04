@@ -371,6 +371,7 @@ public class Server_utilities {
         try {
             JSONObject j=new JSONObject();
             j.put("mobile",number);
+            j.put("address",number);
             URL myurl = new URL("http://220.227.57.26/ihna_webapp/profiles/edit/".concat(Notification_variables.profile_id.toString()).trim());
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("PUT");
@@ -486,6 +487,143 @@ public class Server_utilities {
             myurlcon.disconnect();
         }
         return null;
+    }
+
+    public String webservicefor_address(String authentcn,String address){
+        String basic = "Basic ";
+        try {
+            JSONObject j=new JSONObject();
+
+            j.put("address",address);
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/profiles/edit/".concat(Notification_variables.profile_id.toString()).trim());
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("PUT");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(authentcn.toString().trim()));
+
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            OutputStreamWriter wr = new OutputStreamWriter(myurlcon.getOutputStream());
+            wr.write(j.toString());
+            wr.flush();
+            wr.close();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
+
+            String line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
+
+
+        }
+
+        catch (SocketTimeoutException s) {
+
+            s.printStackTrace();
+            return null;
+        } catch (ConnectTimeoutException e) {
+
+            e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
+        } finally {
+            myurlcon.disconnect();
+        }
+        return null;
+    }
+
+
+    public String webservicefor_reeset_pin(String authen,Integer install_id,String pin) {
+        Log.d("ressssssssssssss",""+pin);
+        StringEntity se = null;
+        jobj = new JSONObject();
+        try {
+            jobj.put("four_digit_pin",pin);
+
+            se = new StringEntity(jobj.toString());
+        } catch (UnsupportedEncodingException e) {
+
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+
+        try {
+            String basic = "Basic ";
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/installations/edit/".concat(install_id.toString().trim()));
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("PUT");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(authen.toString().trim()));
+
+            myurlcon.setConnectTimeout(CONN_TIMEOUT);
+            myurlcon.setReadTimeout(CONN_TIMEOUT);
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            OutputStreamWriter wr = new OutputStreamWriter(myurlcon.getOutputStream());
+            wr.write(jobj.toString());
+            wr.flush();
+            wr.close();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
+
+            String line = inputStreamToString(myurlcon.getInputStream());
+            //  Log.d("response from server", "is" + line);
+            return line;
+
+
+        } catch (SocketTimeoutException s) {
+
+            s.printStackTrace();
+            return null;
+        } catch (ConnectTimeoutException e) {
+
+            e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+
+        } finally {
+            myurlcon.disconnect();
+        }
+
+        return null;
+
     }
 }
 
