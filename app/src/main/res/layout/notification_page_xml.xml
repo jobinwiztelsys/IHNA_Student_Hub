@@ -71,13 +71,12 @@
             android:layout_width="30dp"
             android:id="@+id/notification_button"
             android:layout_height="30dp"
-
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="17dp"
             android:background="@drawable/notification_icon"
-            android:layout_alignBottom="@+id/toolbar"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="4dp"
-            android:layout_alignRight="@+id/notification_count"
-            android:layout_alignEnd="@+id/notification_count" />
+            android:layout_below="@+id/notification_count"
+            android:layout_toLeftOf="@+id/notification_count"
+            android:layout_toStartOf="@+id/notification_count" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,12 +86,12 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text=""
-            android:visibility="invisible"
+android:visibility="invisible"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:background="@drawable/notification_circle"
             android:id="@+id/notification_count"
-
+            android:layout_marginTop="17dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -101,15 +100,17 @@
 
         <Button
             android:layout_width="30dp"
-            android:layout_height="25dp"
+            android:layout_height="30dp"
             android:background="@drawable/call_ihna_btn"
-
-
+android:layout_alignParentTop="true"
+            android:layout_marginTop="17dp"
             android:id="@+id/call_IhnaBtn"
 
             android:layout_alignTop="@+id/notification_button"
-            android:layout_toRightOf="@+id/pbHeaderProgress"
-            android:layout_toEndOf="@+id/pbHeaderProgress" />
+            android:layout_toLeftOf="@+id/pbHeaderProgress"
+            android:layout_toStartOf="@+id/pbHeaderProgress"
+            android:layout_marginRight="35dp"
+            android:layout_marginEnd="35dp" />
 
 
     </RelativeLayout>

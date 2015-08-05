@@ -52,43 +52,45 @@
         android:layout_width="30dp"
         android:id="@+id/notification_button"
         android:layout_height="30dp"
-        android:layout_marginRight="58dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="4dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="17dp"
         android:background="@drawable/notification_icon"
-        android:layout_marginEnd="58dp"
-        android:layout_alignBottom="@+id/toolbar"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/notification_count"
+        android:layout_toRightOf="@+id/pbHeaderProgress"
+        android:layout_toEndOf="@+id/pbHeaderProgress"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp" />
     <TextView
         android:layout_width="wrap_content"
         android:minWidth="18dp"
         android:gravity="center"
         android:padding="1dp"
-android:visibility="invisible"
+
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text=""
         android:textColor="@color/white"
-
+android:layout_marginTop="17dp"
         android:background="@drawable/notification_circle"
         android:id="@+id/notification_count"
-
+android:visibility="invisible"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/notification_button"
-        android:layout_alignEnd="@+id/notification_button" />
+        android:layout_toRightOf="@+id/notification_button"
+        android:layout_toEndOf="@+id/notification_button" />
     <Button
         android:layout_width="30dp"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         android:background="@drawable/call_ihna_btn"
-        android:layout_marginRight="30dp"
-
+        android:layout_marginRight="32dp"
+android:layout_alignParentTop="true"
+        android:layout_marginTop="17dp"
 
         android:id="@+id/call_IhnaBtn"
 
-        android:layout_alignBottom="@+id/notification_button"
-        android:layout_toLeftOf="@+id/notification_button"
-        android:layout_toStartOf="@+id/notification_button" />
+        android:layout_alignTop="@+id/notification_button"
+        android:layout_toLeftOf="@+id/pbHeaderProgress"
+        android:layout_toStartOf="@+id/pbHeaderProgress"
+        android:layout_marginEnd="32dp" />
 
     <ProgressBar
         android:id="@+id/pbHeaderProgress"

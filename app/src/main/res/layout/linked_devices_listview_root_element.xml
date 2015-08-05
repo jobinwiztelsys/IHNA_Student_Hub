@@ -46,12 +46,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Last Used on "
+        android:textColor="@color/black"
         android:id="@+id/tv1" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text=""
+        android:textColor="@color/black"
         android:id="@+id/linked_device_last_usedTV" />
     </LinearLayout>
 
@@ -63,12 +65,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Registered on  "
+                android:textColor="@color/black"
                 android:id="@+id/tv2" />
         <TextView
             android:layout_width="wrap_content"
            android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text=""
+            android:textColor="@color/black"
             android:id="@+id/linked_device_registered_onTV" />
 </LinearLayout>
     </LinearLayout>

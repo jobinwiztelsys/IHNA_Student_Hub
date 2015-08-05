@@ -44,6 +44,10 @@
 
         <activity android:name=".Pin_Login"
             android:screenOrientation="portrait"/>
+        <activity android:name=".About_us"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".App_version"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".Home_page"
             android:windowSoftInputMode="adjustPan"

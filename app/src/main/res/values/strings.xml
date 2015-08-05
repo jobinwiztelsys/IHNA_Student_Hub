@@ -13,14 +13,14 @@
     <string name="Confirm_pin">Confirm Security PIN</string>
     <string name="Enter_new_pin">New Security PIN</string>
     <string name="current_security_pin">Current Security PIN</string>
-    <string name="Title">Title :</string>
-    <string name="firstname">First Name:</string>
-    <string name="lastname">Last Name:</string>
+    <string name="Title">Title </string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
     <string name="change_number">Change Mobile Number</string>
     <string name="mobile_number">Mobile Number : </string>
-    <string name="username">User Name:</string>
+    <string name="username">User Name</string>
     <string name="drawer_open">open</string>
-    <string name="address">Address:</string>
+    <string name="address">Address</string>
 
 
 </resources>

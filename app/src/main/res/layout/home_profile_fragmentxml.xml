@@ -7,18 +7,20 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="60dp"
     android:background="@color/lightblue"
     android:id="@+id/profile_title_layout"
     android:layout_alignParentTop="true">
     <TextView
         android:layout_width="wrap_content"
+        android:layout_marginLeft="35dp"
         android:text="Profile"
+
         android:padding="10dp"
       android:gravity="center"
-
+android:layout_alignParentBottom="true"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:id="@+id/profile_title"
 
         android:background="@color/lightblue"
@@ -33,7 +35,7 @@
         android:layout_height="50dp"
         android:id="@+id/home_edit_btn"
         android:paddingRight="10dp"
-
+        android:layout_alignParentBottom="true"
         android:src="@drawable/home_edit_btn"
 
         android:background="@drawable/keypad_selector"
@@ -139,10 +141,11 @@ android:scrollbarAlwaysDrawVerticalTrack="true"
                 <View
                     android:id="@+id/viewline1"
                     android:layout_width="fill_parent"
+
                     android:layout_height="1dp"
                     android:layout_below="@+id/home_page_titleLayout"
                     android:layout_marginBottom="15dp"
-                    android:background="@android:color/darker_gray" />
+                    android:background="@color/button_material_light" />
 
                 <LinearLayout
                     android:id="@+id/home_page_firstnamelayout"
@@ -181,7 +184,7 @@ android:scrollbarAlwaysDrawVerticalTrack="true"
                     android:layout_height="1dp"
                     android:layout_below="@+id/home_page_firstnamelayout"
                     android:layout_marginBottom="15dp"
-                    android:background="@android:color/darker_gray" />
+                    android:background="@color/button_material_light" />
 
                 <LinearLayout
                     android:id="@+id/home_page_lastnamelayout"
@@ -220,7 +223,7 @@ android:scrollbarAlwaysDrawVerticalTrack="true"
                     android:layout_height="1dp"
                     android:layout_below="@+id/home_page_lastnamelayout"
                     android:layout_marginBottom="15dp"
-                    android:background="@android:color/darker_gray" />
+                    android:background="@color/button_material_light" />
 
                 <LinearLayout
                     android:id="@+id/home_page_user_namelayout"
@@ -260,7 +263,7 @@ android:scrollbarAlwaysDrawVerticalTrack="true"
                     android:layout_height="1dp"
                     android:layout_below="@+id/home_page_user_namelayout"
                     android:layout_marginBottom="15dp"
-                    android:background="@android:color/darker_gray" />
+                    android:background="@color/button_material_light" />
 
                 <LinearLayout
                     android:id="@+id/home_page_user_addresslayout"
@@ -300,13 +303,7 @@ android:scrollbarAlwaysDrawVerticalTrack="true"
 
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/viewline68"
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/home_page_user_addresslayout"
 
-                    android:background="@android:color/darker_gray" />
             </RelativeLayout>
         </ScrollView>
     </LinearLayout>

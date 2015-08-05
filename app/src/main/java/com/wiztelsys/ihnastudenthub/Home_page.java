@@ -237,6 +237,19 @@ TextView notification_count;
           finish();
           System.exit(0);
           break;
+          case R.id.about_us:
+
+          startActivity(new Intent(Home_page.this,About_us.class));
+
+          break;
+          case R.id.version:
+
+          startActivity(new Intent(Home_page.this,App_version.class));
+
+          break;
+
+
+
 
   }
                 return true;
