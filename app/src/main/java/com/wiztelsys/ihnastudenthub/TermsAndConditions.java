@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 /**
- * Created by dep2 on 8/4/2015.
+ * Created by Raju on 05-08-2015.
  */
-public class App_version extends Activity {
+public class TermsAndConditions  extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.app_version);
+        setContentView(R.layout.terms_and_conditions);
     }
 
     @Override

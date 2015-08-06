@@ -49,6 +49,7 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
     JSONObject jsonObject1;
     static final String DISPLAY_MESSAGE_ACTION =
             "com.wiztelsys.ihnastudenthub.DISPLAY_MESSAGE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,7 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
     private class Viewholder{
         TextView notification_desc;
         TextView notifctn_date;
+        TextView notification_timeTV;
 
     }
 
@@ -95,6 +97,7 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
         ArrayList<String>notification=new ArrayList<String>();
         ArrayList<String>notification_dte=new ArrayList<String>();
         ArrayList<String>readflag=new ArrayList<>();
+        ArrayList<String>notification_time=new ArrayList<>();
 
         Context context;
 
@@ -105,7 +108,7 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
             this.notification=ntfy;
             this.readflag=read_flag;
             this.notification_dte=notification_dte;
-
+            this.notification_time=notification_time;
 
 
         }
@@ -142,6 +145,7 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
 
                 holder.notification_desc=(TextView)convertView.findViewById(R.id.notificationdescriptionTV);
                 holder.notifctn_date=(TextView)convertView.findViewById(R.id.ntification_dateTV);
+                holder.notification_timeTV=(TextView)convertView.findViewById(R.id.notification_timeTV);
                 convertView.setTag(holder);
 
             }
@@ -161,12 +165,20 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
 
 
 
+try {
+//    holder.notification_timeTV.setText("" + notification_time.get(position));
+//    holder.notification_timeTV.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
 
+    holder.notifctn_date.setText("" + notification_date.get(position));
+    holder.notifctn_date.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
 
-            holder.notifctn_date.setText("" + notification_date.get(position));
-            holder.notifctn_date.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
-
-
+}catch (NullPointerException e){
+    e.printStackTrace();
+}
+            catch (ArrayIndexOutOfBoundsException a)
+            {
+                a.printStackTrace();
+            }
 
 
        return convertView;
@@ -190,7 +202,7 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
             @Override
             protected void onPreExecute() {
 
-                progressBar.setVisibility(View.VISIBLE);
+               progressBar.setVisibility(View.VISIBLE);
 
             }
 
@@ -217,10 +229,19 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
                         read_flag.add(jobj1.getString("read_flag"));
                         notification_id.add(jobj1.getString("id"));
                        String date=jobj1.getString("created");
+
+
                         String[] date1=date.split("T");
-                        for (int j =0; j < date1.length ; j++){
-                            notification_date.add(date1[0]);
-                        }
+
+
+                                notification_date.add(date1[0]);
+
+
+
+
+
+
+
 
 
 
@@ -252,11 +273,19 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+        Notification_variables.notification_message_string=notification_message.get(i).toString();
+
         if(read_flag.get(i).contains("0")){
 
             String id=notification_id.get(i);
             callingwebservicefor_read(id);
             return;
+        }
+        if(read_flag.get(i).contains("1")){
+            Intent home=new Intent(getApplicationContext(),Notification_details.class);
+            startActivity(home);
+            finish();
+
         }
 
 
@@ -281,6 +310,10 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
             @Override
             protected void onPostExecute(String s) {
                 Log.d("11111111111",""+s);
+                Intent home=new Intent(getApplicationContext(),Notification_details.class);
+                startActivity(home);
+                finish();
+
             }
         }.execute(output);
         }

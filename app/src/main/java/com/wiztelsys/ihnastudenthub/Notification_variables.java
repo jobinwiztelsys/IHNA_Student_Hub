@@ -7,4 +7,5 @@ public class Notification_variables {
     public static Integer count=0;
     public static String mobile_number="";
     public static Integer profile_id=0;
+    public static String notification_message_string;
 }

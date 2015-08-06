@@ -371,7 +371,7 @@ public class Server_utilities {
         try {
             JSONObject j=new JSONObject();
             j.put("mobile",number);
-            j.put("address",number);
+
             URL myurl = new URL("http://220.227.57.26/ihna_webapp/profiles/edit/".concat(Notification_variables.profile_id.toString()).trim());
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("PUT");
@@ -618,6 +618,119 @@ public class Server_utilities {
         } catch (Exception e) {
             // response=null;
 
+        } finally {
+            myurlcon.disconnect();
+        }
+
+        return null;
+
+    }
+
+    public String webservice_library(String s){
+
+        String basic = "Basic ";
+        try {
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/libraries");
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("GET");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(s.toString().trim()));
+
+            myurlcon.setConnectTimeout(CONN_TIMEOUT);
+            myurlcon.setReadTimeout(CONN_TIMEOUT);
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            //   myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
+
+            String line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
+
+
+        } catch (SocketTimeoutException e) {
+
+            e.printStackTrace();
+            return null;
+        } catch (ConnectTimeoutException e) {
+
+            e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
+        } finally {
+            myurlcon.disconnect();
+        }
+        return  null;
+    }
+
+    public String webservice_pin_login(String authen,Integer pin) {
+//
+
+        String basic = "Basic ";
+        try {
+            URL myurl = new URL("http://220.227.57.26/ihna_webapp/installations/edit/".concat(pin.toString().trim()));
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("PUT");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(authen.toString().trim()));
+
+            myurlcon.setConnectTimeout(CONN_TIMEOUT);
+            myurlcon.setReadTimeout(CONN_TIMEOUT);
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            //   myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
+
+            String line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
+
+
+        } catch (SocketTimeoutException s) {
+
+            s.printStackTrace();
+            return null;
+        } catch (ConnectTimeoutException e) {
+
+            e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
         } finally {
             myurlcon.disconnect();
         }

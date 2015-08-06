@@ -63,7 +63,7 @@ android:layout_alignParentBottom="true"
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="6"
+            android:layout_weight="6.2"
             android:background="@color/profilepic_bg_color" >
 
             <ImageView

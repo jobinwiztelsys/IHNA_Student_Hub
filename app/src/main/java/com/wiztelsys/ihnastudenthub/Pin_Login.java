@@ -222,7 +222,7 @@ Log.d("1111111111",""+user_id+""+pswd);
             @Override
             protected String doInBackground(String...S) {
 
-                return server_utilities.webservice_home_profile(S[0]);
+                return server_utilities.webservice_pin_login(S[0],user_id);
 
             }
 
@@ -245,19 +245,23 @@ Log.d("1111111111",""+user_id+""+pswd);
                         Toast.makeText(getApplicationContext(), "Password Incorrect", Toast.LENGTH_LONG).show();
                         return;
                     }
+
+
+                    if(response.contains("Saved")) {
+                        Intent home = new Intent(Pin_Login.this, Home_page.class);
+                        home.putExtra("password", password_enter.toString().trim());
+                        home.putExtra("user_id", user_id);
+                        startActivity(home);
+                        finish();
+                    }
+
                 }catch (JSONException e){
                     e.printStackTrace();
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
 
-                if(s!=null) {
-                    Intent home = new Intent(Pin_Login.this, Home_page.class);
-                    home.putExtra("password", password_enter.toString().trim());
-                    home.putExtra("user_id", user_id);
-                    startActivity(home);
-                    finish();
-                }
+
 
 
             }

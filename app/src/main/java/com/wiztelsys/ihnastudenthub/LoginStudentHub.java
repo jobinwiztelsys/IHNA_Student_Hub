@@ -185,8 +185,10 @@ public void callinggwebservice(){
         new AsyncTask<String,Void,String>(){
 
             @Override
-            protected void onPreExecute() {
+            protected void onPreExecute()
+            {
                 progressBar.setVisibility(View.VISIBLE);
+                sigin.setClickable(false);
             }
 
             @Override
@@ -199,10 +201,13 @@ public void callinggwebservice(){
             protected void onPostExecute(String s) {
                 Log.d("response from server","is"+s);
                 progressBar.setVisibility(View.INVISIBLE);
+                sigin.setClickable(true);
 if(s==null){
     Toast.makeText(getApplicationContext(),"Timed Out Check The Credentials Entered",Toast.LENGTH_LONG).show();
     return;
 }
+
+
 
                 try {
                     JSONObject jsonObject = new JSONObject(s);
@@ -217,6 +222,7 @@ if(s==null){
                     editor.commit();
 
                     if (res.contains("Logged in successfully.")) {
+
                         if (first_time_login) {
                             Intent register_pin = new Intent(LoginStudentHub.this, Register_Pin_Class.class);
                             register_pin.putExtra("user_id", user_id);

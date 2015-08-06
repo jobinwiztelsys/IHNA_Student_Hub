@@ -39,7 +39,7 @@ public class Reset_pin_page extends Activity implements View.OnClickListener {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String password;
-
+String output;
     String authorization;
 
     Integer install_id;
@@ -54,7 +54,7 @@ public class Reset_pin_page extends Activity implements View.OnClickListener {
         sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         password = sharedPreferences.getString("password", null);
-        authorization= sharedPreferences.getString("firstlogin_auth", null);
+     //   authorization= sharedPreferences.getString("firstlogin_auth", null);
         install_id=sharedPreferences.getInt("installation_id", 0);
     }
 
@@ -310,7 +310,15 @@ public class Reset_pin_page extends Activity implements View.OnClickListener {
     }
 
     public void callwebservice(){
-
+        byte[] data = null;
+        authorization = install_id + ":" + password;
+        try {
+            data = authorization.getBytes("UTF-8");
+            output= Base64.encodeToString(data, Base64.DEFAULT);
+        }
+        catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
 
         new AsyncTask<String,Void,String>(){
             @Override
@@ -357,7 +365,7 @@ Log.d("ressssssssssssss",""+s);
 
             }
 
-        }.execute(authorization);
+        }.execute(output);
 
     }
 }

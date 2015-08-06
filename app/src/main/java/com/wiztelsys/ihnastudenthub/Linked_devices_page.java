@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -26,11 +28,17 @@ import java.util.ArrayList;
 public class Linked_devices_page extends Home_page {
     ListView listView;
     ArrayList<String> al = new ArrayList<>();
+    ArrayList<String> time_device = new ArrayList<>();
+    ArrayList<String> last_log = new ArrayList<>();
     String authen;
     SharedPreferences sharedPreferences;
     JSONObject jobj;
     JSONArray result=null;
     JSONObject jsonObject;
+    String pin;
+    Integer installation_id;
+    String authorization;
+    String output;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +63,15 @@ public class Linked_devices_page extends Home_page {
 
         Context context;
         ArrayList<String> al = new ArrayList<>();
+        ArrayList<String> reg_on = new ArrayList<>();
+        ArrayList<String> last_on = new ArrayList<>();
 
-        public Base_view(Context con, ArrayList<String> al) {
+        public Base_view(Context con, ArrayList<String> al,ArrayList<String> reg_on,ArrayList<String> last_on) {
             // TODO Auto-generated constructor stub
             this.context = con;
             this.al = al;
-
+            this.reg_on=reg_on;
+            this.last_on=last_on;
 
         }
 
@@ -99,19 +110,18 @@ public class Linked_devices_page extends Home_page {
 
                 holder.cmphd = (TextView) convertView.findViewById(R.id.linked_device_nameTV);
                 holder.imageView = (ImageView) findViewById(R.id.imageView);
-                holder.id = (TextView) convertView.findViewById(R.id.tv1);
-                holder.stas = (TextView) convertView.findViewById(R.id.tv2);
+                holder.id = (TextView) convertView.findViewById(R.id.linked_device_last_usedTV);
+                holder.stas = (TextView) convertView.findViewById(R.id.linked_device_registered_onTV);
                 convertView.setTag(holder);
 
             }
 
             holder = (Viewholder) convertView.getTag();
 
-            holder.id.setText(al.get(position));
+
             holder.cmphd.setText(al.get(position));
-
-            holder.id.setText("devices");
-
+            holder.id.setText(last_log.get(position));
+            holder.stas.setText(reg_on.get(position));
             return convertView;
         }
 
@@ -120,6 +130,18 @@ public class Linked_devices_page extends Home_page {
     public void calling_webservice() {
         sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
         authen = sharedPreferences.getString("firstlogin_auth", null);
+        pin= sharedPreferences.getString("password", null);
+        installation_id=sharedPreferences.getInt("installation_id",0);
+        byte[] data = null;
+        authorization = installation_id + ":" + pin;
+        try {
+            data = authorization.getBytes("UTF-8");
+            output= Base64.encodeToString(data, Base64.DEFAULT);
+
+        }
+        catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
         Log.d("Authentication",""+authen);
         new AsyncTask<String, Void, String>() {
 
@@ -147,7 +169,14 @@ public class Linked_devices_page extends Home_page {
                         jobj=result.getJSONObject(i);
 
                         al.add(jobj.getString("device_name"));
-
+                        String inst_time=jobj.getString("installation_time");
+                        String last_login=jobj.getString("last_login");
+                        String[] time_last=last_login.split("T");
+                        last_log.add(time_last[0]);
+                        String[]time=inst_time.split("T");
+                        time_device.add(time[0]);
+//                        time_device.add(jobj.getString("installation_time"));
+//                        last_log.add(jobj.getString("last_login"));
 
                       //  f_name.setText(Profile_name);
                       //  t_name.setText(jobj.getString("title"));
@@ -162,10 +191,10 @@ public class Linked_devices_page extends Home_page {
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }
-                listView.setAdapter(new Base_view(getApplicationContext(), al));
+                listView.setAdapter(new Base_view(getApplicationContext(), al,time_device,last_log));
 
             }
-        }.execute(authen);
+        }.execute(output);
     }
 
 

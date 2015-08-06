@@ -77,6 +77,7 @@ TextView mobile_current_numberTV;
     @Override
     public void onBackPressed() {
         Intent home=new Intent(getApplicationContext(),Home_page.class);
+        home.putExtra("fragment_value",1);
         startActivity(home);
         finish();
     }

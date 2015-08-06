@@ -83,6 +83,7 @@ ProgressBar progressBar;
     JSONArray result=null;
     JSONObject jsonObject;
     Bundle bundle;
+    Integer fragment_valie;
 TextView notification_count;
     static final String DISPLAY_MESSAGE_ACTION =
             "com.wiztelsys.ihnastudenthub.DISPLAY_MESSAGE";
@@ -96,8 +97,9 @@ TextView notification_count;
         setContentView(R.layout.home_page_activity);
         pageIndicator = (CirclePageIndicator) findViewById(R.id.titles);
         from_pin_login=getIntent();
-        password_pin=from_pin_login.getStringExtra("password");
+        fragment_valie=from_pin_login.getIntExtra("fragment_value",0);
 
+        Log.d("fragmentvale",""+fragment_valie);
 
 
         sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
@@ -240,11 +242,13 @@ TextView notification_count;
           case R.id.about_us:
 
           startActivity(new Intent(Home_page.this,About_us.class));
+              finish();
 
           break;
           case R.id.version:
 
           startActivity(new Intent(Home_page.this,App_version.class));
+              finish();
 
           break;
 
@@ -327,12 +331,18 @@ TextView notification_count;
 
         @Override
         public Fragment getItem(int pos) {
-            switch (pos) {
 
-                case 0:
+//            if(fragment_valie.toString().contains("1")){
+//                pos=fragment_valie;
+//            }
+
+            switch (fragment_valie) {
+
+                case 0: fragment_valie+=1;
                     return Profile_home_fragment.newInstance("FirstFragment, Instance 1");
 
-                case 1: return Privacy_home_fragment.newInstance("secondFragment, Instance 1");
+                case 1:fragment_valie-=1;
+                    return Privacy_home_fragment.newInstance("secondFragment, Instance 1");
             }
              return Profile_home_fragment.newInstance("FirstFragment, Instance 1");
         }
@@ -470,4 +480,15 @@ unregisterReceiver(mHandleMessageReceiver);
 
         }
     };
+
+
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent);
+        finish();
+        System.exit(0);
+    }
 }

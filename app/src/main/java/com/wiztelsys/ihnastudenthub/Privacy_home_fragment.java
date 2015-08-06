@@ -12,13 +12,14 @@ import android.widget.Button;
  * Created by Raju on 20-07-2015.
  */
 public class Privacy_home_fragment extends Fragment {
-Button reset,mobile_number,linked_dev;
+Button reset,mobile_number,linked_dev,terms_and_conditions;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.privacy_page, container, false);
         reset=(Button)v.findViewById(R.id.button2);
         mobile_number=(Button)v.findViewById(R.id.button3);
         linked_dev=(Button)v.findViewById(R.id.button4);
+        terms_and_conditions=(Button)v.findViewById(R.id.button5);
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,11 +31,21 @@ Button reset,mobile_number,linked_dev;
 mobile_number.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        Intent mobile=new Intent(getActivity(),Mobile_number_page.class);
-        startActivity(mobile);
+        Intent terms=new Intent(getActivity(),Mobile_number_page.class);
+        startActivity(terms);
         getActivity().finish();
     }
 });
+
+        terms_and_conditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mobile=new Intent(getActivity(),TermsAndConditions.class);
+                startActivity(mobile);
+                getActivity().finish();
+            }
+        });
+
 
         linked_dev.setOnClickListener(new View.OnClickListener() {
             @Override
