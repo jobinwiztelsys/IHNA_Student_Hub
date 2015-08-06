@@ -1,13 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="App Version"
-        android:id="@+id/textView6"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-</RelativeLayout>
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+
+        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+
+            android:id="@+id/toolbar"
+            style="@style/HeaderBar"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#2196F3"
+            app:popupTheme="@style/ActionBarPopupThemeOverlay"
+            app:theme="@style/ActionBarThemeOverlay">
+
+
+            <ImageButton
+                android:id="@+id/toolbar_imagebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#2196F3"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/nav_button"
+                android:text="19987878"
+                android:textColor="@color/transparent" />
+
+
+        </android.support.v7.widget.Toolbar>
+
+        <FrameLayout
+            android:id="@+id/home_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar">
+
+            <android.support.v4.view.ViewPager
+
+                android:id="@+id/viewPager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@id/toolbar" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@color/lightblue"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/app_version"
+                android:id="@+id/textView5"
+                android:layout_gravity="center_horizontal|top" />
+
+
+        </FrameLayout>
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/titles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:fillColor="@color/lightgreen"
+
+            app:radius="6dp"
+            app:strokeColor="@color/loginbox_blue" />
+
+
+        <Button
+            android:id="@+id/notification_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/notification_icon"
+
+            android:layout_toRightOf="@+id/pbHeaderProgress"
+            android:layout_toEndOf="@+id/pbHeaderProgress"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="55dp" />
+
+        <Button
+            android:id="@+id/call_IhnaBtn"
+
+            android:background="@drawable/call_ihna_btn"
+            android:layout_marginTop="17dp"
+            android:layout_width="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_height="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="24dp"
+
+            android:layout_toLeftOf="@+id/pbHeaderProgress"
+            android:layout_toStartOf="@+id/pbHeaderProgress" />
+
+        <ProgressBar
+            android:id="@+id/pbHeaderProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+
+            android:layout_gravity="center"></ProgressBar>
+
+        <TextView
+            android:id="@+id/notification_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/notification_circle"
+            android:gravity="center"
+            android:minWidth="18dp"
+            android:padding="1dp"
+            android:text=""
+            android:visibility="invisible"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"
+            android:layout_alignTop="@+id/notification_button"
+            android:layout_toRightOf="@+id/notification_button"
+            android:layout_toEndOf="@+id/notification_button" />
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/home_Listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|start"
+        android:background="@color/white"
+        android:clickable="true" />
+
+
+
+
+</android.support.v4.widget.DrawerLayout>

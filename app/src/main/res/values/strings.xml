@@ -21,6 +21,9 @@
     <string name="username">User Name</string>
     <string name="drawer_open">open</string>
     <string name="address">Address</string>
+    <string name="about_us">About us</string>
+    <string name="app_version">App Version</string>
+    <string name="terms_and_conditon">Terms and Condition</string>
 
 
 </resources>

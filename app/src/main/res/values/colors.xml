@@ -10,6 +10,7 @@
     <color name="transparent">#00000000</color>
     <color name="gold">#e6b121</color>
     <color name="lightblue">#2095f2</color>
+    <color name="statusbarcolor">#1c6ba9</color>
     <color name="button_click_Light_green">#c5cc59</color>
     <color name="darkblue">#0654a3</color>
     <color name="mobile_verification_headerbg">#dbe5ef</color>
