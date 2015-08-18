@@ -10,6 +10,7 @@ import com.google.android.gms.iid.InstanceIDListenerService;
 public class MyInstanceIDListenerService extends InstanceIDListenerService {
 
     private static final String TAG = "MyInstanceIDLS";
+    Register_Pin_Class register_pin_class=new Register_Pin_Class();
 
     /**
      * Called if InstanceID token is updated. This may occur if the security of
@@ -22,6 +23,8 @@ public class MyInstanceIDListenerService extends InstanceIDListenerService {
         // Fetch updated Instance ID token and notify our app's server of any changes (if applicable).
         Intent intent = new Intent(this,RegistrationIntentService.class);
         startService(intent);
+        register_pin_class.callwebservice();
+
     }
     // [END refresh_token]
 }

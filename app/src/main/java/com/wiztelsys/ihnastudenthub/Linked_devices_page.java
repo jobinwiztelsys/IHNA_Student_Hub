@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -160,6 +161,10 @@ public class Linked_devices_page extends Home_page {
             protected void onPostExecute(String s)
             {
                 progressBar.setVisibility(View.INVISIBLE);
+                if(s==null){
+                    Toast.makeText(getApplicationContext(), "Timeout...", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Log.d("response from server", "is" + s);
                 try{
 

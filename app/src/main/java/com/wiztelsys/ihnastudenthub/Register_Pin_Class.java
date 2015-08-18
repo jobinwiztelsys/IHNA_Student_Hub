@@ -18,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,12 +42,15 @@ public class Register_Pin_Class extends Activity implements View.OnClickListener
     SharedPreferences.Editor editor;
     String macAddress;
 ProgressBar progressBar;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    boolean sender_token_by_me;
 Server_utilities server_utilities=new Server_utilities();
     StringBuilder password_enter=new StringBuilder(); // to save the user entered password
     StringBuilder password_confirm=new StringBuilder(); // to save the confirm password
     String buttonText; // variable to store the button click text
     String auth="";
     String password;
+    String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +64,17 @@ Server_utilities server_utilities=new Server_utilities();
         count=0;
 
         initializeviews();
+        //*****************************************************************************
+
+        sharedPreferences = getSharedPreferences("notification", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        sender_token_by_me = sharedPreferences.getBoolean("server_reg", true);
+
+        if (checkPlayServices()&&sender_token_by_me) {
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+
     }
 
     public void initializeviews(){
@@ -99,6 +116,7 @@ Server_utilities server_utilities=new Server_utilities();
         progressBar.setVisibility(View.INVISIBLE);
     }
 
+    // to get the mac address
     public String Mac_address(){
 
 
@@ -117,6 +135,8 @@ Server_utilities server_utilities=new Server_utilities();
         }
 return macAddress;
     }
+
+    // to get the device name
 
     public String getPhoneName() {
         BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
@@ -269,6 +289,8 @@ if(buttonText.contains("OK")){
 
     }
 
+    // webservice for pin registration
+
 public void callwebservice(){
     byte[] data = null;
     auth = username.trim() + ":" + password.trim();
@@ -280,18 +302,25 @@ public void callwebservice(){
     }
 
 
-    String output= Base64.encodeToString(data, Base64.DEFAULT);
+    final String output= Base64.encodeToString(data, Base64.DEFAULT);
 Log.d("outputttttttttt",""+output);
 
     new AsyncTask<String,Void,String>(){
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute()
+        {
             progressBar.setVisibility(View.VISIBLE);
+            sharedPreferences = getSharedPreferences("notification", Context.MODE_PRIVATE);
+            editor = sharedPreferences.edit();
+            sender_token_by_me = sharedPreferences.getBoolean("server_reg", true);
+            token=sharedPreferences.getString("token",null);
+
+
         }
 
         @Override
         protected String doInBackground(String...strings) {
-            return server_utilities.webservicefor_register_pin(strings[0],user_id,password_confirm.toString(),Mac_address(),getPhoneName());
+            return server_utilities.webservicefor_register_pin(strings[0],user_id,password_confirm.toString(),Mac_address(),getPhoneName(),token);
 
         }
 
@@ -340,5 +369,20 @@ Log.d("outputttttttttt",""+output);
 
     }.execute(output);
 }
+
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
 }
 

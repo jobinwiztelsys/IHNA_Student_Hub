@@ -7,11 +7,21 @@ import android.util.Base64;
 import android.util.Log;
 
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,6 +34,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 /**
  * Created by Raju on 23-07-2015.
@@ -42,6 +53,16 @@ public class Server_utilities {
 
     }
 
+    // Establish connection and socket (data retrieval) timeouts
+    HttpParams getHttpParams() {
+
+        HttpParams htpp = new BasicHttpParams();
+
+        HttpConnectionParams.setConnectionTimeout(htpp, CONN_TIMEOUT);
+        HttpConnectionParams.setSoTimeout(htpp, SOCKET_TIMEOUT);
+
+        return htpp;
+    }
 
 
     // *******8function to call webservice for login in user information ****** //
@@ -54,7 +75,7 @@ public class Server_utilities {
 
         String line = null;
         try {
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/users/login");
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/users/login");
             myurlcon = (HttpURLConnection) myurl.openConnection();
 
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -124,7 +145,7 @@ public class Server_utilities {
 //
         String basic = "Basic ";
         try {
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/profiles");
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/profiles");
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("GET");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -178,7 +199,7 @@ public class Server_utilities {
     }
 
     //*******************************************************************************************
-    public String webservicefor_register_pin(String auth, Integer user_id, String passwd, String mac, String div_name) {
+    public String webservicefor_register_pin(String auth, Integer user_id, String passwd, String mac, String div_name,String token) {
         StringEntity se = null;
         jobj = new JSONObject();
         try {
@@ -186,7 +207,8 @@ public class Server_utilities {
             jobj.put("four_digit_pin", passwd);
             jobj.put("device_id", mac);
             jobj.put("device_name", div_name);
-            jobj.put("enable_quick_login", 1);
+            jobj.put("device_type", 2);
+            jobj.put("push_notification_reg_id",token);
             Log.d("jsonString", "" + jobj.toString());
             se = new StringEntity(jobj.toString());
         } catch (UnsupportedEncodingException e) {
@@ -199,7 +221,7 @@ public class Server_utilities {
 
         try {
             String basic = "Basic ";
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/installations/add");
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/installations/add");
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("POST");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -219,7 +241,7 @@ public class Server_utilities {
             //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
 
             String line = inputStreamToString(myurlcon.getInputStream());
-          //  Log.d("response from server", "is" + line);
+            //  Log.d("response from server", "is" + line);
             return line;
 
 
@@ -262,7 +284,7 @@ public class Server_utilities {
 
         String basic = "Basic ";
         try {
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/notifications");
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/notifications");
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("GET");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -316,7 +338,7 @@ public class Server_utilities {
 
         String basic = "Basic ";
         try {
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/installations");
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/installations");
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("GET");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -366,13 +388,13 @@ public class Server_utilities {
 
     }
 
-    public String webserviceformobile_number(String authentcn,String number){
+    public String webserviceformobile_number(String authentcn, String number) {
         String basic = "Basic ";
         try {
-            JSONObject j=new JSONObject();
-            j.put("mobile",number);
+            JSONObject j = new JSONObject();
+            j.put("mobile", number);
 
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/profiles/edit/".concat(Notification_variables.profile_id.toString()).trim());
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/profiles/edit/".concat(Notification_variables.profile_id.toString()).trim());
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("PUT");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -394,9 +416,7 @@ public class Server_utilities {
             return line;
 
 
-        }
-
-        catch (SocketTimeoutException s) {
+        } catch (SocketTimeoutException s) {
 
             s.printStackTrace();
             return null;
@@ -427,14 +447,14 @@ public class Server_utilities {
         return null;
     }
 
-    public String webservice_for_read_flag(String ath,String id){
+    public String webservice_for_read_flag(String ath, String id) {
 
         String basic = "Basic ";
         try {
-            JSONObject j=new JSONObject();
-            j.put("read_flag",1);
-            Log.d("idddddddddd",""+id);
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/notifications/edit/".concat(id.toString()).trim());
+            JSONObject j = new JSONObject();
+            j.put("read_flag", 2);
+            Log.d("idddddddddd", "" + id);
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/notifications/edit/".concat(id.toString()).trim());
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("PUT");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -456,9 +476,7 @@ public class Server_utilities {
             return line;
 
 
-        }
-
-        catch (SocketTimeoutException s) {
+        } catch (SocketTimeoutException s) {
 
             s.printStackTrace();
             return null;
@@ -489,13 +507,13 @@ public class Server_utilities {
         return null;
     }
 
-    public String webservicefor_address(String authentcn,String address){
+    public String webservicefor_address(String authentcn, String address) {
         String basic = "Basic ";
         try {
-            JSONObject j=new JSONObject();
+            JSONObject j = new JSONObject();
 
-            j.put("address",address);
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/profiles/edit/".concat(Notification_variables.profile_id.toString()).trim());
+            j.put("address", address);
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/profiles/edit/".concat(Notification_variables.profile_id.toString()).trim());
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("PUT");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -517,9 +535,7 @@ public class Server_utilities {
             return line;
 
 
-        }
-
-        catch (SocketTimeoutException s) {
+        } catch (SocketTimeoutException s) {
 
             s.printStackTrace();
             return null;
@@ -551,12 +567,12 @@ public class Server_utilities {
     }
 
 
-    public String webservicefor_reeset_pin(String authen,Integer install_id,String pin) {
-        Log.d("ressssssssssssss",""+pin);
+    public String webservicefor_reeset_pin(String authen, Integer install_id, String pin) {
+        Log.d("ressssssssssssss", "" + pin);
         StringEntity se = null;
         jobj = new JSONObject();
         try {
-            jobj.put("four_digit_pin",pin);
+            jobj.put("four_digit_pin", pin);
 
             se = new StringEntity(jobj.toString());
         } catch (UnsupportedEncodingException e) {
@@ -569,7 +585,7 @@ public class Server_utilities {
 
         try {
             String basic = "Basic ";
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/installations/edit/".concat(install_id.toString().trim()));
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/installations/edit/".concat(install_id.toString().trim()));
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("PUT");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -626,11 +642,11 @@ public class Server_utilities {
 
     }
 
-    public String webservice_library(String s){
+    public String webservice_library(String s) {
 
         String basic = "Basic ";
         try {
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/libraries");
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/libraries");
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("GET");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -678,15 +694,15 @@ public class Server_utilities {
         } finally {
             myurlcon.disconnect();
         }
-        return  null;
+        return null;
     }
 
-    public String webservice_pin_login(String authen,Integer pin) {
+    public String webservice_pin_login(String authen, Integer pin) {
 //
 
         String basic = "Basic ";
         try {
-            URL myurl = new URL("http://220.227.57.26/ihna_webapp/installations/edit/".concat(pin.toString().trim()));
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/installations/edit/".concat(pin.toString().trim()));
             myurlcon = (HttpURLConnection) myurl.openConnection();
             myurlcon.setRequestMethod("PUT");
             myurlcon.setRequestProperty("Accept", "application/json");
@@ -736,6 +752,86 @@ public class Server_utilities {
         }
 
         return null;
+
+    }
+
+
+    public String webservice_for_notification_count(String authn) {
+
+
+        String basic = "Basic ";
+
+        try {
+            URL myurl = new URL("http://10.0.0.37/ihna_webapp/notifications?read_flag=1&type=count");
+            myurlcon = (HttpURLConnection) myurl.openConnection();
+            myurlcon.setRequestMethod("GET");
+            myurlcon.setRequestProperty("Accept", "application/json");
+            myurlcon.setRequestProperty("Content-type", "application/json");
+            myurlcon.setRequestProperty("Authorization", basic.concat(authn.toString().trim()));
+
+            myurlcon.setConnectTimeout(CONN_TIMEOUT);
+            myurlcon.setReadTimeout(CONN_TIMEOUT);
+            myurlcon.setUseCaches(false);
+            myurlcon.setDoInput(true);
+            //   myurlcon.setDoOutput(true);
+            myurlcon.connect();
+            //  BufferedReader br = new BufferedReader(new InputStreamReader(myurlcon.getInputStream(),"utf-8"));
+
+            String line = inputStreamToString(myurlcon.getInputStream());
+            Log.d("response from server", "is" + line);
+            return line;
+
+
+        } catch (SocketTimeoutException e) {
+
+            e.printStackTrace();
+            return null;
+        } catch (ConnectTimeoutException e) {
+
+            e.printStackTrace();
+        }
+//        catch(JSONException e){
+//            //  response=null;
+//            e.printStackTrace();
+//
+//        }
+        catch (UnsupportedEncodingException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (IOException e) {
+            // response=null;
+            e.printStackTrace();
+        } catch (Exception e) {
+            // response=null;
+            Log.e("Buffer Error", "Error: " + e.toString());
+        } finally {
+            myurlcon.disconnect();
+        }
+        return null;
+//        try {
+//            HttpClient httpclient = new DefaultHttpClient(getHttpParams());
+//
+//            HttpResponse response = null;
+//
+//            HttpGet httpget = new HttpGet("http://10.0.0.37/ihna_webapp/notifications?read_flag=1&type=count");
+//
+//            StringEntity se = null;
+//
+//
+//
+//            // httpget.setEntity(se);
+//            httpget.setHeader("Authorization",basic.concat(authn.toString().trim()));
+//            httpget.setHeader("Accept", "application/json");
+//            httpget.setHeader("Content-type", "application/json");
+//
+//            response = httpclient.execute(httpget);
+//            return inputStreamToString(response.getEntity().getContent());
+//        } catch (Exception e) {
+//
+//        }
 
     }
 }

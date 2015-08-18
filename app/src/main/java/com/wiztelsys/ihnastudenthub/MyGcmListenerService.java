@@ -70,7 +70,7 @@ count=count+1;
      * @param message GCM message received.
      */
     private void sendNotification(String message) {
-        Intent intent = new Intent(this, Notification_page.class);
+        Intent intent = new Intent(this, Pin_Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
      //   notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

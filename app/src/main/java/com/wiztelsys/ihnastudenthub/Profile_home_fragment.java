@@ -228,6 +228,8 @@ public class Profile_home_fragment extends Fragment {
                         Profile_page_user_addressTV.setText(jobj.getString("address"));
                         Notification_variables.mobile_number = jobj.getString("mobile");
                         Notification_variables.profile_id = jobj.getInt("id");
+
+                      //  callinwebservice_notfc_count();
                     }
                 } catch (JSONException e) {
 
@@ -496,4 +498,7 @@ public class Profile_home_fragment extends Fragment {
 
         }.execute(output);
     }
+
+
+
 }

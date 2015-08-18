@@ -22,6 +22,9 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,6 +41,7 @@ public class LoginStudentHub extends Activity implements View.OnClickListener {
     SharedPreferences sharedPreferences; // For storing the first time login boolean and intermediate data
     SharedPreferences.Editor editor;
 
+    boolean sender_token_by_me;
     String Username,Password; // to save the edittext name and password
     String authorization = "";
     ConnectivityManager connect = null;
@@ -52,6 +56,15 @@ public class LoginStudentHub extends Activity implements View.OnClickListener {
             sharedPreferences = getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
             editor = sharedPreferences.edit();
             first_time_login = sharedPreferences.getBoolean("firstlogin", true);
+
+//            sharedPreferences = getSharedPreferences("notification", Context.MODE_PRIVATE);
+//            editor = sharedPreferences.edit();
+//            sender_token_by_me = sharedPreferences.getBoolean("server_reg", true);
+//
+//            if (checkPlayServices()&&sender_token_by_me) {
+//                Intent intent = new Intent(this, RegistrationIntentService.class);
+//                startService(intent);
+//            }
 
 //****if the user has registered he will be directed to pin login class else to Register pin class
 
@@ -268,5 +281,7 @@ return;
     }
 
 }
+
+
 
 }

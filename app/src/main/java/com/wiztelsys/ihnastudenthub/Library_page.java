@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -54,6 +55,8 @@ GridView gridView;
     ArrayList<String>library_icons=new ArrayList<>();
     ArrayList<String>library_name=new ArrayList<>();
     ArrayList<Bitmap>icon_bitmap=new ArrayList<>();
+    ArrayList<String>url_student=new ArrayList<>();
+    Integer user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ GridView gridView;
         sharedPreferences=getSharedPreferences("IHNA_STUDENTHUB", Context.MODE_PRIVATE);
         pin= sharedPreferences.getString("password", null);
         installation_id=sharedPreferences.getInt("installation_id",0);
+        user_id=sharedPreferences.getInt("user_id",0);
       //  CustomGrid adapter = new CustomGrid(Library_page.this,);
 
 
@@ -81,12 +85,13 @@ GridView gridView;
         private Context mContext;
         ArrayList<Bitmap>bitmap_icon;
         ArrayList<String>librarynames;
+        ArrayList<String>url_std;
 
-
-        public CustomGrid(Context c,ArrayList<Bitmap>bitmap_icon,ArrayList<String>librarynames ) {
+        public CustomGrid(Context c,ArrayList<Bitmap>bitmap_icon,ArrayList<String>librarynames,ArrayList<String>url_std ) {
             mContext = c;
        this.bitmap_icon=bitmap_icon;
             this.librarynames=librarynames;
+            this.url_std=url_std;
         }
 
         @Override
@@ -109,7 +114,7 @@ GridView gridView;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
             View grid;
             Holder holder=new Holder();
@@ -135,7 +140,18 @@ GridView gridView;
                 grid.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                    //   Toast.makeText(getApplicationContext(),""+position,Toast.LENGTH_LONG).show();
 
+                        try {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(url_std.get(position)));
+                            startActivity(i);
+                        }catch (NullPointerException e){
+                            e.printStackTrace();
+                        }
+                        catch (ArrayIndexOutOfBoundsException e){
+                            e.printStackTrace();
+                        }
                     }
                 });
                 return grid;
@@ -186,6 +202,11 @@ GridView gridView;
             @Override
             protected void onPostExecute(String s) {
                 progressBar.setVisibility(View.INVISIBLE);
+
+                if(s==null){
+                    Toast.makeText(getApplicationContext(),"Timeout...",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Log.d("inside notificationss", "is" + s);
 
 
@@ -196,9 +217,16 @@ GridView gridView;
                     for (Integer i = 0; i < result1.length(); i++) {
                         jobj1 = result1.getJSONObject(i);
                         Log.d("reaaddddddddddddddddd","http://220.227.57.26/ihna_webapp".concat(jobj1.getString("icon")).trim());
-                       library_icons.add("http://220.227.57.26/ihna_webapp".concat(jobj1.getString("icon")).trim());
+                       library_icons.add(jobj1.getString("icon"));
                         library_name.add(jobj1.getString("name"));
-
+                        String url=jobj1.getString("sh_url");
+                        if(url.contains("{--user_id--}")){
+                            Log.d("urllllllllllllllll",""+url.replace("{--user_id--}",user_id.toString()));
+                         url_student.add(url.replace("{--user_id--}",user_id.toString()));
+                        }
+else {                   Log.d("urllllll222222222222",""+url);
+                            url_student.add(url);
+                        }
 
 
 
@@ -246,7 +274,7 @@ GridView gridView;
             @Override
             protected void onPostExecute(Void aVoid) {
                 progressBar.setVisibility(View.INVISIBLE);
-                CustomGrid adapter = new CustomGrid(Library_page.this,icon_bitmap,library_name);
+                CustomGrid adapter = new CustomGrid(Library_page.this,icon_bitmap,library_name,url_student);
                 gridView.setAdapter(adapter);
 
 

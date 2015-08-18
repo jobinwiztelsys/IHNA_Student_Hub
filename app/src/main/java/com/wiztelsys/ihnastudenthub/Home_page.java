@@ -85,6 +85,8 @@ ProgressBar progressBar;
     Bundle bundle;
     Integer fragment_valie;
 TextView notification_count;
+    String output;
+    String authorization;
     static final String DISPLAY_MESSAGE_ACTION =
             "com.wiztelsys.ihnastudenthub.DISPLAY_MESSAGE";
     /*RegistrationIntentService**QuickstartPreferences**MyGcmListenerService**MyInstanceIDListenerService
@@ -123,8 +125,10 @@ TextView notification_count;
         sharedPreferences = getSharedPreferences("notification", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         sender_token_by_me = sharedPreferences.getBoolean("server_reg", true);
-        initializeviews();
 
+        // to initilize views
+        initializeviews();
+// populate drawer
         addDrawerItems();
 
 
@@ -154,11 +158,12 @@ TextView notification_count;
             @Override
             public void onPageSelected(int position) {
 
+                Log.d("positionnnnnnnn",""+position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                Log.d("positionnnnnnn111111n",""+state);
             }
         });
         // for the notification SharedPreferences sharedPreferences =
@@ -180,19 +185,39 @@ TextView notification_count;
 
             }
         };
-        if (checkPlayServices()&&sender_token_by_me) {
-            Intent intent = new Intent(this, RegistrationIntentService.class);
-            startService(intent);
-        }
+
+        //****************************************************************************************************
+//        if (checkPlayServices()&&sender_token_by_me) {
+//            Intent intent = new Intent(this, RegistrationIntentService.class);
+//            startService(intent);
+//        }
+
+        //******************************************************************************************************
 
         registerReceiver(mHandleMessageReceiver, new IntentFilter(
                 DISPLAY_MESSAGE_ACTION));
+
+
+        callinwebservice_notfc_count();
     }
 
 
 
 
-
+public void setthenotification(){
+    try{
+        if(Notification_variables.count==0){
+         //   notification_count.setText("");
+            notification_count.setVisibility(View.INVISIBLE);
+        }
+        else {
+            notification_count.setVisibility(View.VISIBLE);
+            notification_count.setText("" + Notification_variables.count);
+        }
+    } catch (NullPointerException e){
+        e.printStackTrace();
+    }
+}
 
     public void initializeviews(){
 
@@ -214,7 +239,8 @@ TextView notification_count;
         notification_count=(TextView)findViewById(R.id.notification_count);
         try{
             if(Notification_variables.count==0){
-                notification_count.setText("");
+              //  notification_count.setText("");
+                notification_count.setVisibility(View.INVISIBLE);
             }
             else {
                 notification_count.setVisibility(View.VISIBLE);
@@ -336,12 +362,12 @@ TextView notification_count;
 //                pos=fragment_valie;
 //            }
 
-            switch (fragment_valie) {
+            switch (pos) {
 
-                case 0: fragment_valie+=1;
+                case 0:// fragment_valie+=1;
                     return Profile_home_fragment.newInstance("FirstFragment, Instance 1");
 
-                case 1:fragment_valie-=1;
+                case 1: // fragment_valie-=1;
                     return Privacy_home_fragment.newInstance("secondFragment, Instance 1");
             }
              return Profile_home_fragment.newInstance("FirstFragment, Instance 1");
@@ -490,5 +516,56 @@ unregisterReceiver(mHandleMessageReceiver);
         startActivity(intent);
         finish();
         System.exit(0);
+    }
+
+    public void callinwebservice_notfc_count(){
+
+        byte[] data = null;
+        authorization = user_id1 + ":" + password;
+        try {
+            data = authorization.getBytes("UTF-8");
+            output = Base64.encodeToString(data, Base64.DEFAULT);
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+            }
+
+            @Override
+            protected String doInBackground(String... S) {
+
+                return server_utilities.webservice_for_notification_count(S[0]);
+
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+
+
+                Log.d("inside homeeeeeeeeeeee", "is" + s);
+                try {
+                    JSONObject j = new JSONObject(s);
+                    Notification_variables.count=j.getInt("notifications");
+                  //  initializeviews();
+                    setthenotification();
+
+                }
+                catch (JSONException e){
+                    e.printStackTrace();
+                }
+                catch (NullPointerException n){
+                    n.printStackTrace();
+                }
+
+
+
+            }
+
+        }.execute(output);
     }
 }

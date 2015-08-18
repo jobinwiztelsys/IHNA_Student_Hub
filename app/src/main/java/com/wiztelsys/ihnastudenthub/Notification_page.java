@@ -152,11 +152,11 @@ public class Notification_page extends Home_page implements AdapterView.OnItemCl
 
             holder=(Viewholder)convertView.getTag();
 
-            if(readflag.get(position).toString().contains("0")){
+            if(readflag.get(position).toString().contains("1")){
                 holder.notification_desc.setText("" + notification.get(position));
                 holder.notification_desc.setTextColor(getApplicationContext().getResources().getColor(R.color.greenTextcolour));
             }
-            else if(readflag.get(position).toString().contains("1")){
+            else if(readflag.get(position).toString().contains("2")){
                 holder.notification_desc.setText("" + notification.get(position));
                 holder.notification_desc.setTextColor(getApplicationContext().getResources().getColor(R.color.black));
 
@@ -216,6 +216,10 @@ try {
             @Override
             protected void onPostExecute(String s) {
                 progressBar.setVisibility(View.INVISIBLE);
+                if(s==null){
+                    Toast.makeText(getApplicationContext(),"Timeout...",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Log.d("inside notificationss","is"+s);
                 //  progressBar.setVisibility(View.INVISIBLE);
                 try{
@@ -228,7 +232,7 @@ try {
                         notification_message.add(jobj1.getString("message"));
                         read_flag.add(jobj1.getString("read_flag"));
                         notification_id.add(jobj1.getString("id"));
-                       String date=jobj1.getString("created");
+                       String date=jobj1.getString("modified");
 
 
                         String[] date1=date.split("T");
@@ -275,13 +279,13 @@ try {
 
         Notification_variables.notification_message_string=notification_message.get(i).toString();
 
-        if(read_flag.get(i).contains("0")){
+        if(read_flag.get(i).contains("1")){
 
             String id=notification_id.get(i);
             callingwebservicefor_read(id);
             return;
         }
-        if(read_flag.get(i).contains("1")){
+        if(read_flag.get(i).contains("2")){
             Intent home=new Intent(getApplicationContext(),Notification_details.class);
             startActivity(home);
             finish();
@@ -310,6 +314,7 @@ try {
             @Override
             protected void onPostExecute(String s) {
                 Log.d("11111111111",""+s);
+
                 Intent home=new Intent(getApplicationContext(),Notification_details.class);
                 startActivity(home);
                 finish();
